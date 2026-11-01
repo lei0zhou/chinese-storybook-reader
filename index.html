@@ -30,7 +30,7 @@
     }
 
     .container {
-      max-width: 820px;
+      max-width: 880px;
       margin: 0 auto;
     }
 
@@ -40,7 +40,7 @@
     }
 
     header h1 {
-      font-size: 26px;
+      font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2rem);
       color: var(--primary);
       margin-bottom: 6px;
     }
@@ -52,32 +52,43 @@
 
     /* Story Selector Tabs */
     .story-nav {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
       gap: 10px;
       margin-bottom: 20px;
-      overflow-x: auto;
-      padding-bottom: 4px;
     }
 
     .tab-btn {
-      flex: 1;
-      min-width: 150px;
-      padding: 12px 14px;
+      padding: 11px 12px;
       background: white;
       border: 2px solid var(--border);
       border-radius: 12px;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: bold;
       color: var(--text-main);
       cursor: pointer;
       transition: all 0.2s ease;
-      text-align: center;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab-btn:hover {
+      border-color: #cbd5e1;
+      transform: translateY(-1px);
     }
 
     .tab-btn.active {
       border-color: var(--primary);
       background: var(--primary-light);
       color: var(--primary);
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.15);
+    }
+
+    .tab-icon {
+      font-size: 20px;
+      flex-shrink: 0;
     }
 
     /* TTS Audio Controls Bar */
@@ -86,7 +97,7 @@
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 16px 20px;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
       box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
       display: flex;
       flex-direction: column;
@@ -157,6 +168,55 @@
       font-size: 14px;
     }
 
+    /* Story Hero Banner */
+    .story-hero {
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 14px -3px rgba(0, 0, 0, 0.05);
+    }
+
+    .story-hero-art {
+      width: 100%;
+      aspect-ratio: 16 / 6;
+      display: block;
+      background: #eef2ff;
+    }
+
+    .story-hero-art svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .story-hero-caption {
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: linear-gradient(to right, #ffffff, #f8fafc);
+      border-top: 1px solid var(--border);
+    }
+
+    .story-hero-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .story-hero-badge {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
     /* Sentences List */
     .story-card-list {
       display: flex;
@@ -168,11 +228,22 @@
     .sentence-card {
       background: var(--card-bg);
       border: 2px solid var(--border);
-      border-radius: 14px;
-      padding: 18px 20px;
+      border-radius: 16px;
+      padding: 16px 18px;
       cursor: pointer;
       transition: all 0.2s ease;
       position: relative;
+      display: grid;
+      grid-template-columns: 135px 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    @media (max-width: 600px) {
+      .sentence-card {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
     }
 
     .sentence-card:hover {
@@ -184,6 +255,27 @@
       border-color: var(--active-border);
       background-color: var(--active-card);
       box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
+
+    .sentence-thumb {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      flex-shrink: 0;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4);
+    }
+
+    .sentence-thumb svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .sentence-body {
+      min-width: 0;
     }
 
     .sentence-header {
@@ -216,7 +308,7 @@
     }
 
     .hanzi-pinyin-line {
-      font-size: 26px;
+      font-size: 25px;
       line-height: 2.3;
       font-weight: bold;
       color: #0f172a;
@@ -294,16 +386,22 @@
     .chip {
       background: var(--accent-light);
       border: 1px solid #fde68a;
-      border-radius: 8px;
-      padding: 8px 12px;
+      border-radius: 10px;
+      padding: 8px 14px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .chip:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 3px 8px rgba(245, 158, 11, 0.2);
     }
 
     .chip-hanzi { font-size: 18px; font-weight: bold; color: #78350f; }
-    .chip-pinyin { font-size: 11px; color: #92400e; }
+    .chip-pinyin { font-size: 12px; color: #92400e; }
     .chip-en { font-size: 11px; color: #b45309; }
   </style>
 </head>
@@ -312,7 +410,7 @@
 <div class="container">
   <header>
     <h1>🎈 中文少儿绘本朗读器</h1>
-    <p>Large Pinyin, Natural Mandarin TTS, and Sentence Highlighting for 7-Year-Old Learners</p>
+    <p>Illustrated Storybook Passages · Tap Any Word Group or Full Sentence to Listen</p>
   </header>
 
   <!-- Story Navigation -->
@@ -343,6 +441,9 @@
     </div>
   </div>
 
+  <!-- Story Hero Banner -->
+  <div class="story-hero" id="storyHero"></div>
+
   <!-- Sentence List -->
   <div class="story-card-list" id="sentenceList"></div>
 
@@ -357,24 +458,116 @@
 const STORIES = [
   {
     id: 1,
+    icon: "🐼",
     title: "1. 小熊猫的阳光竹子",
+    subtitle: "Little Panda's Sunny Bamboo · 分享与友谊",
+    bannerSvg: `<svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#dcfce7"/>
+          <stop offset="100%" stop-color="#bbf7d0"/>
+        </linearGradient>
+      </defs>
+      <rect width="640" height="240" fill="url(#bg1)"/>
+      <circle cx="540" cy="55" r="36" fill="#fde047" opacity="0.9"/>
+      <circle cx="540" cy="55" r="48" fill="#fef08a" opacity="0.4"/>
+      <ellipse cx="320" cy="225" rx="340" ry="55" fill="#86efac"/>
+      <g fill="#22c55e">
+        <rect x="60" y="10" width="14" height="210" rx="4"/>
+        <rect x="95" y="30" width="12" height="190" rx="4"/>
+        <rect x="560" y="20" width="14" height="200" rx="4"/>
+      </g>
+      <!-- Panda -->
+      <g transform="translate(230, 85)">
+        <circle cx="22" cy="18" r="14" fill="#1e293b"/>
+        <circle cx="78" cy="18" r="14" fill="#1e293b"/>
+        <ellipse cx="50" cy="95" rx="42" ry="36" fill="#ffffff" stroke="#1e293b" stroke-width="3"/>
+        <circle cx="50" cy="48" r="36" fill="#ffffff" stroke="#1e293b" stroke-width="3"/>
+        <ellipse cx="36" cy="46" rx="9" ry="11" fill="#1e293b"/>
+        <ellipse cx="64" cy="46" rx="9" ry="11" fill="#1e293b"/>
+        <circle cx="38" cy="44" r="3" fill="#fff"/>
+        <circle cx="62" cy="44" r="3" fill="#fff"/>
+        <ellipse cx="50" cy="58" rx="6" ry="4" fill="#1e293b"/>
+        <circle cx="26" cy="58" r="6" fill="#fda4af" opacity="0.7"/>
+        <circle cx="74" cy="58" r="6" fill="#fda4af" opacity="0.7"/>
+      </g>
+      <!-- Golden Bamboo Shoot -->
+      <polygon points="330,115 348,185 312,185" fill="#facc15" stroke="#ca8a04" stroke-width="3"/>
+      <!-- Red Panda -->
+      <g transform="translate(385, 105)">
+        <polygon points="12,18 24,2 34,20" fill="#ea580c"/>
+        <polygon points="66,20 76,2 88,18" fill="#ea580c"/>
+        <ellipse cx="50" cy="78" rx="34" ry="28" fill="#ea580c"/>
+        <circle cx="50" cy="38" r="28" fill="#fb923c"/>
+        <circle cx="40" cy="36" r="4" fill="#1e293b"/>
+        <circle cx="60" cy="36" r="4" fill="#1e293b"/>
+        <ellipse cx="50" cy="45" rx="5" ry="3.5" fill="#1e293b"/>
+      </g>
+    </svg>`,
     sentences: [
       {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#dcfce7"/>
+          <rect x="20" y="0" width="10" height="120" fill="#22c55e"/>
+          <rect x="130" y="0" width="10" height="120" fill="#16a34a"/>
+          <circle cx="62" cy="34" r="10" fill="#1e293b"/>
+          <circle cx="98" cy="34" r="10" fill="#1e293b"/>
+          <circle cx="80" cy="56" r="26" fill="#fff" stroke="#1e293b" stroke-width="2.5"/>
+          <ellipse cx="70" cy="54" rx="6" ry="8" fill="#1e293b"/>
+          <ellipse cx="90" cy="54" rx="6" ry="8" fill="#1e293b"/>
+          <circle cx="71" cy="52" r="2" fill="#fff"/>
+          <circle cx="89" cy="52" r="2" fill="#fff"/>
+          <ellipse cx="80" cy="64" rx="4" ry="3" fill="#1e293b"/>
+          <circle cx="62" cy="63" r="4" fill="#fda4af"/>
+          <circle cx="98" cy="63" r="4" fill="#fda4af"/>
+        </svg>`,
         ruby: `<span class="word-group"><ruby>在<rt>zài</rt></ruby></span><span class="word-group"><ruby>青<rt>qīng</rt></ruby><ruby>青<rt>qīng</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>竹<rt>zhú</rt></ruby><ruby>林<rt>lín</rt></ruby></span><span class="word-group"><ruby>里<rt>lǐ</rt></ruby></span>，<span class="word-group"><ruby>住<rt>zhù</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>胖<rt>pàng</rt></ruby><ruby>乎<rt>hū</rt></ruby><ruby>乎<rt>hū</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>熊<rt>xióng</rt></ruby><ruby>猫<rt>māo</rt></ruby></span><span class="word-group"><ruby>团<rt>tuán</rt></ruby><ruby>团<rt>tuán</rt></ruby></span>。`,
         text: "在青青的竹林里，住着胖乎乎的小熊猫团团。",
         en: "In the lush green bamboo forest lived a chubby little panda named Tuantuan."
       },
       {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#fef9c3"/>
+          <circle cx="80" cy="60" r="38" fill="#fde047" opacity="0.45"/>
+          <polygon points="80,22 104,96 56,96" fill="#eab308" stroke="#a16207" stroke-width="3"/>
+          <line x1="65" y1="68" x2="95" y2="68" stroke="#a16207" stroke-width="2.5"/>
+          <line x1="71" y1="48" x2="89" y2="48" stroke="#a16207" stroke-width="2.5"/>
+          <circle cx="42" cy="36" r="4" fill="#f59e0b"/>
+          <circle cx="118" cy="40" r="5" fill="#f59e0b"/>
+          <circle cx="112" cy="24" r="3" fill="#f59e0b"/>
+        </svg>`,
         ruby: `<span class="word-group"><ruby>团<rt>tuán</rt></ruby><ruby>团<rt>tuán</rt></ruby></span><span class="word-group"><ruby>找<rt>zhǎo</rt></ruby><ruby>到<rt>dào</rt></ruby><ruby>了<rt>le</rt></ruby></span><span class="word-group"><ruby>一<rt>yì</rt></ruby><ruby>根<rt>gēn</rt></ruby></span><span class="word-group"><ruby>闪<rt>shǎn</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>金<rt>jīn</rt></ruby><ruby>光<rt>guāng</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>甜<rt>tián</rt></ruby><ruby>竹<rt>zhú</rt></ruby><ruby>笋<rt>sǔn</rt></ruby></span>。`,
         text: "团团找到了一根闪着金光的甜竹笋。",
         en: "Tuantuan found a sweet bamboo shoot shining with golden light."
       },
       {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#ffedd5"/>
+          <polygon points="48,38 58,18 68,40" fill="#c2410c"/>
+          <polygon points="92,40 102,18 112,38" fill="#c2410c"/>
+          <circle cx="80" cy="60" r="28" fill="#ea580c"/>
+          <ellipse cx="68" cy="58" rx="8" ry="6" fill="#ffedd5"/>
+          <ellipse cx="92" cy="58" rx="8" ry="6" fill="#ffedd5"/>
+          <circle cx="68" cy="58" r="3.5" fill="#1e293b"/>
+          <circle cx="92" cy="58" r="3.5" fill="#1e293b"/>
+          <ellipse cx="80" cy="66" rx="4" ry="3" fill="#1e293b"/>
+          <path d="M118,52 Q130,58 118,64 Q130,70 118,76" fill="none" stroke="#ea580c" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>`,
         ruby: `<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>红<rt>hóng</rt></ruby><ruby>熊<rt>xióng</rt></ruby><ruby>猫<rt>māo</rt></ruby></span><span class="word-group"><ruby>走<rt>zǒu</rt></ruby><ruby>过<rt>guò</rt></ruby><ruby>来<rt>lái</rt></ruby></span>，<span class="word-group"><ruby>肚<rt>dù</rt></ruby><ruby>子<rt>zi</rt></ruby></span><span class="word-group"><ruby>饿<rt>è</rt></ruby><ruby>得<rt>de</rt></ruby></span><span class="word-group"><ruby>咕<rt>gū</rt></ruby><ruby>咕<rt>gū</rt></ruby><ruby>叫<rt>jiào</rt></ruby></span>。`,
         text: "小红熊猫走过来，肚子饿得咕咕叫。",
         en: "A little red panda walked over, with a tummy rumbling from hunger."
       },
       {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#fce7f3"/>
+          <path d="M80,36 C80,28 68,24 64,32 C60,24 48,28 48,36 C48,48 64,56 64,56 C64,56 80,48 80,36 Z" fill="#f43f5e" transform="translate(16,-6)"/>
+          <circle cx="52" cy="72" r="22" fill="#fff" stroke="#1e293b" stroke-width="2.5"/>
+          <circle cx="45" cy="70" r="3" fill="#1e293b"/>
+          <circle cx="59" cy="70" r="3" fill="#1e293b"/>
+          <circle cx="110" cy="72" r="22" fill="#fb923c" stroke="#c2410c" stroke-width="2"/>
+          <circle cx="103" cy="70" r="3" fill="#1e293b"/>
+          <circle cx="117" cy="70" r="3" fill="#1e293b"/>
+        </svg>`,
         ruby: `<span class="word-group"><ruby>团<rt>tuán</rt></ruby><ruby>团<rt>tuán</rt></ruby></span><span class="word-group"><ruby>把<rt>bǎ</rt></ruby></span><span class="word-group"><ruby>竹<rt>zhú</rt></ruby><ruby>笋<rt>sǔn</rt></ruby></span><span class="word-group"><ruby>分<rt>fēn</rt></ruby><ruby>成<rt>chéng</rt></ruby></span><span class="word-group"><ruby>两<rt>liǎng</rt></ruby><ruby>半<rt>bàn</rt></ruby></span>，<span class="word-group"><ruby>两<rt>liǎng</rt></ruby><ruby>只<rt>zhī</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>熊<rt>xióng</rt></ruby></span><span class="word-group"><ruby>开<rt>kāi</rt></ruby><ruby>心<rt>xīn</rt></ruby><ruby>得<rt>de</rt></ruby></span><span class="word-group"><ruby>笑<rt>xiào</rt></ruby><ruby>了<rt>le</rt></ruby></span>。`,
         text: "团团把竹笋分成两半，两只小熊开心得笑了。",
         en: "Tuantuan shared the bamboo shoot in half, and both little bears smiled happily."
@@ -389,24 +582,81 @@ const STORIES = [
   },
   {
     id: 2,
+    icon: "🐱",
     title: "2. 星星小猫的飞船",
+    subtitle: "Star Kitten's Spaceship · 太空与梦想",
+    bannerSvg: `<svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg">
+      <rect width="640" height="240" fill="#1e1b4b"/>
+      <circle cx="90" cy="50" r="3" fill="#fde047"/>
+      <circle cx="180" cy="180" r="4" fill="#f472b6"/>
+      <circle cx="490" cy="60" r="4" fill="#fde047"/>
+      <circle cx="560" cy="150" r="3" fill="#38bdf8"/>
+      <circle cx="130" cy="110" r="28" fill="#a855f7" opacity="0.8"/>
+      <ellipse cx="130" cy="110" rx="46" ry="10" fill="none" stroke="#e9d5ff" stroke-width="4" transform="rotate(-18 130 110)"/>
+      <!-- Spaceship & Kitten -->
+      <ellipse cx="330" cy="145" rx="85" ry="32" fill="#38bdf8" stroke="#bae6fd" stroke-width="4"/>
+      <path d="M270,135 A60,55 0 0,1 390,135 Z" fill="#e0f2fe" opacity="0.85" stroke="#fff" stroke-width="3"/>
+      <polygon points="305,98 313,78 323,98" fill="#fb923c"/>
+      <polygon points="337,98 347,78 355,98" fill="#fb923c"/>
+      <circle cx="330" cy="112" r="22" fill="#fdba74"/>
+      <circle cx="322" cy="110" r="3" fill="#1e293b"/>
+      <circle cx="338" cy="110" r="3" fill="#1e293b"/>
+      <!-- Shooting star -->
+      <line x1="450" y1="95" x2="530" y2="55" stroke="#f472b6" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="450" cy="95" r="10" fill="#f472b6"/>
+    </svg>`,
     sentences: [
       {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#1e1b4b"/>
+          <ellipse cx="80" cy="78" rx="48" ry="18" fill="#38bdf8"/>
+          <path d="M46,72 A34,32 0 0,1 114,72 Z" fill="#bae6fd" opacity="0.85"/>
+          <circle cx="80" cy="58" r="14" fill="#fdba74"/>
+          <polygon points="68,48 72,36 78,48" fill="#fb923c"/>
+          <polygon points="82,48 88,36 92,48" fill="#fb923c"/>
+          <circle cx="75" cy="57" r="2" fill="#1e293b"/>
+          <circle cx="85" cy="57" r="2" fill="#1e293b"/>
+        </svg>`,
         ruby: `<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>猫<rt>māo</rt></ruby></span><span class="word-group"><ruby>米<rt>mǐ</rt></ruby><ruby>米<rt>mǐ</rt></ruby></span><span class="word-group"><ruby>坐<rt>zuò</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>圆<rt>yuán</rt></ruby><ruby>圆<rt>yuán</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>玻<rt>bō</rt></ruby><ruby>璃<rt>li</rt></ruby></span><span class="word-group"><ruby>飞<rt>fēi</rt></ruby><ruby>船<rt>chuán</rt></ruby></span><span class="word-group"><ruby>飞<rt>fēi</rt></ruby><ruby>向<rt>xiàng</rt></ruby></span><span class="word-group"><ruby>太<rt>tài</rt></ruby><ruby>空<rt>kōng</rt></ruby></span>。`,
         text: "小猫米米坐着圆圆的玻璃飞船飞向太空。",
         en: "Mimi the kitten took off into outer space inside a round glass spaceship."
       },
       {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#312e81"/>
+          <circle cx="45" cy="45" r="14" fill="#fde047"/>
+          <circle cx="85" cy="70" r="16" fill="#f472b6"/>
+          <circle cx="120" cy="42" r="13" fill="#4ade80"/>
+          <circle cx="41" cy="41" r="4" fill="#fff" opacity="0.6"/>
+          <circle cx="80" cy="65" r="4" fill="#fff" opacity="0.6"/>
+          <circle cx="116" cy="38" r="4" fill="#fff" opacity="0.6"/>
+        </svg>`,
         ruby: `<span class="word-group"><ruby>天<rt>tiān</rt></ruby><ruby>上<rt>shang</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>星<rt>xīng</rt></ruby><ruby>星<rt>xīng</rt></ruby></span><span class="word-group"><ruby>像<rt>xiàng</rt></ruby></span><span class="word-group"><ruby>一<rt>yì</rt></ruby><ruby>颗<rt>kē</rt></ruby><ruby>颗<rt>kē</rt></ruby></span><span class="word-group"><ruby>亮<rt>liàng</rt></ruby><ruby>晶<rt>jīng</rt></ruby><ruby>晶<rt>jīng</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>水<rt>shuǐ</rt></ruby><ruby>果<rt>guǒ</rt></ruby><ruby>糖<rt>táng</rt></ruby></span>。`,
         text: "天上的星星像一颗颗亮晶晶的水果糖。",
         en: "The stars in the sky looked just like shining pieces of fruit candy."
       },
       {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#1e1b4b"/>
+          <line x1="95" y1="52" x2="145" y2="22" stroke="#f9a8d4" stroke-width="6" stroke-linecap="round"/>
+          <polygon points="85,35 90,46 102,48 93,56 95,68 85,62 75,68 77,56 68,48 80,46" fill="#f472b6"/>
+          <ellipse cx="62" cy="86" rx="18" ry="22" fill="#fdba74"/>
+          <circle cx="54" cy="72" r="5" fill="#fed7aa"/>
+          <circle cx="62" cy="69" r="5" fill="#fed7aa"/>
+          <circle cx="70" cy="72" r="5" fill="#fed7aa"/>
+        </svg>`,
         ruby: `<span class="word-group"><ruby>米<rt>mǐ</rt></ruby><ruby>米<rt>mǐ</rt></ruby></span><span class="word-group"><ruby>伸<rt>shēn</rt></ruby><ruby>出<rt>chū</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>爪<rt>zhuǎ</rt></ruby><ruby>子<rt>zi</rt></ruby></span>，<span class="word-group"><ruby>接<rt>jiē</rt></ruby><ruby>住<rt>zhù</rt></ruby><ruby>了<rt>le</rt></ruby></span><span class="word-group"><ruby>一<rt>yì</rt></ruby><ruby>颗<rt>kē</rt></ruby></span><span class="word-group"><ruby>粉<rt>fěn</rt></ruby><ruby>红<rt>hóng</rt></ruby><ruby>色<rt>sè</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>流<rt>liú</rt></ruby><ruby>星<rt>xīng</rt></ruby></span>。`,
         text: "米米伸出小爪子，接住了一颗粉红色的流星。",
         en: "Mimi reached out a tiny paw and gently caught a pink shooting star."
       },
       {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#0f172a"/>
+          <path d="M90,30 A28,28 0 1,0 115,78 A22,22 0 1,1 90,30 Z" fill="#fde047"/>
+          <circle cx="48" cy="45" r="3" fill="#f472b6"/>
+          <circle cx="128" cy="35" r="2.5" fill="#bae6fd"/>
+          <text x="38" y="82" fill="#f9a8d4" font-size="22" font-weight="bold">♪ ♫</text>
+        </svg>`,
         ruby: `<span class="word-group"><ruby>流<rt>liú</rt></ruby><ruby>星<rt>xīng</rt></ruby></span><span class="word-group"><ruby>在<rt>zài</rt></ruby></span><span class="word-group"><ruby>手<rt>shǒu</rt></ruby><ruby>心<rt>xīn</rt></ruby></span><span class="word-group"><ruby>轻<rt>qīng</rt></ruby><ruby>轻<rt>qīng</rt></ruby></span><span class="word-group"><ruby>唱<rt>chàng</rt></ruby><ruby>歌<rt>gē</rt></ruby></span>，<span class="word-group"><ruby>祝<rt>zhù</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>朋<rt>péng</rt></ruby><ruby>友<rt>you</rt></ruby></span><span class="word-group"><ruby>晚<rt>wǎn</rt></ruby><ruby>安<rt>'ān</rt></ruby></span>。`,
         text: "流星在手心轻轻唱歌，祝小朋友晚安。",
         en: "The shooting star sang softly in the paw, wishing the children a good night."
@@ -421,24 +671,78 @@ const STORIES = [
   },
   {
     id: 3,
+    icon: "🐻",
     title: "3. 小熊的甜甜面包房",
+    subtitle: "Little Bear's Sweet Bakery · 美食与快乐",
+    bannerSvg: `<svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg">
+      <rect width="640" height="240" fill="#fef3c7"/>
+      <rect x="0" y="190" width="640" height="50" fill="#fde68a"/>
+      <!-- Bakery House -->
+      <rect x="120" y="80" width="180" height="120" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="4"/>
+      <polygon points="105,85 210,25 315,85" fill="#ef4444" stroke="#b91c1c" stroke-width="3"/>
+      <rect x="185" y="125" width="50" height="75" rx="6" fill="#b45309"/>
+      <!-- Bear Baker -->
+      <g transform="translate(380, 68)">
+        <ellipse cx="50" cy="18" rx="28" ry="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+        <circle cx="28" cy="36" r="10" fill="#92400e"/>
+        <circle cx="72" cy="36" r="10" fill="#92400e"/>
+        <circle cx="50" cy="56" r="28" fill="#b45309"/>
+        <ellipse cx="50" cy="62" rx="11" ry="8" fill="#fde68a"/>
+        <circle cx="40" cy="50" r="3.5" fill="#1e293b"/>
+        <circle cx="60" cy="50" r="3.5" fill="#1e293b"/>
+        <circle cx="50" cy="60" r="4" fill="#1e293b"/>
+      </g>
+      <!-- Cupcakes -->
+      <circle cx="520" cy="155" r="20" fill="#f59e0b"/>
+      <polygon points="503,158 537,158 531,188 509,188" fill="#f43f5e"/>
+    </svg>`,
     sentences: [
       {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#fef3c7"/>
+          <rect x="40" y="50" width="80" height="55" fill="#fff" stroke="#d97706" stroke-width="2.5"/>
+          <polygon points="32,52 80,20 128,52" fill="#f97316"/>
+          <rect x="68" y="72" width="24" height="33" fill="#b45309"/>
+        </svg>`,
         ruby: `<span class="word-group"><ruby>森<rt>sēn</rt></ruby><ruby>林<rt>lín</rt></ruby></span><span class="word-group"><ruby>转<rt>zhuǎn</rt></ruby><ruby>角<rt>jiǎo</rt></ruby></span><span class="word-group"><ruby>有<rt>yǒu</rt></ruby></span><span class="word-group"><ruby>一<rt>yì</rt></ruby><ruby>家<rt>jiā</rt></ruby></span><span class="word-group"><ruby>飘<rt>piāo</rt></ruby><ruby>满<rt>mǎn</rt></ruby></span><span class="word-group"><ruby>香<rt>xiāng</rt></ruby><ruby>气<rt>qì</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>面<rt>miàn</rt></ruby><ruby>包<rt>bāo</rt></ruby><ruby>房<rt>fáng</rt></ruby></span>。`,
         text: "森林转角有一家飘满香气的面包房。",
         en: "Around the forest corner was a cozy bakery filled with sweet aromas."
       },
       {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#ffedd5"/>
+          <ellipse cx="80" cy="26" rx="22" ry="12" fill="#fff" stroke="#94a3b8" stroke-width="2"/>
+          <circle cx="60" cy="44" r="9" fill="#92400e"/>
+          <circle cx="100" cy="44" r="9" fill="#92400e"/>
+          <circle cx="80" cy="64" r="24" fill="#b45309"/>
+          <ellipse cx="80" cy="70" rx="9" ry="7" fill="#fde68a"/>
+          <circle cx="71" cy="58" r="3" fill="#1e293b"/>
+          <circle cx="89" cy="58" r="3" fill="#1e293b"/>
+          <circle cx="80" cy="68" r="3.5" fill="#1e293b"/>
+        </svg>`,
         ruby: `<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>棕<rt>zōng</rt></ruby><ruby>熊<rt>xióng</rt></ruby></span><span class="word-group"><ruby>波<rt>bō</rt></ruby><ruby>波<rt>bo</rt></ruby></span><span class="word-group"><ruby>戴<rt>dài</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>白<rt>bái</rt></ruby><ruby>帽<rt>mào</rt></ruby><ruby>子<rt>zi</rt></ruby></span>，<span class="word-group"><ruby>用<rt>yòng</rt></ruby></span><span class="word-group"><ruby>蜂<rt>fēng</rt></ruby><ruby>蜜<rt>mì</rt></ruby></span><span class="word-group"><ruby>烤<rt>kǎo</rt></ruby><ruby>面<rt>miàn</rt></ruby><ruby>包<rt>bāo</rt></ruby></span>。`,
         text: "小棕熊波波戴着白帽子，用蜂蜜烤面包。",
         en: "Bobo the little brown bear wore a white baker's hat and baked bread with honey."
       },
       {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#fef9c3"/>
+          <circle cx="80" cy="52" r="24" fill="#f59e0b"/>
+          <polygon points="58,56 102,56 94,94 66,94" fill="#fb7185"/>
+          <circle cx="80" cy="28" r="6" fill="#ef4444"/>
+        </svg>`,
         ruby: `<span class="word-group"><ruby>叮<rt>dīng</rt></ruby></span>！<span class="word-group"><ruby>热<rt>rè</rt></ruby><ruby>乎<rt>hū</rt></ruby><ruby>乎<rt>hū</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>蛋<rt>dàn</rt></ruby><ruby>糕<rt>gāo</rt></ruby></span><span class="word-group"><ruby>出<rt>chū</rt></ruby><ruby>炉<rt>lú</rt></ruby><ruby>了<rt>le</rt></ruby></span>，<span class="word-group"><ruby>像<rt>xiàng</rt></ruby></span><span class="word-group"><ruby>金<rt>jīn</rt></ruby><ruby>色<rt>sè</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>太<rt>tài</rt></ruby><ruby>阳<rt>yáng</rt></ruby></span>。`,
         text: "叮！热乎乎的小蛋糕出炉了，像金色小太阳。",
         en: "Ding! Warm cupcakes came out of the oven, looking like tiny golden suns."
       },
       {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#dcfce7"/>
+          <circle cx="52" cy="65" r="20" fill="#fde047"/>
+          <path d="M44,68 Q52,78 60,68" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="108" cy="65" r="20" fill="#fdba74"/>
+          <path d="M100,68 Q108,78 116,68" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>`,
         ruby: `<span class="word-group"><ruby>动<rt>dòng</rt></ruby><ruby>物<rt>wù</rt></ruby><ruby>们<rt>men</rt></ruby></span><span class="word-group"><ruby>排<rt>pái</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>长<rt>cháng</rt></ruby><ruby>队<rt>duì</rt></ruby></span>，<span class="word-group"><ruby>吃<rt>chī</rt></ruby><ruby>得<rt>de</rt></ruby></span><span class="word-group"><ruby>嘴<rt>zuǐ</rt></ruby><ruby>角<rt>jiǎo</rt></ruby></span><span class="word-group"><ruby>挂<rt>guà</rt></ruby><ruby>满<rt>mǎn</rt></ruby></span><span class="word-group"><ruby>微<rt>wēi</rt></ruby><ruby>笑<rt>xiào</rt></ruby></span>。`,
         text: "动物们排着长队，吃得嘴角挂满微笑。",
         en: "The forest animals lined up in a long queue, eating with wide smiles on their faces."
@@ -449,6 +753,410 @@ const STORIES = [
       { hz: "蜂蜜", py: "fēng mì", en: "honey" },
       { hz: "蛋糕", py: "dàn gāo", en: "cupcake" },
       { hz: "微笑", py: "wēi xiào", en: "smile" }
+    ]
+  },
+  {
+    id: 4,
+    icon: "🐰",
+    title: "4. 小兔子的彩虹雨伞",
+    subtitle: "Little Bunny's Rainbow Umbrella · 助人为乐",
+    bannerSvg: `<svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg">
+      <rect width="640" height="240" fill="#e0f2fe"/>
+      <path d="M90,220 A230,180 0 0,1 550,220" fill="none" stroke="#f87171" stroke-width="12" opacity="0.7"/>
+      <path d="M102,220 A218,168 0 0,1 538,220" fill="none" stroke="#fbbf24" stroke-width="12" opacity="0.7"/>
+      <path d="M114,220 A206,156 0 0,1 526,220" fill="none" stroke="#34d399" stroke-width="12" opacity="0.7"/>
+      <path d="M126,220 A194,144 0 0,1 514,220" fill="none" stroke="#60a5fa" stroke-width="12" opacity="0.7"/>
+      <!-- Umbrella -->
+      <path d="M230,110 A90,65 0 0,1 410,110 Z" fill="#ec4899"/>
+      <line x1="320" y1="110" x2="320" y2="195" stroke="#78350f" stroke-width="5"/>
+      <!-- Bunny -->
+      <ellipse cx="290" cy="130" rx="8" ry="24" fill="#fff" stroke="#f472b6" stroke-width="2"/>
+      <ellipse cx="310" cy="130" rx="8" ry="24" fill="#fff" stroke="#f472b6" stroke-width="2"/>
+      <circle cx="300" cy="165" r="24" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+      <circle cx="293" cy="162" r="3" fill="#ef4444"/>
+      <circle cx="307" cy="162" r="3" fill="#ef4444"/>
+      <!-- Frog -->
+      <circle cx="355" cy="175" r="18" fill="#22c55e"/>
+      <circle cx="348" cy="160" r="6" fill="#22c55e"/>
+      <circle cx="362" cy="160" r="6" fill="#22c55e"/>
+    </svg>`,
+    sentences: [
+      {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#e0f2fe"/>
+          <path d="M25,75 A55,45 0 0,1 135,75 Z" fill="#f43f5e"/>
+          <path d="M45,75 A35,45 0 0,1 115,75 Z" fill="#fbbf24"/>
+          <path d="M65,75 A15,45 0 0,1 95,75 Z" fill="#38bdf8"/>
+          <line x1="80" y1="75" x2="80" y2="108" stroke="#78350f" stroke-width="4"/>
+        </svg>`,
+        ruby: `<span class="word-group"><ruby>下<rt>xià</rt></ruby><ruby>雨<rt>yǔ</rt></ruby><ruby>了<rt>le</rt></ruby></span>，<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>白<rt>bái</rt></ruby><ruby>兔<rt>tù</rt></ruby></span><span class="word-group"><ruby>撑<rt>chēng</rt></ruby><ruby>开<rt>kāi</rt></ruby></span><span class="word-group"><ruby>一<rt>yì</rt></ruby><ruby>把<rt>bǎ</rt></ruby></span><span class="word-group"><ruby>漂<rt>piào</rt></ruby><ruby>亮<rt>liang</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>彩<rt>cǎi</rt></ruby><ruby>虹<rt>hóng</rt></ruby><ruby>雨<rt>yǔ</rt></ruby><ruby>伞<rt>sǎn</rt></ruby></span>。`,
+        text: "下雨了，小白兔撑开一把漂亮的彩虹雨伞。",
+        en: "It started to rain, and Little White Bunny opened a pretty rainbow umbrella."
+      },
+      {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#dcfce7"/>
+          <ellipse cx="80" cy="85" rx="45" ry="18" fill="#4ade80"/>
+          <circle cx="80" cy="60" r="18" fill="#16a34a"/>
+          <circle cx="70" cy="44" r="7" fill="#fff"/>
+          <circle cx="90" cy="44" r="7" fill="#fff"/>
+          <circle cx="70" cy="44" r="3" fill="#1e293b"/>
+          <circle cx="90" cy="44" r="3" fill="#1e293b"/>
+        </svg>`,
+        ruby: `<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>青<rt>qīng</rt></ruby><ruby>蛙<rt>wā</rt></ruby></span><span class="word-group"><ruby>蹲<rt>dūn</rt></ruby><ruby>在<rt>zài</rt></ruby></span><span class="word-group"><ruby>荷<rt>hé</rt></ruby><ruby>叶<rt>yè</rt></ruby><ruby>下<rt>xià</rt></ruby></span>，<span class="word-group"><ruby>身<rt>shēn</rt></ruby><ruby>上<rt>shang</rt></ruby></span><span class="word-group"><ruby>淋<rt>lín</rt></ruby><ruby>湿<rt>shī</rt></ruby><ruby>了<rt>le</rt></ruby></span>。`,
+        text: "小青蛙蹲在荷叶下，身上淋湿了。",
+        en: "Little Frog crouched under a lotus leaf, getting soaked by the rain."
+      },
+      {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#e0e7ff"/>
+          <path d="M25,52 A55,36 0 0,1 135,52 Z" fill="#ec4899"/>
+          <circle cx="62" cy="82" r="16" fill="#fff"/>
+          <ellipse cx="56" cy="58" rx="5" ry="14" fill="#fff"/>
+          <ellipse cx="68" cy="58" rx="5" ry="14" fill="#fff"/>
+          <circle cx="100" cy="84" r="15" fill="#22c55e"/>
+        </svg>`,
+        ruby: `<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>白<rt>bái</rt></ruby><ruby>兔<rt>tù</rt></ruby></span><span class="word-group"><ruby>跳<rt>tiào</rt></ruby><ruby>过<rt>guò</rt></ruby><ruby>去<rt>qù</rt></ruby></span><span class="word-group"><ruby>说<rt>shuō</rt></ruby></span>：“<span class="word-group"><ruby>快<rt>kuài</rt></ruby><ruby>来<rt>lái</rt></ruby></span><span class="word-group"><ruby>我<rt>wǒ</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>大<rt>dà</rt></ruby><ruby>雨<rt>yǔ</rt></ruby><ruby>伞<rt>sǎn</rt></ruby></span><span class="word-group"><ruby>下<rt>xià</rt></ruby><ruby>面<rt>mian</rt></ruby></span><span class="word-group"><ruby>吧<rt>ba</rt></ruby></span>！”`,
+        text: "小白兔跳过去说：“快来我的大雨伞下面吧！”",
+        en: "Little White Bunny hopped over and said, 'Come under my big umbrella!'"
+      },
+      {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#fef9c3"/>
+          <path d="M20,95 A60,55 0 0,1 140,95" fill="none" stroke="#ef4444" stroke-width="8"/>
+          <path d="M28,95 A52,47 0 0,1 132,95" fill="none" stroke="#eab308" stroke-width="8"/>
+          <path d="M36,95 A44,39 0 0,1 124,95" fill="none" stroke="#3b82f6" stroke-width="8"/>
+          <circle cx="130" cy="28" r="16" fill="#facc15"/>
+        </svg>`,
+        ruby: `<span class="word-group"><ruby>雨<rt>yǔ</rt></ruby><ruby>停<rt>tíng</rt></ruby><ruby>了<rt>le</rt></ruby></span>，<span class="word-group"><ruby>天<rt>tiān</rt></ruby><ruby>空<rt>kōng</rt></ruby></span><span class="word-group"><ruby>出<rt>chū</rt></ruby><ruby>现<rt>xiàn</rt></ruby><ruby>了<rt>le</rt></ruby></span><span class="word-group"><ruby>一<rt>yí</rt></ruby><ruby>道<rt>dào</rt></ruby></span><span class="word-group"><ruby>弯<rt>wān</rt></ruby><ruby>弯<rt>wān</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>七<rt>qī</rt></ruby><ruby>色<rt>sè</rt></ruby><ruby>彩<rt>cǎi</rt></ruby><ruby>虹<rt>hóng</rt></ruby></span>。`,
+        text: "雨停了，天空出现了一道弯弯的七色彩虹。",
+        en: "The rain stopped, and a curved seven-colored rainbow appeared in the sky."
+      }
+    ],
+    vocab: [
+      { hz: "雨伞", py: "yǔ sǎn", en: "umbrella" },
+      { hz: "荷叶", py: "hé yè", en: "lotus leaf" },
+      { hz: "淋湿", py: "lín shī", en: "soaked" },
+      { hz: "彩虹", py: "cǎi hóng", en: "rainbow" }
+    ]
+  },
+  {
+    id: 5,
+    icon: "🐳",
+    title: "5. 蓝鲸鱼的音乐会",
+    subtitle: "The Blue Whale's Ocean Concert · 海洋与歌声",
+    bannerSvg: `<svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg">
+      <rect width="640" height="240" fill="#0284c7"/>
+      <path d="M0,180 Q160,150 320,180 T640,180 L640,240 L0,240 Z" fill="#0369a1"/>
+      <!-- Whale -->
+      <ellipse cx="300" cy="135" rx="110" ry="52" fill="#38bdf8"/>
+      <path d="M190,145 Q300,190 410,145" fill="#e0f2fe"/>
+      <polygon points="400,135 455,100 445,165" fill="#38bdf8"/>
+      <circle cx="235" cy="122" r="5" fill="#0f172a"/>
+      <!-- Water Spout -->
+      <path d="M270,83 Q255,35 225,45" fill="none" stroke="#bae6fd" stroke-width="6" stroke-linecap="round"/>
+      <path d="M276,83 Q290,35 320,45" fill="none" stroke="#bae6fd" stroke-width="6" stroke-linecap="round"/>
+      <text x="150" y="75" fill="#fde047" font-size="28" font-weight="bold">♪ ♫</text>
+      <text x="480" y="85" fill="#fde047" font-size="26" font-weight="bold">♫ ♪</text>
+    </svg>`,
+    sentences: [
+      {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#0284c7"/>
+          <ellipse cx="75" cy="72" rx="45" ry="24" fill="#38bdf8"/>
+          <polygon points="115,72 142,54 138,88" fill="#38bdf8"/>
+          <circle cx="50" cy="66" r="3.5" fill="#0f172a"/>
+          <path d="M65,48 Q55,20 40,28" fill="none" stroke="#e0f2fe" stroke-width="4" stroke-linecap="round"/>
+          <path d="M70,48 Q80,20 95,28" fill="none" stroke="#e0f2fe" stroke-width="4" stroke-linecap="round"/>
+        </svg>`,
+        ruby: `<span class="word-group"><ruby>蔚<rt>wèi</rt></ruby><ruby>蓝<rt>lán</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>大<rt>dà</rt></ruby><ruby>海<rt>hǎi</rt></ruby><ruby>里<rt>lǐ</rt></ruby></span>，<span class="word-group"><ruby>蓝<rt>lán</rt></ruby><ruby>鲸<rt>jīng</rt></ruby><ruby>鱼<rt>yú</rt></ruby></span><span class="word-group"><ruby>乐<rt>lè</rt></ruby><ruby>乐<rt>le</rt></ruby></span><span class="word-group"><ruby>最<rt>zuì</rt></ruby><ruby>喜<rt>xǐ</rt></ruby><ruby>欢<rt>huan</rt></ruby></span><span class="word-group"><ruby>唱<rt>chàng</rt></ruby><ruby>歌<rt>gē</rt></ruby></span>。`,
+        text: "蔚蓝的大海里，蓝鲸鱼乐乐最喜欢唱歌。",
+        en: "In the deep blue ocean, Lele the blue whale loved singing the most."
+      },
+      {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#0369a1"/>
+          <circle cx="50" cy="75" r="10" fill="none" stroke="#bae6fd" stroke-width="3"/>
+          <circle cx="80" cy="52" r="14" fill="none" stroke="#bae6fd" stroke-width="3"/>
+          <circle cx="112" cy="34" r="18" fill="none" stroke="#bae6fd" stroke-width="3"/>
+          <text x="104" y="41" fill="#fde047" font-size="18" font-weight="bold">♪</text>
+        </svg>`,
+        ruby: `<span class="word-group"><ruby>它<rt>tā</rt></ruby></span><span class="word-group"><ruby>吹<rt>chuī</rt></ruby><ruby>出<rt>chū</rt></ruby></span><span class="word-group"><ruby>一<rt>yí</rt></ruby><ruby>串<rt>chuàn</rt></ruby><ruby>串<rt>chuàn</rt></ruby></span><span class="word-group"><ruby>圆<rt>yuán</rt></ruby><ruby>泡<rt>pào</rt></ruby><ruby>泡<rt>pao</rt></ruby></span>，<span class="word-group"><ruby>泡<rt>pào</rt></ruby><ruby>泡<rt>pao</rt></ruby><ruby>里<rt>lǐ</rt></ruby></span><span class="word-group"><ruby>飘<rt>piāo</rt></ruby><ruby>出<rt>chū</rt></ruby></span><span class="word-group"><ruby>动<rt>dòng</rt></ruby><ruby>听<rt>tīng</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>音<rt>yīn</rt></ruby><ruby>符<rt>fú</rt></ruby></span>。`,
+        text: "它吹出一串串圆泡泡，泡泡里飘出动听的音符。",
+        en: "It blew strings of round bubbles, with sweet musical notes floating inside."
+      },
+      {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#075985"/>
+          <ellipse cx="52" cy="60" rx="18" ry="11" fill="#f97316"/>
+          <polygon points="70,60 82,50 82,70" fill="#f97316"/>
+          <ellipse cx="110" cy="65" rx="22" ry="15" fill="#22c55e"/>
+          <circle cx="90" cy="62" r="8" fill="#4ade80"/>
+        </svg>`,
+        ruby: `<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>丑<rt>chǒu</rt></ruby><ruby>鱼<rt>yú</rt></ruby></span><span class="word-group"><ruby>和<rt>hé</rt></ruby></span><span class="word-group"><ruby>海<rt>hǎi</rt></ruby><ruby>龟<rt>guī</rt></ruby><ruby>爷<rt>yé</rt></ruby><ruby>爷<rt>ye</rt></ruby></span><span class="word-group"><ruby>游<rt>yóu</rt></ruby><ruby>过<rt>guò</rt></ruby><ruby>来<rt>lái</rt></ruby></span>，<span class="word-group"><ruby>跟<rt>gēn</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>节<rt>jié</rt></ruby><ruby>拍<rt>pāi</rt></ruby></span><span class="word-group"><ruby>跳<rt>tiào</rt></ruby><ruby>舞<rt>wǔ</rt></ruby></span>。`,
+        text: "小丑鱼和海龟爷爷游过来，跟着节拍跳舞。",
+        en: "Clownfish and Grandpa Sea Turtle swam over and danced to the beat."
+      },
+      {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#0c4a6e"/>
+          <polygon points="80,25 89,48 114,50 95,66 101,90 80,77 59,90 65,66 46,50 71,48" fill="#fbbf24"/>
+          <circle cx="74" cy="56" r="2.5" fill="#1e293b"/>
+          <circle cx="86" cy="56" r="2.5" fill="#1e293b"/>
+        </svg>`,
+        ruby: `<span class="word-group"><ruby>整<rt>zhěng</rt></ruby><ruby>片<rt>piàn</rt></ruby></span><span class="word-group"><ruby>海<rt>hǎi</rt></ruby><ruby>洋<rt>yáng</rt></ruby></span><span class="word-group"><ruby>都<rt>dōu</rt></ruby><ruby>变<rt>biàn</rt></ruby><ruby>成<rt>chéng</rt></ruby><ruby>了<rt>le</rt></ruby></span><span class="word-group"><ruby>热<rt>rè</rt></ruby><ruby>闹<rt>nao</rt></ruby><ruby>又<rt>yòu</rt></ruby><ruby>快<rt>kuài</rt></ruby><ruby>乐<rt>lè</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>音<rt>yīn</rt></ruby><ruby>乐<rt>yuè</rt></ruby><ruby>厅<rt>tīng</rt></ruby></span>。`,
+        text: "整片海洋都变成了热闹又快乐的音乐厅。",
+        en: "The entire ocean turned into a lively and joyful concert hall."
+      }
+    ],
+    vocab: [
+      { hz: "大海", py: "dà hǎi", en: "ocean" },
+      { hz: "蓝鲸", py: "lán jīng", en: "blue whale" },
+      { hz: "音符", py: "yīn fú", en: "musical note" },
+      { hz: "跳舞", py: "tiào wǔ", en: "to dance" }
+    ]
+  },
+  {
+    id: 6,
+    icon: "🦊",
+    title: "6. 小狐狸的魔法灯笼",
+    subtitle: "Little Fox's Magic Lantern · 温暖与勇敢",
+    bannerSvg: `<svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg">
+      <rect width="640" height="240" fill="#1e293b"/>
+      <circle cx="420" cy="110" r="65" fill="#fde047" opacity="0.22"/>
+      <circle cx="420" cy="110" r="35" fill="#facc15" opacity="0.45"/>
+      <!-- Lantern -->
+      <line x1="350" y1="85" x2="420" y2="85" stroke="#92400e" stroke-width="4"/>
+      <ellipse cx="420" cy="115" rx="22" ry="28" fill="#ef4444" stroke="#fde047" stroke-width="3"/>
+      <!-- Little Fox -->
+      <polygon points="260,95 275,62 292,95" fill="#ea580c"/>
+      <polygon points="308,95 325,62 340,95" fill="#ea580c"/>
+      <circle cx="300" cy="120" r="28" fill="#f97316"/>
+      <polygon points="274,125 300,148 326,125" fill="#fff"/>
+      <circle cx="290" cy="115" r="3.5" fill="#0f172a"/>
+      <circle cx="310" cy="115" r="3.5" fill="#0f172a"/>
+      <!-- Fireflies -->
+      <circle cx="140" cy="80" r="5" fill="#fde047"/>
+      <circle cx="520" cy="70" r="5" fill="#fde047"/>
+      <circle cx="550" cy="140" r="4" fill="#fde047"/>
+    </svg>`,
+    sentences: [
+      {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#1e293b"/>
+          <circle cx="110" cy="60" r="28" fill="#fde047" opacity="0.3"/>
+          <ellipse cx="110" cy="60" rx="16" ry="22" fill="#ef4444" stroke="#facc15" stroke-width="2.5"/>
+          <circle cx="55" cy="68" r="20" fill="#f97316"/>
+          <polygon points="40,54 48,34 58,54" fill="#ea580c"/>
+          <polygon points="62,54 72,34 80,54" fill="#ea580c"/>
+        </svg>`,
+        ruby: `<span class="word-group"><ruby>夜<rt>yè</rt></ruby><ruby>晚<rt>wǎn</rt></ruby></span><span class="word-group"><ruby>来<rt>lái</rt></ruby><ruby>了<rt>le</rt></ruby></span>，<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>狐<rt>hú</rt></ruby><ruby>狸<rt>li</rt></ruby></span><span class="word-group"><ruby>阿<rt>ā</rt></ruby><ruby>狸<rt>lí</rt></ruby></span><span class="word-group"><ruby>提<rt>tí</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>暖<rt>nuǎn</rt></ruby><ruby>洋<rt>yáng</rt></ruby><ruby>洋<rt>yáng</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>红<rt>hóng</rt></ruby><ruby>灯<rt>dēng</rt></ruby><ruby>笼<rt>long</rt></ruby></span>。`,
+        text: "夜晚来了，小狐狸阿狸提着暖洋洋的红灯笼。",
+        en: "Night fell, and Ali the little fox carried a warm glowing red lantern."
+      },
+      {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#334155"/>
+          <ellipse cx="85" cy="72" rx="28" ry="20" fill="#78350f"/>
+          <circle cx="58" cy="74" r="14" fill="#d6d3d1"/>
+          <circle cx="53" cy="72" r="2.5" fill="#0f172a"/>
+          <circle cx="45" cy="76" r="3" fill="#0f172a"/>
+        </svg>`,
+        ruby: `<span class="word-group"><ruby>迷<rt>mí</rt></ruby><ruby>路<rt>lù</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>刺<rt>cì</rt></ruby><ruby>猬<rt>wei</rt></ruby></span><span class="word-group"><ruby>害<rt>hài</rt></ruby><ruby>怕<rt>pà</rt></ruby><ruby>极<rt>jí</rt></ruby><ruby>了<rt>le</rt></ruby></span>，<span class="word-group"><ruby>缩<rt>suō</rt></ruby><ruby>成<rt>chéng</rt></ruby><ruby>了<rt>le</rt></ruby></span><span class="word-group"><ruby>一<rt>yí</rt></ruby><ruby>个<rt>gè</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>圆<rt>yuán</rt></ruby><ruby>球<rt>qiú</rt></ruby></span>。`,
+        text: "迷路的小刺猬害怕极了，缩成了一个小圆球。",
+        en: "A lost little hedgehog was very scared and curled up into a tiny round ball."
+      },
+      {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#1e293b"/>
+          <polygon points="45,45 145,20 145,100" fill="#fef08a" opacity="0.35"/>
+          <ellipse cx="45" cy="48" rx="14" ry="18" fill="#ef4444" stroke="#fde047" stroke-width="2"/>
+          <circle cx="105" cy="65" r="8" fill="#f472b6"/>
+          <circle cx="125" cy="78" r="8" fill="#38bdf8"/>
+        </svg>`,
+        ruby: `<span class="word-group"><ruby>灯<rt>dēng</rt></ruby><ruby>笼<rt>long</rt></ruby></span><span class="word-group"><ruby>发<rt>fā</rt></ruby><ruby>出<rt>chū</rt></ruby></span><span class="word-group"><ruby>温<rt>wēn</rt></ruby><ruby>柔<rt>róu</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>金<rt>jīn</rt></ruby><ruby>光<rt>guāng</rt></ruby></span>，<span class="word-group"><ruby>照<rt>zhào</rt></ruby><ruby>亮<rt>liàng</rt></ruby><ruby>了<rt>le</rt></ruby></span><span class="word-group"><ruby>回<rt>huí</rt></ruby><ruby>家<rt>jiā</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>路<rt>lù</rt></ruby></span>。`,
+        text: "灯笼发出温柔的金光，照亮了回家的小路。",
+        en: "The lantern shone with gentle golden light, illuminating the path home."
+      },
+      {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#312e81"/>
+          <circle cx="55" cy="72" r="18" fill="#f97316"/>
+          <circle cx="105" cy="76" r="16" fill="#78350f"/>
+          <circle cx="40" cy="34" r="5" fill="#fde047"/>
+          <circle cx="80" cy="26" r="6" fill="#fde047"/>
+          <circle cx="120" cy="38" r="5" fill="#fde047"/>
+        </svg>`,
+        ruby: `<span class="word-group"><ruby>阿<rt>ā</rt></ruby><ruby>狸<rt>lí</rt></ruby></span><span class="word-group"><ruby>牵<rt>qiān</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>刺<rt>cì</rt></ruby><ruby>猬<rt>wei</rt></ruby></span>，<span class="word-group"><ruby>伴<rt>bàn</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>萤<rt>yíng</rt></ruby><ruby>火<rt>huǒ</rt></ruby><ruby>虫<rt>chóng</rt></ruby></span><span class="word-group"><ruby>平<rt>píng</rt></ruby><ruby>安<rt>'ān</rt></ruby></span><span class="word-group"><ruby>到<rt>dào</rt></ruby><ruby>了<rt>le</rt></ruby><ruby>家<rt>jiā</rt></ruby></span>。`,
+        text: "阿狸牵着小刺猬，伴着萤火虫平安到了家。",
+        en: "Ali held Little Hedgehog's hand and arrived home safely accompanied by fireflies."
+      }
+    ],
+    vocab: [
+      { hz: "灯笼", py: "dēng long", en: "lantern" },
+      { hz: "刺猬", py: "cì wei", en: "hedgehog" },
+      { hz: "照亮", py: "zhào liàng", en: "illuminate" },
+      { hz: "萤火虫", py: "yíng huǒ chóng", en: "firefly" }
+    ]
+  },
+  {
+    id: 7,
+    icon: "🦕",
+    title: "7. 小恐龙找妈妈",
+    subtitle: "Little Dinosaur Looks for Mom · 亲情与探索",
+    bannerSvg: `<svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg">
+      <rect width="640" height="240" fill="#ecfccb"/>
+      <ellipse cx="320" cy="220" rx="340" ry="50" fill="#bef264"/>
+      <!-- Baby Dino -->
+      <circle cx="240" cy="115" r="24" fill="#4ade80"/>
+      <ellipse cx="265" cy="155" rx="32" ry="24" fill="#4ade80"/>
+      <circle cx="232" cy="110" r="3.5" fill="#0f172a"/>
+      <!-- Mama Dino -->
+      <circle cx="420" cy="70" r="32" fill="#16a34a"/>
+      <rect x="408" y="95" width="24" height="55" rx="10" fill="#16a34a"/>
+      <ellipse cx="445" cy="155" rx="52" ry="34" fill="#16a34a"/>
+      <circle cx="408" cy="65" r="4" fill="#0f172a"/>
+      <path d="M330,90 C330,82 318,78 314,86 C310,78 298,82 298,90 C298,102 314,110 314,110 C314,110 330,102 330,90 Z" fill="#f43f5e"/>
+    </svg>`,
+    sentences: [
+      {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#ecfccb"/>
+          <path d="M50,72 L65,58 L80,72 L95,58 L110,72 A30,28 0 1,1 50,72 Z" fill="#fff" stroke="#94a3b8" stroke-width="2.5"/>
+          <circle cx="80" cy="48" r="18" fill="#4ade80"/>
+          <circle cx="74" cy="44" r="3" fill="#0f172a"/>
+          <circle cx="86" cy="44" r="3" fill="#0f172a"/>
+        </svg>`,
+        ruby: `<span class="word-group"><ruby>咔<rt>kā</rt></ruby><ruby>嚓<rt>chā</rt></ruby></span><span class="word-group"><ruby>一<rt>yì</rt></ruby><ruby>声<rt>shēng</rt></ruby></span>，<span class="word-group"><ruby>绿<rt>lǜ</rt></ruby><ruby>色<rt>sè</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>恐<rt>kǒng</rt></ruby><ruby>龙<rt>lóng</rt></ruby></span><span class="word-group"><ruby>从<rt>cóng</rt></ruby></span><span class="word-group"><ruby>蛋<rt>dàn</rt></ruby><ruby>壳<rt>ké</rt></ruby><ruby>里<rt>lǐ</rt></ruby></span><span class="word-group"><ruby>钻<rt>zuān</rt></ruby><ruby>了<rt>le</rt></ruby><ruby>出<rt>chū</rt></ruby><ruby>来<rt>lái</rt></ruby></span>。`,
+        text: "咔嚓一声，绿色的小恐龙从蛋壳里钻了出来。",
+        en: "With a crack, a little green dinosaur popped out from inside the eggshell."
+      },
+      {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#fef3c7"/>
+          <ellipse cx="60" cy="54" rx="16" ry="20" fill="#f472b6"/>
+          <ellipse cx="100" cy="54" rx="16" ry="20" fill="#f472b6"/>
+          <ellipse cx="64" cy="76" rx="12" ry="14" fill="#fb7185"/>
+          <ellipse cx="96" cy="76" rx="12" ry="14" fill="#fb7185"/>
+          <rect x="77" y="42" width="6" height="44" rx="3" fill="#1e293b"/>
+        </svg>`,
+        ruby: `<span class="word-group"><ruby>它<rt>tā</rt></ruby></span><span class="word-group"><ruby>看<rt>kàn</rt></ruby><ruby>见<rt>jiàn</rt></ruby></span><span class="word-group"><ruby>花<rt>huā</rt></ruby><ruby>蝴<rt>hú</rt></ruby><ruby>蝶<rt>dié</rt></ruby></span>，<span class="word-group"><ruby>好<rt>hào</rt></ruby><ruby>奇<rt>qí</rt></ruby><ruby>地<rt>de</rt></ruby></span><span class="word-group"><ruby>问<rt>wèn</rt></ruby></span>：“<span class="word-group"><ruby>你<rt>nǐ</rt></ruby><ruby>是<rt>shì</rt></ruby></span><span class="word-group"><ruby>我<rt>wǒ</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>妈<rt>mā</rt></ruby><ruby>妈<rt>ma</rt></ruby></span><span class="word-group"><ruby>吗<rt>ma</rt></ruby></span>？”`,
+        text: "它看见花蝴蝶，好奇地问：“你是我的妈妈吗？”",
+        en: "It saw a colorful butterfly and asked curiously, 'Are you my mommy?'"
+      },
+      {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#dcfce7"/>
+          <rect x="42" y="55" width="12" height="50" fill="#854d0e"/>
+          <circle cx="48" cy="42" r="24" fill="#22c55e"/>
+          <circle cx="105" cy="45" r="18" fill="#16a34a"/>
+          <rect x="99" y="58" width="12" height="42" fill="#16a34a"/>
+        </svg>`,
+        ruby: `<span class="word-group"><ruby>蝴<rt>hú</rt></ruby><ruby>蝶<rt>dié</rt></ruby></span><span class="word-group"><ruby>飞<rt>fēi</rt></ruby><ruby>向<rt>xiàng</rt></ruby></span><span class="word-group"><ruby>大<rt>dà</rt></ruby><ruby>树<rt>shù</rt></ruby><ruby>旁<rt>páng</rt></ruby></span>，<span class="word-group"><ruby>高<rt>gāo</rt></ruby><ruby>高<rt>gāo</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>恐<rt>kǒng</rt></ruby><ruby>龙<rt>lóng</rt></ruby><ruby>妈<rt>mā</rt></ruby><ruby>妈<rt>ma</rt></ruby></span><span class="word-group"><ruby>正<rt>zhèng</rt></ruby><ruby>在<rt>zài</rt></ruby></span><span class="word-group"><ruby>微<rt>wēi</rt></ruby><ruby>笑<rt>xiào</rt></ruby></span>。`,
+        text: "蝴蝶飞向大树旁，高高的恐龙妈妈正在微笑。",
+        en: "The butterfly flew toward the big tree, where tall Mama Dinosaur was smiling."
+      },
+      {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#fce7f3"/>
+          <circle cx="62" cy="68" r="18" fill="#4ade80"/>
+          <circle cx="96" cy="54" r="26" fill="#16a34a"/>
+          <circle cx="58" cy="65" r="2.5" fill="#0f172a"/>
+          <circle cx="88" cy="50" r="3" fill="#0f172a"/>
+        </svg>`,
+        ruby: `<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>恐<rt>kǒng</rt></ruby><ruby>龙<rt>lóng</rt></ruby></span><span class="word-group"><ruby>扑<rt>pū</rt></ruby><ruby>进<rt>jìn</rt></ruby></span><span class="word-group"><ruby>妈<rt>mā</rt></ruby><ruby>妈<rt>ma</rt></ruby><ruby>怀<rt>huái</rt></ruby><ruby>里<rt>lǐ</rt></ruby></span>，<span class="word-group"><ruby>幸<rt>xìng</rt></ruby><ruby>福<rt>fú</rt></ruby><ruby>地<rt>de</rt></ruby></span><span class="word-group"><ruby>蹭<rt>cèng</rt></ruby><ruby>了<rt>le</rt></ruby><ruby>蹭<rt>cèng</rt></ruby></span>。`,
+        text: "小恐龙扑进妈妈怀里，幸福地蹭了蹭。",
+        en: "Little Dinosaur leaped into Mommy's arms and nuzzled happily."
+      }
+    ],
+    vocab: [
+      { hz: "恐龙", py: "kǒng lóng", en: "dinosaur" },
+      { hz: "蛋壳", py: "dàn ké", en: "eggshell" },
+      { hz: "蝴蝶", py: "hú dié", en: "butterfly" },
+      { hz: "幸福", py: "xìng fú", en: "happiness" }
+    ]
+  },
+  {
+    id: 8,
+    icon: "🐿️",
+    title: "8. 小松鼠的秋天果园",
+    subtitle: "Little Squirrel's Autumn Orchard · 收获与感恩",
+    bannerSvg: `<svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg">
+      <rect width="640" height="240" fill="#ffedd5"/>
+      <ellipse cx="320" cy="220" rx="340" ry="48" fill="#fdba74"/>
+      <!-- Apple Tree -->
+      <rect x="150" y="110" width="28" height="100" fill="#78350f"/>
+      <circle cx="164" cy="80" r="62" fill="#f97316"/>
+      <circle cx="140" cy="68" r="10" fill="#ef4444"/>
+      <circle cx="185" cy="62" r="10" fill="#ef4444"/>
+      <circle cx="165" cy="95" r="10" fill="#ef4444"/>
+      <!-- Squirrel -->
+      <circle cx="395" cy="135" r="32" fill="#d97706"/>
+      <circle cx="345" cy="120" r="22" fill="#b45309"/>
+      <circle cx="345" cy="155" r="26" fill="#b45309"/>
+      <circle cx="338" cy="116" r="3" fill="#0f172a"/>
+      <!-- Acorn -->
+      <ellipse cx="475" cy="155" rx="18" ry="22" fill="#a16207"/>
+      <path d="M454,148 A22,16 0 0,1 496,148 Z" fill="#451a03"/>
+    </svg>`,
+    sentences: [
+      {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#ffedd5"/>
+          <rect x="72" y="65" width="16" height="45" fill="#78350f"/>
+          <circle cx="80" cy="48" r="34" fill="#f59e0b"/>
+          <circle cx="68" cy="42" r="7" fill="#ef4444"/>
+          <circle cx="94" cy="46" r="7" fill="#ef4444"/>
+          <circle cx="78" cy="60" r="7" fill="#ef4444"/>
+        </svg>`,
+        ruby: `<span class="word-group"><ruby>金<rt>jīn</rt></ruby><ruby>色<rt>sè</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>秋<rt>qiū</rt></ruby><ruby>天<rt>tiān</rt></ruby></span><span class="word-group"><ruby>到<rt>dào</rt></ruby><ruby>了<rt>le</rt></ruby></span>，<span class="word-group"><ruby>果<rt>guǒ</rt></ruby><ruby>园<rt>yuán</rt></ruby><ruby>里<rt>lǐ</rt></ruby></span><span class="word-group"><ruby>结<rt>jiē</rt></ruby><ruby>满<rt>mǎn</rt></ruby><ruby>了<rt>le</rt></ruby></span><span class="word-group"><ruby>红<rt>hóng</rt></ruby><ruby>彤<rt>tóng</rt></ruby><ruby>彤<rt>tóng</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>苹<rt>píng</rt></ruby><ruby>果<rt>guǒ</rt></ruby></span>。`,
+        text: "金色的秋天到了，果园里结满了红彤彤的苹果。",
+        en: "Golden autumn arrived, and the orchard was full of bright red apples."
+      },
+      {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#fef3c7"/>
+          <circle cx="102" cy="62" r="24" fill="#d97706"/>
+          <circle cx="66" cy="52" r="16" fill="#b45309"/>
+          <circle cx="68" cy="78" r="20" fill="#b45309"/>
+          <circle cx="60" cy="50" r="3" fill="#0f172a"/>
+        </svg>`,
+        ruby: `<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>松<rt>sōng</rt></ruby><ruby>鼠<rt>shǔ</rt></ruby></span><span class="word-group"><ruby>果<rt>guǒ</rt></ruby><ruby>果<rt>guo</rt></ruby></span><span class="word-group"><ruby>摇<rt>yáo</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>毛<rt>máo</rt></ruby><ruby>茸<rt>róng</rt></ruby><ruby>茸<rt>róng</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>大<rt>dà</rt></ruby><ruby>尾<rt>wěi</rt></ruby><ruby>巴<rt>ba</rt></ruby></span>，<span class="word-group"><ruby>忙<rt>máng</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>采<rt>cǎi</rt></ruby><ruby>松<rt>sōng</rt></ruby><ruby>果<rt>guǒ</rt></ruby></span>。`,
+        text: "小松鼠果果摇着毛茸茸的大尾巴，忙着采松果。",
+        en: "Guoguo the little squirrel wagged a fluffy big tail, busy gathering pinecones."
+      },
+      {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#fde68a"/>
+          <path d="M40,60 L120,60 L108,96 L52,96 Z" fill="#b45309"/>
+          <path d="M52,60 A28,24 0 0,1 108,60" fill="none" stroke="#78350f" stroke-width="5"/>
+          <circle cx="65" cy="54" r="10" fill="#ef4444"/>
+          <circle cx="82" cy="52" r="9" fill="#a16207"/>
+          <circle cx="96" cy="55" r="10" fill="#eab308"/>
+        </svg>`,
+        ruby: `<span class="word-group"><ruby>竹<rt>zhú</rt></ruby><ruby>篮<rt>lán</rt></ruby><ruby>子<rt>zi</rt></ruby><ruby>里<rt>lǐ</rt></ruby></span><span class="word-group"><ruby>装<rt>zhuāng</rt></ruby><ruby>满<rt>mǎn</rt></ruby><ruby>了<rt>le</rt></ruby></span><span class="word-group"><ruby>香<rt>xiāng</rt></ruby><ruby>甜<rt>tián</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>板<rt>bǎn</rt></ruby><ruby>栗<rt>lì</rt></ruby></span>、<span class="word-group"><ruby>核<rt>hé</rt></ruby><ruby>桃<rt>tao</rt></ruby></span><span class="word-group"><ruby>和<rt>hé</rt></ruby></span><span class="word-group"><ruby>红<rt>hóng</rt></ruby><ruby>果<rt>guǒ</rt></ruby></span>。`,
+        text: "竹篮子里装满了香甜的板栗、核桃和红果。",
+        en: "The bamboo basket was filled with sweet chestnuts, walnuts, and red berries."
+      },
+      {
+        svg: `<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="160" height="120" fill="#ffedd5"/>
+          <rect x="48" y="20" width="64" height="85" fill="#92400e"/>
+          <ellipse cx="80" cy="62" rx="18" ry="22" fill="#451a03"/>
+          <circle cx="80" cy="66" r="12" fill="#d97706"/>
+          <circle cx="76" cy="64" r="2" fill="#0f172a"/>
+          <circle cx="84" cy="64" r="2" fill="#0f172a"/>
+        </svg>`,
+        ruby: `<span class="word-group"><ruby>果<rt>guǒ</rt></ruby><ruby>果<rt>guo</rt></ruby></span><span class="word-group"><ruby>坐<rt>zuò</rt></ruby><ruby>在<rt>zài</rt></ruby></span><span class="word-group"><ruby>树<rt>shù</rt></ruby><ruby>洞<rt>dòng</rt></ruby><ruby>里<rt>lǐ</rt></ruby></span>，<span class="word-group"><ruby>这<rt>zhè</rt></ruby><ruby>个<rt>gè</rt></ruby></span><span class="word-group"><ruby>冬<rt>dōng</rt></ruby><ruby>天<rt>tiān</rt></ruby></span><span class="word-group"><ruby>再<rt>zài</rt></ruby><ruby>也<rt>yě</rt></ruby></span><span class="word-group"><ruby>不<rt>bú</rt></ruby><ruby>怕<rt>pà</rt></ruby><ruby>饿<rt>è</rt></ruby><ruby>肚<rt>dù</rt></ruby><ruby>子<rt>zi</rt></ruby><ruby>啦<rt>la</rt></ruby></span>！`,
+        text: "果果坐在树洞里，这个冬天再也不怕饿肚子啦！",
+        en: "Guoguo sat inside the cozy tree hollow, never worrying about going hungry this winter!"
+      }
+    ],
+    vocab: [
+      { hz: "果园", py: "guǒ yuán", en: "orchard" },
+      { hz: "松鼠", py: "sōng shǔ", en: "squirrel" },
+      { hz: "尾巴", py: "wěi ba", en: "tail" },
+      { hz: "松果", py: "sōng guǒ", en: "pinecone" }
     ]
   }
 ];
@@ -462,6 +1170,7 @@ const voiceSelect = document.getElementById('voiceSelect');
 const speedRange = document.getElementById('speedRange');
 const speedVal = document.getElementById('speedVal');
 const storyNav = document.getElementById('storyNav');
+const storyHero = document.getElementById('storyHero');
 const sentenceList = document.getElementById('sentenceList');
 const vocabChips = document.getElementById('vocabChips');
 
@@ -500,7 +1209,7 @@ function renderNav() {
   STORIES.forEach((story, idx) => {
     const btn = document.createElement('button');
     btn.className = `tab-btn ${idx === currentStoryIdx ? 'active' : ''}`;
-    btn.textContent = story.title;
+    btn.innerHTML = `<span class="tab-icon">${story.icon}</span><span>${story.title}</span>`;
     btn.onclick = () => selectStory(idx);
     storyNav.appendChild(btn);
   });
@@ -544,17 +1253,29 @@ function playWordGroup(wordEl) {
 // Render story content & vocab
 function renderContent() {
   const story = STORIES[currentStoryIdx];
+
+  storyHero.innerHTML = `
+    <div class="story-hero-art">${story.bannerSvg}</div>
+    <div class="story-hero-caption">
+      <div class="story-hero-title">${story.icon} ${story.title}</div>
+      <div class="story-hero-badge">${story.subtitle}</div>
+    </div>
+  `;
+
   sentenceList.innerHTML = '';
   story.sentences.forEach((s, idx) => {
     const card = document.createElement('div');
     card.className = `sentence-card ${idx === currentSentenceIdx ? 'speaking' : ''}`;
     card.id = `card-${idx}`;
     card.innerHTML = `
-      <div class="sentence-header">
-        <div class="hanzi-pinyin-line">${s.ruby}</div>
-        <button class="btn-read-sentence" type="button" title="朗读整句 (Read full sentence)">🔊 整句</button>
+      <div class="sentence-thumb">${s.svg}</div>
+      <div class="sentence-body">
+        <div class="sentence-header">
+          <div class="hanzi-pinyin-line">${s.ruby}</div>
+          <button class="btn-read-sentence" type="button" title="朗读整句 (Read full sentence)">🔊 整句</button>
+        </div>
+        <div class="english-trans">${s.en}</div>
       </div>
-      <div class="english-trans">${s.en}</div>
     `;
 
     card.querySelectorAll('.word-group').forEach(wordEl => {
