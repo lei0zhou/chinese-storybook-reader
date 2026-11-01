@@ -355,11 +355,74 @@
       letter-spacing: 0.5px;
     }
 
+    .english-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border);
+    }
+
     .english-trans {
-      font-size: 15px;
-      color: #64748b;
-      font-style: italic;
-      margin-top: 4px;
+      font-size: 16px;
+      color: #475569;
+      line-height: 1.8;
+    }
+
+    .english-trans.speaking-en {
+      color: #0369a1;
+      font-weight: 600;
+    }
+
+    .en-word-group {
+      display: inline-block;
+      padding: 1px 6px;
+      margin: 1px 2px;
+      border-radius: 6px;
+      border-bottom: 2px dashed transparent;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-style: normal;
+      color: #334155;
+    }
+
+    .en-word-group:hover {
+      background-color: #e0f2fe;
+      border-bottom-color: #0284c7;
+      color: #0369a1;
+      transform: translateY(-1px);
+    }
+
+    .en-word-group.speaking-en-word {
+      background-color: #bae6fd;
+      border-bottom: 2px solid #0284c7;
+      color: #0c4a6e;
+      font-weight: 600;
+      transform: scale(1.05);
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.22);
+    }
+
+    .btn-read-en {
+      flex-shrink: 0;
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+      border-radius: 8px;
+      padding: 4px 9px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-read-en:hover {
+      background: #0284c7;
+      color: white;
     }
 
     /* Vocabulary & Quiz section */
@@ -402,7 +465,20 @@
 
     .chip-hanzi { font-size: 18px; font-weight: bold; color: #78350f; }
     .chip-pinyin { font-size: 12px; color: #92400e; }
-    .chip-en { font-size: 11px; color: #b45309; }
+    .chip-en {
+      font-size: 11px;
+      color: #0369a1;
+      background: #e0f2fe;
+      padding: 2px 7px;
+      border-radius: 6px;
+      margin-top: 3px;
+      font-weight: 600;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .chip-en:hover {
+      background: #0284c7;
+      color: #ffffff;
+    }
   </style>
 </head>
 <body>
@@ -523,6 +599,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>在<rt>zài</rt></ruby></span><span class="word-group"><ruby>青<rt>qīng</rt></ruby><ruby>青<rt>qīng</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>竹<rt>zhú</rt></ruby><ruby>林<rt>lín</rt></ruby></span><span class="word-group"><ruby>里<rt>lǐ</rt></ruby></span>，<span class="word-group"><ruby>住<rt>zhù</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>胖<rt>pàng</rt></ruby><ruby>乎<rt>hū</rt></ruby><ruby>乎<rt>hū</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>熊<rt>xióng</rt></ruby><ruby>猫<rt>māo</rt></ruby></span><span class="word-group"><ruby>团<rt>tuán</rt></ruby><ruby>团<rt>tuán</rt></ruby></span>。`,
         text: "在青青的竹林里，住着胖乎乎的小熊猫团团。",
+        enHtml: `<span class="en-word-group">In the</span> <span class="en-word-group">lush green</span> <span class="en-word-group">bamboo forest</span> <span class="en-word-group">lived a</span> <span class="en-word-group">chubby</span> <span class="en-word-group">little panda</span> <span class="en-word-group">named Tuantuan</span>.`,
         en: "In the lush green bamboo forest lived a chubby little panda named Tuantuan."
       },
       {
@@ -538,6 +615,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>团<rt>tuán</rt></ruby><ruby>团<rt>tuán</rt></ruby></span><span class="word-group"><ruby>找<rt>zhǎo</rt></ruby><ruby>到<rt>dào</rt></ruby><ruby>了<rt>le</rt></ruby></span><span class="word-group"><ruby>一<rt>yì</rt></ruby><ruby>根<rt>gēn</rt></ruby></span><span class="word-group"><ruby>闪<rt>shǎn</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>金<rt>jīn</rt></ruby><ruby>光<rt>guāng</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>甜<rt>tián</rt></ruby><ruby>竹<rt>zhú</rt></ruby><ruby>笋<rt>sǔn</rt></ruby></span>。`,
         text: "团团找到了一根闪着金光的甜竹笋。",
+        enHtml: `<span class="en-word-group">Tuantuan</span> <span class="en-word-group">found</span> <span class="en-word-group">a sweet bamboo shoot</span> <span class="en-word-group">shining with</span> <span class="en-word-group">golden light</span>.`,
         en: "Tuantuan found a sweet bamboo shoot shining with golden light."
       },
       {
@@ -555,6 +633,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>红<rt>hóng</rt></ruby><ruby>熊<rt>xióng</rt></ruby><ruby>猫<rt>māo</rt></ruby></span><span class="word-group"><ruby>走<rt>zǒu</rt></ruby><ruby>过<rt>guò</rt></ruby><ruby>来<rt>lái</rt></ruby></span>，<span class="word-group"><ruby>肚<rt>dù</rt></ruby><ruby>子<rt>zi</rt></ruby></span><span class="word-group"><ruby>饿<rt>è</rt></ruby><ruby>得<rt>de</rt></ruby></span><span class="word-group"><ruby>咕<rt>gū</rt></ruby><ruby>咕<rt>gū</rt></ruby><ruby>叫<rt>jiào</rt></ruby></span>。`,
         text: "小红熊猫走过来，肚子饿得咕咕叫。",
+        enHtml: `<span class="en-word-group">A little red panda</span> <span class="en-word-group">walked over</span>, <span class="en-word-group">with a tummy</span> <span class="en-word-group">rumbling</span> <span class="en-word-group">from hunger</span>.`,
         en: "A little red panda walked over, with a tummy rumbling from hunger."
       },
       {
@@ -570,6 +649,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>团<rt>tuán</rt></ruby><ruby>团<rt>tuán</rt></ruby></span><span class="word-group"><ruby>把<rt>bǎ</rt></ruby></span><span class="word-group"><ruby>竹<rt>zhú</rt></ruby><ruby>笋<rt>sǔn</rt></ruby></span><span class="word-group"><ruby>分<rt>fēn</rt></ruby><ruby>成<rt>chéng</rt></ruby></span><span class="word-group"><ruby>两<rt>liǎng</rt></ruby><ruby>半<rt>bàn</rt></ruby></span>，<span class="word-group"><ruby>两<rt>liǎng</rt></ruby><ruby>只<rt>zhī</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>熊<rt>xióng</rt></ruby></span><span class="word-group"><ruby>开<rt>kāi</rt></ruby><ruby>心<rt>xīn</rt></ruby><ruby>得<rt>de</rt></ruby></span><span class="word-group"><ruby>笑<rt>xiào</rt></ruby><ruby>了<rt>le</rt></ruby></span>。`,
         text: "团团把竹笋分成两半，两只小熊开心得笑了。",
+        enHtml: `<span class="en-word-group">Tuantuan</span> <span class="en-word-group">shared</span> <span class="en-word-group">the bamboo shoot</span> <span class="en-word-group">in half</span>, <span class="en-word-group">and both little bears</span> <span class="en-word-group">smiled happily</span>.`,
         en: "Tuantuan shared the bamboo shoot in half, and both little bears smiled happily."
       }
     ],
@@ -619,6 +699,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>猫<rt>māo</rt></ruby></span><span class="word-group"><ruby>米<rt>mǐ</rt></ruby><ruby>米<rt>mǐ</rt></ruby></span><span class="word-group"><ruby>坐<rt>zuò</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>圆<rt>yuán</rt></ruby><ruby>圆<rt>yuán</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>玻<rt>bō</rt></ruby><ruby>璃<rt>li</rt></ruby></span><span class="word-group"><ruby>飞<rt>fēi</rt></ruby><ruby>船<rt>chuán</rt></ruby></span><span class="word-group"><ruby>飞<rt>fēi</rt></ruby><ruby>向<rt>xiàng</rt></ruby></span><span class="word-group"><ruby>太<rt>tài</rt></ruby><ruby>空<rt>kōng</rt></ruby></span>。`,
         text: "小猫米米坐着圆圆的玻璃飞船飞向太空。",
+        enHtml: `<span class="en-word-group">Mimi the kitten</span> <span class="en-word-group">took off</span> <span class="en-word-group">into outer space</span> <span class="en-word-group">inside a round</span> <span class="en-word-group">glass spaceship</span>.`,
         en: "Mimi the kitten took off into outer space inside a round glass spaceship."
       },
       {
@@ -633,6 +714,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>天<rt>tiān</rt></ruby><ruby>上<rt>shang</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>星<rt>xīng</rt></ruby><ruby>星<rt>xīng</rt></ruby></span><span class="word-group"><ruby>像<rt>xiàng</rt></ruby></span><span class="word-group"><ruby>一<rt>yì</rt></ruby><ruby>颗<rt>kē</rt></ruby><ruby>颗<rt>kē</rt></ruby></span><span class="word-group"><ruby>亮<rt>liàng</rt></ruby><ruby>晶<rt>jīng</rt></ruby><ruby>晶<rt>jīng</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>水<rt>shuǐ</rt></ruby><ruby>果<rt>guǒ</rt></ruby><ruby>糖<rt>táng</rt></ruby></span>。`,
         text: "天上的星星像一颗颗亮晶晶的水果糖。",
+        enHtml: `<span class="en-word-group">The stars</span> <span class="en-word-group">in the sky</span> <span class="en-word-group">looked just like</span> <span class="en-word-group">shining pieces of</span> <span class="en-word-group">fruit candy</span>.`,
         en: "The stars in the sky looked just like shining pieces of fruit candy."
       },
       {
@@ -647,6 +729,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>米<rt>mǐ</rt></ruby><ruby>米<rt>mǐ</rt></ruby></span><span class="word-group"><ruby>伸<rt>shēn</rt></ruby><ruby>出<rt>chū</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>爪<rt>zhuǎ</rt></ruby><ruby>子<rt>zi</rt></ruby></span>，<span class="word-group"><ruby>接<rt>jiē</rt></ruby><ruby>住<rt>zhù</rt></ruby><ruby>了<rt>le</rt></ruby></span><span class="word-group"><ruby>一<rt>yì</rt></ruby><ruby>颗<rt>kē</rt></ruby></span><span class="word-group"><ruby>粉<rt>fěn</rt></ruby><ruby>红<rt>hóng</rt></ruby><ruby>色<rt>sè</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>流<rt>liú</rt></ruby><ruby>星<rt>xīng</rt></ruby></span>。`,
         text: "米米伸出小爪子，接住了一颗粉红色的流星。",
+        enHtml: `<span class="en-word-group">Mimi</span> <span class="en-word-group">reached out</span> <span class="en-word-group">a tiny paw</span> <span class="en-word-group">and gently caught</span> <span class="en-word-group">a pink</span> <span class="en-word-group">shooting star</span>.`,
         en: "Mimi reached out a tiny paw and gently caught a pink shooting star."
       },
       {
@@ -659,6 +742,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>流<rt>liú</rt></ruby><ruby>星<rt>xīng</rt></ruby></span><span class="word-group"><ruby>在<rt>zài</rt></ruby></span><span class="word-group"><ruby>手<rt>shǒu</rt></ruby><ruby>心<rt>xīn</rt></ruby></span><span class="word-group"><ruby>轻<rt>qīng</rt></ruby><ruby>轻<rt>qīng</rt></ruby></span><span class="word-group"><ruby>唱<rt>chàng</rt></ruby><ruby>歌<rt>gē</rt></ruby></span>，<span class="word-group"><ruby>祝<rt>zhù</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>朋<rt>péng</rt></ruby><ruby>友<rt>you</rt></ruby></span><span class="word-group"><ruby>晚<rt>wǎn</rt></ruby><ruby>安<rt>'ān</rt></ruby></span>。`,
         text: "流星在手心轻轻唱歌，祝小朋友晚安。",
+        enHtml: `<span class="en-word-group">The shooting star</span> <span class="en-word-group">sang softly</span> <span class="en-word-group">in the paw</span>, <span class="en-word-group">wishing</span> <span class="en-word-group">the children</span> <span class="en-word-group">a good night</span>.`,
         en: "The shooting star sang softly in the paw, wishing the children a good night."
       }
     ],
@@ -706,6 +790,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>森<rt>sēn</rt></ruby><ruby>林<rt>lín</rt></ruby></span><span class="word-group"><ruby>转<rt>zhuǎn</rt></ruby><ruby>角<rt>jiǎo</rt></ruby></span><span class="word-group"><ruby>有<rt>yǒu</rt></ruby></span><span class="word-group"><ruby>一<rt>yì</rt></ruby><ruby>家<rt>jiā</rt></ruby></span><span class="word-group"><ruby>飘<rt>piāo</rt></ruby><ruby>满<rt>mǎn</rt></ruby></span><span class="word-group"><ruby>香<rt>xiāng</rt></ruby><ruby>气<rt>qì</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>面<rt>miàn</rt></ruby><ruby>包<rt>bāo</rt></ruby><ruby>房<rt>fáng</rt></ruby></span>。`,
         text: "森林转角有一家飘满香气的面包房。",
+        enHtml: `<span class="en-word-group">Around the forest corner</span> <span class="en-word-group">was a cozy bakery</span> <span class="en-word-group">filled with</span> <span class="en-word-group">sweet aromas</span>.`,
         en: "Around the forest corner was a cozy bakery filled with sweet aromas."
       },
       {
@@ -722,6 +807,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>棕<rt>zōng</rt></ruby><ruby>熊<rt>xióng</rt></ruby></span><span class="word-group"><ruby>波<rt>bō</rt></ruby><ruby>波<rt>bo</rt></ruby></span><span class="word-group"><ruby>戴<rt>dài</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>白<rt>bái</rt></ruby><ruby>帽<rt>mào</rt></ruby><ruby>子<rt>zi</rt></ruby></span>，<span class="word-group"><ruby>用<rt>yòng</rt></ruby></span><span class="word-group"><ruby>蜂<rt>fēng</rt></ruby><ruby>蜜<rt>mì</rt></ruby></span><span class="word-group"><ruby>烤<rt>kǎo</rt></ruby><ruby>面<rt>miàn</rt></ruby><ruby>包<rt>bāo</rt></ruby></span>。`,
         text: "小棕熊波波戴着白帽子，用蜂蜜烤面包。",
+        enHtml: `<span class="en-word-group">Bobo</span> <span class="en-word-group">the little brown bear</span> <span class="en-word-group">wore a white baker's hat</span> <span class="en-word-group">and baked bread</span> <span class="en-word-group">with honey</span>.`,
         en: "Bobo the little brown bear wore a white baker's hat and baked bread with honey."
       },
       {
@@ -733,6 +819,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>叮<rt>dīng</rt></ruby></span>！<span class="word-group"><ruby>热<rt>rè</rt></ruby><ruby>乎<rt>hū</rt></ruby><ruby>乎<rt>hū</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>蛋<rt>dàn</rt></ruby><ruby>糕<rt>gāo</rt></ruby></span><span class="word-group"><ruby>出<rt>chū</rt></ruby><ruby>炉<rt>lú</rt></ruby><ruby>了<rt>le</rt></ruby></span>，<span class="word-group"><ruby>像<rt>xiàng</rt></ruby></span><span class="word-group"><ruby>金<rt>jīn</rt></ruby><ruby>色<rt>sè</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>太<rt>tài</rt></ruby><ruby>阳<rt>yáng</rt></ruby></span>。`,
         text: "叮！热乎乎的小蛋糕出炉了，像金色小太阳。",
+        enHtml: `<span class="en-word-group">Ding!</span> <span class="en-word-group">Warm cupcakes</span> <span class="en-word-group">came out of the oven</span>, <span class="en-word-group">looking like</span> <span class="en-word-group">tiny golden suns</span>.`,
         en: "Ding! Warm cupcakes came out of the oven, looking like tiny golden suns."
       },
       {
@@ -745,6 +832,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>动<rt>dòng</rt></ruby><ruby>物<rt>wù</rt></ruby><ruby>们<rt>men</rt></ruby></span><span class="word-group"><ruby>排<rt>pái</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>长<rt>cháng</rt></ruby><ruby>队<rt>duì</rt></ruby></span>，<span class="word-group"><ruby>吃<rt>chī</rt></ruby><ruby>得<rt>de</rt></ruby></span><span class="word-group"><ruby>嘴<rt>zuǐ</rt></ruby><ruby>角<rt>jiǎo</rt></ruby></span><span class="word-group"><ruby>挂<rt>guà</rt></ruby><ruby>满<rt>mǎn</rt></ruby></span><span class="word-group"><ruby>微<rt>wēi</rt></ruby><ruby>笑<rt>xiào</rt></ruby></span>。`,
         text: "动物们排着长队，吃得嘴角挂满微笑。",
+        enHtml: `<span class="en-word-group">The forest animals</span> <span class="en-word-group">lined up</span> <span class="en-word-group">in a long queue</span>, <span class="en-word-group">eating with</span> <span class="en-word-group">wide smiles</span> <span class="en-word-group">on their faces</span>.`,
         en: "The forest animals lined up in a long queue, eating with wide smiles on their faces."
       }
     ],
@@ -791,6 +879,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>下<rt>xià</rt></ruby><ruby>雨<rt>yǔ</rt></ruby><ruby>了<rt>le</rt></ruby></span>，<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>白<rt>bái</rt></ruby><ruby>兔<rt>tù</rt></ruby></span><span class="word-group"><ruby>撑<rt>chēng</rt></ruby><ruby>开<rt>kāi</rt></ruby></span><span class="word-group"><ruby>一<rt>yì</rt></ruby><ruby>把<rt>bǎ</rt></ruby></span><span class="word-group"><ruby>漂<rt>piào</rt></ruby><ruby>亮<rt>liang</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>彩<rt>cǎi</rt></ruby><ruby>虹<rt>hóng</rt></ruby><ruby>雨<rt>yǔ</rt></ruby><ruby>伞<rt>sǎn</rt></ruby></span>。`,
         text: "下雨了，小白兔撑开一把漂亮的彩虹雨伞。",
+        enHtml: `<span class="en-word-group">It started to rain</span>, <span class="en-word-group">and Little White Bunny</span> <span class="en-word-group">opened</span> <span class="en-word-group">a pretty</span> <span class="en-word-group">rainbow umbrella</span>.`,
         en: "It started to rain, and Little White Bunny opened a pretty rainbow umbrella."
       },
       {
@@ -805,6 +894,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>青<rt>qīng</rt></ruby><ruby>蛙<rt>wā</rt></ruby></span><span class="word-group"><ruby>蹲<rt>dūn</rt></ruby><ruby>在<rt>zài</rt></ruby></span><span class="word-group"><ruby>荷<rt>hé</rt></ruby><ruby>叶<rt>yè</rt></ruby><ruby>下<rt>xià</rt></ruby></span>，<span class="word-group"><ruby>身<rt>shēn</rt></ruby><ruby>上<rt>shang</rt></ruby></span><span class="word-group"><ruby>淋<rt>lín</rt></ruby><ruby>湿<rt>shī</rt></ruby><ruby>了<rt>le</rt></ruby></span>。`,
         text: "小青蛙蹲在荷叶下，身上淋湿了。",
+        enHtml: `<span class="en-word-group">Little Frog</span> <span class="en-word-group">crouched under</span> <span class="en-word-group">a lotus leaf</span>, <span class="en-word-group">getting soaked</span> <span class="en-word-group">by the rain</span>.`,
         en: "Little Frog crouched under a lotus leaf, getting soaked by the rain."
       },
       {
@@ -818,6 +908,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>白<rt>bái</rt></ruby><ruby>兔<rt>tù</rt></ruby></span><span class="word-group"><ruby>跳<rt>tiào</rt></ruby><ruby>过<rt>guò</rt></ruby><ruby>去<rt>qù</rt></ruby></span><span class="word-group"><ruby>说<rt>shuō</rt></ruby></span>：“<span class="word-group"><ruby>快<rt>kuài</rt></ruby><ruby>来<rt>lái</rt></ruby></span><span class="word-group"><ruby>我<rt>wǒ</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>大<rt>dà</rt></ruby><ruby>雨<rt>yǔ</rt></ruby><ruby>伞<rt>sǎn</rt></ruby></span><span class="word-group"><ruby>下<rt>xià</rt></ruby><ruby>面<rt>mian</rt></ruby></span><span class="word-group"><ruby>吧<rt>ba</rt></ruby></span>！”`,
         text: "小白兔跳过去说：“快来我的大雨伞下面吧！”",
+        enHtml: `<span class="en-word-group">Little White Bunny</span> <span class="en-word-group">hopped over</span> <span class="en-word-group">and said</span>, '<span class="en-word-group">Come under</span> <span class="en-word-group">my big umbrella</span>!'`,
         en: "Little White Bunny hopped over and said, 'Come under my big umbrella!'"
       },
       {
@@ -830,6 +921,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>雨<rt>yǔ</rt></ruby><ruby>停<rt>tíng</rt></ruby><ruby>了<rt>le</rt></ruby></span>，<span class="word-group"><ruby>天<rt>tiān</rt></ruby><ruby>空<rt>kōng</rt></ruby></span><span class="word-group"><ruby>出<rt>chū</rt></ruby><ruby>现<rt>xiàn</rt></ruby><ruby>了<rt>le</rt></ruby></span><span class="word-group"><ruby>一<rt>yí</rt></ruby><ruby>道<rt>dào</rt></ruby></span><span class="word-group"><ruby>弯<rt>wān</rt></ruby><ruby>弯<rt>wān</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>七<rt>qī</rt></ruby><ruby>色<rt>sè</rt></ruby><ruby>彩<rt>cǎi</rt></ruby><ruby>虹<rt>hóng</rt></ruby></span>。`,
         text: "雨停了，天空出现了一道弯弯的七色彩虹。",
+        enHtml: `<span class="en-word-group">The rain stopped</span>, <span class="en-word-group">and a curved</span> <span class="en-word-group">seven-colored rainbow</span> <span class="en-word-group">appeared</span> <span class="en-word-group">in the sky</span>.`,
         en: "The rain stopped, and a curved seven-colored rainbow appeared in the sky."
       }
     ],
@@ -871,6 +963,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>蔚<rt>wèi</rt></ruby><ruby>蓝<rt>lán</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>大<rt>dà</rt></ruby><ruby>海<rt>hǎi</rt></ruby><ruby>里<rt>lǐ</rt></ruby></span>，<span class="word-group"><ruby>蓝<rt>lán</rt></ruby><ruby>鲸<rt>jīng</rt></ruby><ruby>鱼<rt>yú</rt></ruby></span><span class="word-group"><ruby>乐<rt>lè</rt></ruby><ruby>乐<rt>le</rt></ruby></span><span class="word-group"><ruby>最<rt>zuì</rt></ruby><ruby>喜<rt>xǐ</rt></ruby><ruby>欢<rt>huan</rt></ruby></span><span class="word-group"><ruby>唱<rt>chàng</rt></ruby><ruby>歌<rt>gē</rt></ruby></span>。`,
         text: "蔚蓝的大海里，蓝鲸鱼乐乐最喜欢唱歌。",
+        enHtml: `<span class="en-word-group">In the deep blue ocean</span>, <span class="en-word-group">Lele</span> <span class="en-word-group">the blue whale</span> <span class="en-word-group">loved singing</span> <span class="en-word-group">the most</span>.`,
         en: "In the deep blue ocean, Lele the blue whale loved singing the most."
       },
       {
@@ -883,6 +976,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>它<rt>tā</rt></ruby></span><span class="word-group"><ruby>吹<rt>chuī</rt></ruby><ruby>出<rt>chū</rt></ruby></span><span class="word-group"><ruby>一<rt>yí</rt></ruby><ruby>串<rt>chuàn</rt></ruby><ruby>串<rt>chuàn</rt></ruby></span><span class="word-group"><ruby>圆<rt>yuán</rt></ruby><ruby>泡<rt>pào</rt></ruby><ruby>泡<rt>pao</rt></ruby></span>，<span class="word-group"><ruby>泡<rt>pào</rt></ruby><ruby>泡<rt>pao</rt></ruby><ruby>里<rt>lǐ</rt></ruby></span><span class="word-group"><ruby>飘<rt>piāo</rt></ruby><ruby>出<rt>chū</rt></ruby></span><span class="word-group"><ruby>动<rt>dòng</rt></ruby><ruby>听<rt>tīng</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>音<rt>yīn</rt></ruby><ruby>符<rt>fú</rt></ruby></span>。`,
         text: "它吹出一串串圆泡泡，泡泡里飘出动听的音符。",
+        enHtml: `<span class="en-word-group">It blew</span> <span class="en-word-group">strings of</span> <span class="en-word-group">round bubbles</span>, <span class="en-word-group">with sweet</span> <span class="en-word-group">musical notes</span> <span class="en-word-group">floating inside</span>.`,
         en: "It blew strings of round bubbles, with sweet musical notes floating inside."
       },
       {
@@ -895,6 +989,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>丑<rt>chǒu</rt></ruby><ruby>鱼<rt>yú</rt></ruby></span><span class="word-group"><ruby>和<rt>hé</rt></ruby></span><span class="word-group"><ruby>海<rt>hǎi</rt></ruby><ruby>龟<rt>guī</rt></ruby><ruby>爷<rt>yé</rt></ruby><ruby>爷<rt>ye</rt></ruby></span><span class="word-group"><ruby>游<rt>yóu</rt></ruby><ruby>过<rt>guò</rt></ruby><ruby>来<rt>lái</rt></ruby></span>，<span class="word-group"><ruby>跟<rt>gēn</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>节<rt>jié</rt></ruby><ruby>拍<rt>pāi</rt></ruby></span><span class="word-group"><ruby>跳<rt>tiào</rt></ruby><ruby>舞<rt>wǔ</rt></ruby></span>。`,
         text: "小丑鱼和海龟爷爷游过来，跟着节拍跳舞。",
+        enHtml: `<span class="en-word-group">Clownfish</span> <span class="en-word-group">and Grandpa Sea Turtle</span> <span class="en-word-group">swam over</span> <span class="en-word-group">and danced</span> <span class="en-word-group">to the beat</span>.`,
         en: "Clownfish and Grandpa Sea Turtle swam over and danced to the beat."
       },
       {
@@ -906,6 +1001,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>整<rt>zhěng</rt></ruby><ruby>片<rt>piàn</rt></ruby></span><span class="word-group"><ruby>海<rt>hǎi</rt></ruby><ruby>洋<rt>yáng</rt></ruby></span><span class="word-group"><ruby>都<rt>dōu</rt></ruby><ruby>变<rt>biàn</rt></ruby><ruby>成<rt>chéng</rt></ruby><ruby>了<rt>le</rt></ruby></span><span class="word-group"><ruby>热<rt>rè</rt></ruby><ruby>闹<rt>nao</rt></ruby><ruby>又<rt>yòu</rt></ruby><ruby>快<rt>kuài</rt></ruby><ruby>乐<rt>lè</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>音<rt>yīn</rt></ruby><ruby>乐<rt>yuè</rt></ruby><ruby>厅<rt>tīng</rt></ruby></span>。`,
         text: "整片海洋都变成了热闹又快乐的音乐厅。",
+        enHtml: `<span class="en-word-group">The entire ocean</span> <span class="en-word-group">turned into</span> <span class="en-word-group">a lively and joyful</span> <span class="en-word-group">concert hall</span>.`,
         en: "The entire ocean turned into a lively and joyful concert hall."
       }
     ],
@@ -952,6 +1048,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>夜<rt>yè</rt></ruby><ruby>晚<rt>wǎn</rt></ruby></span><span class="word-group"><ruby>来<rt>lái</rt></ruby><ruby>了<rt>le</rt></ruby></span>，<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>狐<rt>hú</rt></ruby><ruby>狸<rt>li</rt></ruby></span><span class="word-group"><ruby>阿<rt>ā</rt></ruby><ruby>狸<rt>lí</rt></ruby></span><span class="word-group"><ruby>提<rt>tí</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>暖<rt>nuǎn</rt></ruby><ruby>洋<rt>yáng</rt></ruby><ruby>洋<rt>yáng</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>红<rt>hóng</rt></ruby><ruby>灯<rt>dēng</rt></ruby><ruby>笼<rt>long</rt></ruby></span>。`,
         text: "夜晚来了，小狐狸阿狸提着暖洋洋的红灯笼。",
+        enHtml: `<span class="en-word-group">Night fell</span>, <span class="en-word-group">and Ali</span> <span class="en-word-group">the little fox</span> <span class="en-word-group">carried</span> <span class="en-word-group">a warm glowing</span> <span class="en-word-group">red lantern</span>.`,
         en: "Night fell, and Ali the little fox carried a warm glowing red lantern."
       },
       {
@@ -964,6 +1061,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>迷<rt>mí</rt></ruby><ruby>路<rt>lù</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>刺<rt>cì</rt></ruby><ruby>猬<rt>wei</rt></ruby></span><span class="word-group"><ruby>害<rt>hài</rt></ruby><ruby>怕<rt>pà</rt></ruby><ruby>极<rt>jí</rt></ruby><ruby>了<rt>le</rt></ruby></span>，<span class="word-group"><ruby>缩<rt>suō</rt></ruby><ruby>成<rt>chéng</rt></ruby><ruby>了<rt>le</rt></ruby></span><span class="word-group"><ruby>一<rt>yí</rt></ruby><ruby>个<rt>gè</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>圆<rt>yuán</rt></ruby><ruby>球<rt>qiú</rt></ruby></span>。`,
         text: "迷路的小刺猬害怕极了，缩成了一个小圆球。",
+        enHtml: `<span class="en-word-group">A lost</span> <span class="en-word-group">little hedgehog</span> <span class="en-word-group">was very scared</span> <span class="en-word-group">and curled up</span> <span class="en-word-group">into a tiny</span> <span class="en-word-group">round ball</span>.`,
         en: "A lost little hedgehog was very scared and curled up into a tiny round ball."
       },
       {
@@ -976,6 +1074,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>灯<rt>dēng</rt></ruby><ruby>笼<rt>long</rt></ruby></span><span class="word-group"><ruby>发<rt>fā</rt></ruby><ruby>出<rt>chū</rt></ruby></span><span class="word-group"><ruby>温<rt>wēn</rt></ruby><ruby>柔<rt>róu</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>金<rt>jīn</rt></ruby><ruby>光<rt>guāng</rt></ruby></span>，<span class="word-group"><ruby>照<rt>zhào</rt></ruby><ruby>亮<rt>liàng</rt></ruby><ruby>了<rt>le</rt></ruby></span><span class="word-group"><ruby>回<rt>huí</rt></ruby><ruby>家<rt>jiā</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>路<rt>lù</rt></ruby></span>。`,
         text: "灯笼发出温柔的金光，照亮了回家的小路。",
+        enHtml: `<span class="en-word-group">The lantern</span> <span class="en-word-group">shone with</span> <span class="en-word-group">gentle golden light</span>, <span class="en-word-group">illuminating</span> <span class="en-word-group">the path home</span>.`,
         en: "The lantern shone with gentle golden light, illuminating the path home."
       },
       {
@@ -989,6 +1088,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>阿<rt>ā</rt></ruby><ruby>狸<rt>lí</rt></ruby></span><span class="word-group"><ruby>牵<rt>qiān</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>刺<rt>cì</rt></ruby><ruby>猬<rt>wei</rt></ruby></span>，<span class="word-group"><ruby>伴<rt>bàn</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>萤<rt>yíng</rt></ruby><ruby>火<rt>huǒ</rt></ruby><ruby>虫<rt>chóng</rt></ruby></span><span class="word-group"><ruby>平<rt>píng</rt></ruby><ruby>安<rt>'ān</rt></ruby></span><span class="word-group"><ruby>到<rt>dào</rt></ruby><ruby>了<rt>le</rt></ruby><ruby>家<rt>jiā</rt></ruby></span>。`,
         text: "阿狸牵着小刺猬，伴着萤火虫平安到了家。",
+        enHtml: `<span class="en-word-group">Ali</span> <span class="en-word-group">held Little Hedgehog's hand</span> <span class="en-word-group">and arrived home safely</span> <span class="en-word-group">accompanied by</span> <span class="en-word-group">fireflies</span>.`,
         en: "Ali held Little Hedgehog's hand and arrived home safely accompanied by fireflies."
       }
     ],
@@ -1029,6 +1129,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>咔<rt>kā</rt></ruby><ruby>嚓<rt>chā</rt></ruby></span><span class="word-group"><ruby>一<rt>yì</rt></ruby><ruby>声<rt>shēng</rt></ruby></span>，<span class="word-group"><ruby>绿<rt>lǜ</rt></ruby><ruby>色<rt>sè</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>恐<rt>kǒng</rt></ruby><ruby>龙<rt>lóng</rt></ruby></span><span class="word-group"><ruby>从<rt>cóng</rt></ruby></span><span class="word-group"><ruby>蛋<rt>dàn</rt></ruby><ruby>壳<rt>ké</rt></ruby><ruby>里<rt>lǐ</rt></ruby></span><span class="word-group"><ruby>钻<rt>zuān</rt></ruby><ruby>了<rt>le</rt></ruby><ruby>出<rt>chū</rt></ruby><ruby>来<rt>lái</rt></ruby></span>。`,
         text: "咔嚓一声，绿色的小恐龙从蛋壳里钻了出来。",
+        enHtml: `<span class="en-word-group">With a crack</span>, <span class="en-word-group">a little green dinosaur</span> <span class="en-word-group">popped out</span> <span class="en-word-group">from inside</span> <span class="en-word-group">the eggshell</span>.`,
         en: "With a crack, a little green dinosaur popped out from inside the eggshell."
       },
       {
@@ -1042,6 +1143,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>它<rt>tā</rt></ruby></span><span class="word-group"><ruby>看<rt>kàn</rt></ruby><ruby>见<rt>jiàn</rt></ruby></span><span class="word-group"><ruby>花<rt>huā</rt></ruby><ruby>蝴<rt>hú</rt></ruby><ruby>蝶<rt>dié</rt></ruby></span>，<span class="word-group"><ruby>好<rt>hào</rt></ruby><ruby>奇<rt>qí</rt></ruby><ruby>地<rt>de</rt></ruby></span><span class="word-group"><ruby>问<rt>wèn</rt></ruby></span>：“<span class="word-group"><ruby>你<rt>nǐ</rt></ruby><ruby>是<rt>shì</rt></ruby></span><span class="word-group"><ruby>我<rt>wǒ</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>妈<rt>mā</rt></ruby><ruby>妈<rt>ma</rt></ruby></span><span class="word-group"><ruby>吗<rt>ma</rt></ruby></span>？”`,
         text: "它看见花蝴蝶，好奇地问：“你是我的妈妈吗？”",
+        enHtml: `<span class="en-word-group">It saw</span> <span class="en-word-group">a colorful butterfly</span> <span class="en-word-group">and asked curiously</span>, '<span class="en-word-group">Are you</span> <span class="en-word-group">my mommy</span>?'`,
         en: "It saw a colorful butterfly and asked curiously, 'Are you my mommy?'"
       },
       {
@@ -1054,6 +1156,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>蝴<rt>hú</rt></ruby><ruby>蝶<rt>dié</rt></ruby></span><span class="word-group"><ruby>飞<rt>fēi</rt></ruby><ruby>向<rt>xiàng</rt></ruby></span><span class="word-group"><ruby>大<rt>dà</rt></ruby><ruby>树<rt>shù</rt></ruby><ruby>旁<rt>páng</rt></ruby></span>，<span class="word-group"><ruby>高<rt>gāo</rt></ruby><ruby>高<rt>gāo</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>恐<rt>kǒng</rt></ruby><ruby>龙<rt>lóng</rt></ruby><ruby>妈<rt>mā</rt></ruby><ruby>妈<rt>ma</rt></ruby></span><span class="word-group"><ruby>正<rt>zhèng</rt></ruby><ruby>在<rt>zài</rt></ruby></span><span class="word-group"><ruby>微<rt>wēi</rt></ruby><ruby>笑<rt>xiào</rt></ruby></span>。`,
         text: "蝴蝶飞向大树旁，高高的恐龙妈妈正在微笑。",
+        enHtml: `<span class="en-word-group">The butterfly</span> <span class="en-word-group">flew toward</span> <span class="en-word-group">the big tree</span>, <span class="en-word-group">where tall Mama Dinosaur</span> <span class="en-word-group">was smiling</span>.`,
         en: "The butterfly flew toward the big tree, where tall Mama Dinosaur was smiling."
       },
       {
@@ -1066,6 +1169,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>恐<rt>kǒng</rt></ruby><ruby>龙<rt>lóng</rt></ruby></span><span class="word-group"><ruby>扑<rt>pū</rt></ruby><ruby>进<rt>jìn</rt></ruby></span><span class="word-group"><ruby>妈<rt>mā</rt></ruby><ruby>妈<rt>ma</rt></ruby><ruby>怀<rt>huái</rt></ruby><ruby>里<rt>lǐ</rt></ruby></span>，<span class="word-group"><ruby>幸<rt>xìng</rt></ruby><ruby>福<rt>fú</rt></ruby><ruby>地<rt>de</rt></ruby></span><span class="word-group"><ruby>蹭<rt>cèng</rt></ruby><ruby>了<rt>le</rt></ruby><ruby>蹭<rt>cèng</rt></ruby></span>。`,
         text: "小恐龙扑进妈妈怀里，幸福地蹭了蹭。",
+        enHtml: `<span class="en-word-group">Little Dinosaur</span> <span class="en-word-group">leaped into</span> <span class="en-word-group">Mommy's arms</span> <span class="en-word-group">and nuzzled</span> <span class="en-word-group">happily</span>.`,
         en: "Little Dinosaur leaped into Mommy's arms and nuzzled happily."
       }
     ],
@@ -1111,6 +1215,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>金<rt>jīn</rt></ruby><ruby>色<rt>sè</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>秋<rt>qiū</rt></ruby><ruby>天<rt>tiān</rt></ruby></span><span class="word-group"><ruby>到<rt>dào</rt></ruby><ruby>了<rt>le</rt></ruby></span>，<span class="word-group"><ruby>果<rt>guǒ</rt></ruby><ruby>园<rt>yuán</rt></ruby><ruby>里<rt>lǐ</rt></ruby></span><span class="word-group"><ruby>结<rt>jiē</rt></ruby><ruby>满<rt>mǎn</rt></ruby><ruby>了<rt>le</rt></ruby></span><span class="word-group"><ruby>红<rt>hóng</rt></ruby><ruby>彤<rt>tóng</rt></ruby><ruby>彤<rt>tóng</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>苹<rt>píng</rt></ruby><ruby>果<rt>guǒ</rt></ruby></span>。`,
         text: "金色的秋天到了，果园里结满了红彤彤的苹果。",
+        enHtml: `<span class="en-word-group">Golden autumn</span> <span class="en-word-group">arrived</span>, <span class="en-word-group">and the orchard</span> <span class="en-word-group">was full of</span> <span class="en-word-group">bright red apples</span>.`,
         en: "Golden autumn arrived, and the orchard was full of bright red apples."
       },
       {
@@ -1123,6 +1228,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>松<rt>sōng</rt></ruby><ruby>鼠<rt>shǔ</rt></ruby></span><span class="word-group"><ruby>果<rt>guǒ</rt></ruby><ruby>果<rt>guo</rt></ruby></span><span class="word-group"><ruby>摇<rt>yáo</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>毛<rt>máo</rt></ruby><ruby>茸<rt>róng</rt></ruby><ruby>茸<rt>róng</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>大<rt>dà</rt></ruby><ruby>尾<rt>wěi</rt></ruby><ruby>巴<rt>ba</rt></ruby></span>，<span class="word-group"><ruby>忙<rt>máng</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>采<rt>cǎi</rt></ruby><ruby>松<rt>sōng</rt></ruby><ruby>果<rt>guǒ</rt></ruby></span>。`,
         text: "小松鼠果果摇着毛茸茸的大尾巴，忙着采松果。",
+        enHtml: `<span class="en-word-group">Guoguo</span> <span class="en-word-group">the little squirrel</span> <span class="en-word-group">wagged</span> <span class="en-word-group">a fluffy big tail</span>, <span class="en-word-group">busy gathering</span> <span class="en-word-group">pinecones</span>.`,
         en: "Guoguo the little squirrel wagged a fluffy big tail, busy gathering pinecones."
       },
       {
@@ -1136,6 +1242,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>竹<rt>zhú</rt></ruby><ruby>篮<rt>lán</rt></ruby><ruby>子<rt>zi</rt></ruby><ruby>里<rt>lǐ</rt></ruby></span><span class="word-group"><ruby>装<rt>zhuāng</rt></ruby><ruby>满<rt>mǎn</rt></ruby><ruby>了<rt>le</rt></ruby></span><span class="word-group"><ruby>香<rt>xiāng</rt></ruby><ruby>甜<rt>tián</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>板<rt>bǎn</rt></ruby><ruby>栗<rt>lì</rt></ruby></span>、<span class="word-group"><ruby>核<rt>hé</rt></ruby><ruby>桃<rt>tao</rt></ruby></span><span class="word-group"><ruby>和<rt>hé</rt></ruby></span><span class="word-group"><ruby>红<rt>hóng</rt></ruby><ruby>果<rt>guǒ</rt></ruby></span>。`,
         text: "竹篮子里装满了香甜的板栗、核桃和红果。",
+        enHtml: `<span class="en-word-group">The bamboo basket</span> <span class="en-word-group">was filled with</span> <span class="en-word-group">sweet chestnuts</span>, <span class="en-word-group">walnuts</span>, <span class="en-word-group">and red berries</span>.`,
         en: "The bamboo basket was filled with sweet chestnuts, walnuts, and red berries."
       },
       {
@@ -1149,6 +1256,7 @@ const STORIES = [
         </svg>`,
         ruby: `<span class="word-group"><ruby>果<rt>guǒ</rt></ruby><ruby>果<rt>guo</rt></ruby></span><span class="word-group"><ruby>坐<rt>zuò</rt></ruby><ruby>在<rt>zài</rt></ruby></span><span class="word-group"><ruby>树<rt>shù</rt></ruby><ruby>洞<rt>dòng</rt></ruby><ruby>里<rt>lǐ</rt></ruby></span>，<span class="word-group"><ruby>这<rt>zhè</rt></ruby><ruby>个<rt>gè</rt></ruby></span><span class="word-group"><ruby>冬<rt>dōng</rt></ruby><ruby>天<rt>tiān</rt></ruby></span><span class="word-group"><ruby>再<rt>zài</rt></ruby><ruby>也<rt>yě</rt></ruby></span><span class="word-group"><ruby>不<rt>bú</rt></ruby><ruby>怕<rt>pà</rt></ruby><ruby>饿<rt>è</rt></ruby><ruby>肚<rt>dù</rt></ruby><ruby>子<rt>zi</rt></ruby><ruby>啦<rt>la</rt></ruby></span>！`,
         text: "果果坐在树洞里，这个冬天再也不怕饿肚子啦！",
+        enHtml: `<span class="en-word-group">Guoguo</span> <span class="en-word-group">sat inside</span> <span class="en-word-group">the cozy tree hollow</span>, <span class="en-word-group">never worrying about</span> <span class="en-word-group">going hungry</span> <span class="en-word-group">this winter</span>!`,
         en: "Guoguo sat inside the cozy tree hollow, never worrying about going hungry this winter!"
       }
     ],
@@ -1165,6 +1273,7 @@ let currentStoryIdx = 0;
 let currentSentenceIdx = -1;
 let isPlayingAll = false;
 let voices = [];
+let enVoices = [];
 
 const voiceSelect = document.getElementById('voiceSelect');
 const speedRange = document.getElementById('speedRange');
@@ -1181,7 +1290,9 @@ const btnNext = document.getElementById('btnNext');
 
 // Populate voices
 function populateVoices() {
-  voices = window.speechSynthesis.getVoices().filter(v => v.lang.startsWith('zh'));
+  const allVoices = window.speechSynthesis.getVoices();
+  voices = allVoices.filter(v => v.lang.startsWith('zh'));
+  enVoices = allVoices.filter(v => v.lang.startsWith('en'));
   voiceSelect.innerHTML = '';
   
   if (voices.length === 0) {
@@ -1233,6 +1344,12 @@ function clearWordHighlights() {
   document.querySelectorAll('.word-group.speaking-word').forEach(el => {
     el.classList.remove('speaking-word');
   });
+  document.querySelectorAll('.en-word-group.speaking-en-word').forEach(el => {
+    el.classList.remove('speaking-en-word');
+  });
+  document.querySelectorAll('.english-trans.speaking-en').forEach(el => {
+    el.classList.remove('speaking-en');
+  });
 }
 
 function playWordGroup(wordEl) {
@@ -1247,6 +1364,33 @@ function playWordGroup(wordEl) {
   wordEl.classList.add('speaking-word');
   speakText(wordText, 0.85, () => {
     wordEl.classList.remove('speaking-word');
+  });
+}
+
+function playEnWordGroup(enEl) {
+  isPlayingAll = false;
+  btnPlayAll.textContent = "▶️ 全篇朗读 (Play All)";
+  updateHighlight(false);
+  clearWordHighlights();
+
+  const enText = enEl.textContent.trim();
+  if (!enText) return;
+
+  enEl.classList.add('speaking-en-word');
+  speakEnglishText(enText, 0.9, () => {
+    enEl.classList.remove('speaking-en-word');
+  });
+}
+
+function playEnglishSentence(enTransEl, enText) {
+  isPlayingAll = false;
+  btnPlayAll.textContent = "▶️ 全篇朗读 (Play All)";
+  updateHighlight(false);
+  clearWordHighlights();
+
+  enTransEl.classList.add('speaking-en');
+  speakEnglishText(enText, 0.95, () => {
+    enTransEl.classList.remove('speaking-en');
   });
 }
 
@@ -1272,16 +1416,19 @@ function renderContent() {
       <div class="sentence-body">
         <div class="sentence-header">
           <div class="hanzi-pinyin-line">${s.ruby}</div>
-          <button class="btn-read-sentence" type="button" title="朗读整句 (Read full sentence)">🔊 整句</button>
+          <button class="btn-read-sentence" type="button" title="朗读中文整句 (Read full Chinese sentence)">🔊 整句</button>
         </div>
-        <div class="english-trans">${s.en}</div>
+        <div class="english-row">
+          <div class="english-trans">${s.enHtml || s.en}</div>
+          <button class="btn-read-en" type="button" title="Read full English sentence">🔊 EN</button>
+        </div>
       </div>
     `;
 
     card.querySelectorAll('.word-group').forEach(wordEl => {
       const hanzi = getHanziFromElement(wordEl);
       wordEl.dataset.word = hanzi;
-      wordEl.title = `点击朗读词组: ${hanzi}`;
+      wordEl.title = `点击朗读中文词组: ${hanzi}`;
       wordEl.setAttribute('role', 'button');
       wordEl.setAttribute('tabindex', '0');
 
@@ -1299,6 +1446,33 @@ function renderContent() {
       };
     });
 
+    card.querySelectorAll('.en-word-group').forEach(enEl => {
+      const phrase = enEl.textContent.trim();
+      enEl.title = `Tap to pronounce English phrase: "${phrase}"`;
+      enEl.setAttribute('role', 'button');
+      enEl.setAttribute('tabindex', '0');
+
+      enEl.onclick = (e) => {
+        e.stopPropagation();
+        playEnWordGroup(enEl);
+      };
+
+      enEl.onkeydown = (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          e.stopPropagation();
+          playEnWordGroup(enEl);
+        }
+      };
+    });
+
+    const btnReadEn = card.querySelector('.btn-read-en');
+    const enTransEl = card.querySelector('.english-trans');
+    btnReadEn.onclick = (e) => {
+      e.stopPropagation();
+      playEnglishSentence(enTransEl, s.en);
+    };
+
     card.onclick = () => {
       isPlayingAll = false;
       btnPlayAll.textContent = "▶️ 全篇朗读 (Play All)";
@@ -1311,12 +1485,18 @@ function renderContent() {
   story.vocab.forEach(v => {
     const chip = document.createElement('div');
     chip.className = 'chip';
+    chip.title = `点击朗读中文: ${v.hz}`;
     chip.innerHTML = `
       <div class="chip-hanzi">${v.hz}</div>
       <div class="chip-pinyin">${v.py}</div>
-      <div class="chip-en">${v.en}</div>
+      <div class="chip-en" title="Tap to pronounce English: ${v.en}">🔊 ${v.en}</div>
     `;
     chip.onclick = () => speakText(v.hz, 0.75);
+    const chipEn = chip.querySelector('.chip-en');
+    chipEn.onclick = (e) => {
+      e.stopPropagation();
+      speakEnglishText(v.en, 0.9);
+    };
     vocabChips.appendChild(chip);
   });
 }
@@ -1329,6 +1509,24 @@ function speakText(text, rateMultiplier = 1, onEnd = null) {
 
   if (voices.length > 0 && voiceSelect.value !== '') {
     utterance.voice = voices[parseInt(voiceSelect.value, 10)];
+  }
+
+  if (onEnd) {
+    utterance.onend = onEnd;
+    utterance.onerror = onEnd;
+  }
+  window.speechSynthesis.speak(utterance);
+}
+
+function speakEnglishText(text, rateMultiplier = 1, onEnd = null) {
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'en-US';
+  utterance.rate = Math.min(1.2, Math.max(0.6, parseFloat(speedRange.value) * rateMultiplier));
+
+  if (enVoices.length > 0) {
+    const usVoice = enVoices.find(v => v.lang === 'en-US' || v.lang === 'en_US') || enVoices[0];
+    utterance.voice = usVoice;
   }
 
   if (onEnd) {
