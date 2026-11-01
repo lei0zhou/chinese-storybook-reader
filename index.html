@@ -186,17 +186,74 @@
       box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
     }
 
+    .sentence-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .btn-read-sentence {
+      flex-shrink: 0;
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid #c7d2fe;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .btn-read-sentence:hover {
+      background: var(--primary);
+      color: white;
+    }
+
     .hanzi-pinyin-line {
       font-size: 26px;
-      line-height: 2.2;
+      line-height: 2.3;
       font-weight: bold;
       color: #0f172a;
       margin-bottom: 6px;
     }
 
+    .word-group {
+      display: inline-block;
+      padding: 2px 6px;
+      margin: 0 2px;
+      border-radius: 8px;
+      border-bottom: 2px dashed transparent;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .word-group:hover {
+      background-color: var(--accent-light);
+      border-bottom-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .word-group.speaking-word {
+      background-color: #fde68a;
+      border-bottom: 2px solid var(--accent);
+      color: #92400e;
+      transform: scale(1.05);
+      box-shadow: 0 2px 6px rgba(245, 158, 11, 0.25);
+    }
+
+    .word-group.speaking-word rt {
+      color: #b45309;
+    }
+
     ruby {
       ruby-align: center;
-      margin-right: 2px;
+      margin-right: 1px;
     }
 
     rt {
@@ -303,22 +360,22 @@ const STORIES = [
     title: "1. 小熊猫的阳光竹子",
     sentences: [
       {
-        ruby: "<ruby>在<rt>zài</rt></ruby><ruby>青<rt>qīng</rt></ruby><ruby>青<rt>qīng</rt></ruby><ruby>的<rt>de</rt></ruby><ruby>竹<rt>zhú</rt></ruby><ruby>林<rt>lín</rt></ruby><ruby>里<rt>lǐ</rt></ruby>，<ruby>住<rt>zhù</rt></ruby><ruby>着<rt>zhe</rt></ruby><ruby>胖<rt>pàng</rt></ruby><ruby>乎<rt>hū</rt></ruby><ruby>乎<rt>hū</rt></ruby><ruby>的<rt>de</rt></ruby><ruby>小<rt>xiǎo</rt></ruby><ruby>熊<rt>xióng</rt></ruby><ruby>猫<rt>māo</rt></ruby><ruby>团<rt>tuán</rt></ruby><ruby>团<rt>tuán</rt></ruby>。",
+        ruby: `<span class="word-group"><ruby>在<rt>zài</rt></ruby></span><span class="word-group"><ruby>青<rt>qīng</rt></ruby><ruby>青<rt>qīng</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>竹<rt>zhú</rt></ruby><ruby>林<rt>lín</rt></ruby></span><span class="word-group"><ruby>里<rt>lǐ</rt></ruby></span>，<span class="word-group"><ruby>住<rt>zhù</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>胖<rt>pàng</rt></ruby><ruby>乎<rt>hū</rt></ruby><ruby>乎<rt>hū</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>熊<rt>xióng</rt></ruby><ruby>猫<rt>māo</rt></ruby></span><span class="word-group"><ruby>团<rt>tuán</rt></ruby><ruby>团<rt>tuán</rt></ruby></span>。`,
         text: "在青青的竹林里，住着胖乎乎的小熊猫团团。",
         en: "In the lush green bamboo forest lived a chubby little panda named Tuantuan."
       },
       {
-        ruby: "<ruby>团<rt>tuán</rt></ruby><ruby>团<rt>tuán</rt></ruby><ruby>找<rt>zhǎo</rt></ruby><ruby>到<rt>dào</rt></ruby><ruby>了<rt>le</rt></ruby><ruby>一<rt>yì</rt></ruby><ruby>根<rt>gēn</rt></ruby><ruby>闪<rt>shǎn</rt></ruby><ruby>着<rt>zhe</rt></ruby><ruby>金<rt>jīn</rt></ruby><ruby>光<rt>guāng</rt></ruby><ruby>的<rt>de</rt></ruby><ruby>甜<rt>tián</rt></ruby><ruby>竹<rt>zhú</rt></ruby><ruby>笋<rt>sǔn</rt></ruby>。",
+        ruby: `<span class="word-group"><ruby>团<rt>tuán</rt></ruby><ruby>团<rt>tuán</rt></ruby></span><span class="word-group"><ruby>找<rt>zhǎo</rt></ruby><ruby>到<rt>dào</rt></ruby><ruby>了<rt>le</rt></ruby></span><span class="word-group"><ruby>一<rt>yì</rt></ruby><ruby>根<rt>gēn</rt></ruby></span><span class="word-group"><ruby>闪<rt>shǎn</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>金<rt>jīn</rt></ruby><ruby>光<rt>guāng</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>甜<rt>tián</rt></ruby><ruby>竹<rt>zhú</rt></ruby><ruby>笋<rt>sǔn</rt></ruby></span>。`,
         text: "团团找到了一根闪着金光的甜竹笋。",
         en: "Tuantuan found a sweet bamboo shoot shining with golden light."
       },
       {
-        ruby: "<ruby>小<rt>xiǎo</rt></ruby><ruby>红<rt>hóng</rt></ruby><ruby>熊<rt>xióng</rt></ruby><ruby>猫<rt>māo</rt></ruby><ruby>走<rt>zǒu</rt></ruby><ruby>过<rt>guò</rt></ruby><ruby>来<rt>lái</rt></ruby>，<ruby>肚<rt>dù</rt></ruby><ruby>子<rt>zi</rt></ruby><ruby>饿<rt>è</rt></ruby><ruby>得<rt>de</rt></ruby><ruby>咕<rt>gū</rt></ruby><ruby>咕<rt>gū</rt></ruby><ruby>叫<rt>jiào</rt></ruby>。",
+        ruby: `<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>红<rt>hóng</rt></ruby><ruby>熊<rt>xióng</rt></ruby><ruby>猫<rt>māo</rt></ruby></span><span class="word-group"><ruby>走<rt>zǒu</rt></ruby><ruby>过<rt>guò</rt></ruby><ruby>来<rt>lái</rt></ruby></span>，<span class="word-group"><ruby>肚<rt>dù</rt></ruby><ruby>子<rt>zi</rt></ruby></span><span class="word-group"><ruby>饿<rt>è</rt></ruby><ruby>得<rt>de</rt></ruby></span><span class="word-group"><ruby>咕<rt>gū</rt></ruby><ruby>咕<rt>gū</rt></ruby><ruby>叫<rt>jiào</rt></ruby></span>。`,
         text: "小红熊猫走过来，肚子饿得咕咕叫。",
         en: "A little red panda walked over, with a tummy rumbling from hunger."
       },
       {
-        ruby: "<ruby>团<rt>tuán</rt></ruby><ruby>团<rt>tuán</rt></ruby><ruby>把<rt>bǎ</rt></ruby><ruby>竹<rt>zhú</rt></ruby><ruby>笋<rt>sǔn</rt></ruby><ruby>分<rt>fēn</rt></ruby><ruby>成<rt>chéng</rt></ruby><ruby>两<rt>liǎng</rt></ruby><ruby>半<rt>bàn</rt></ruby>，<ruby>两<rt>liǎng</rt></ruby><ruby>只<rt>zhī</rt></ruby><ruby>小<rt>xiǎo</rt></ruby><ruby>熊<rt>xióng</rt></ruby><ruby>开<rt>kāi</rt></ruby><ruby>心<rt>xīn</rt></ruby><ruby>得<rt>de</rt></ruby><ruby>笑<rt>xiào</rt></ruby><ruby>了<rt>le</rt></ruby>。",
+        ruby: `<span class="word-group"><ruby>团<rt>tuán</rt></ruby><ruby>团<rt>tuán</rt></ruby></span><span class="word-group"><ruby>把<rt>bǎ</rt></ruby></span><span class="word-group"><ruby>竹<rt>zhú</rt></ruby><ruby>笋<rt>sǔn</rt></ruby></span><span class="word-group"><ruby>分<rt>fēn</rt></ruby><ruby>成<rt>chéng</rt></ruby></span><span class="word-group"><ruby>两<rt>liǎng</rt></ruby><ruby>半<rt>bàn</rt></ruby></span>，<span class="word-group"><ruby>两<rt>liǎng</rt></ruby><ruby>只<rt>zhī</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>熊<rt>xióng</rt></ruby></span><span class="word-group"><ruby>开<rt>kāi</rt></ruby><ruby>心<rt>xīn</rt></ruby><ruby>得<rt>de</rt></ruby></span><span class="word-group"><ruby>笑<rt>xiào</rt></ruby><ruby>了<rt>le</rt></ruby></span>。`,
         text: "团团把竹笋分成两半，两只小熊开心得笑了。",
         en: "Tuantuan shared the bamboo shoot in half, and both little bears smiled happily."
       }
@@ -335,22 +392,22 @@ const STORIES = [
     title: "2. 星星小猫的飞船",
     sentences: [
       {
-        ruby: "<ruby>小<rt>xiǎo</rt></ruby><ruby>猫<rt>māo</rt></ruby><ruby>米<rt>mǐ</rt></ruby><ruby>米<rt>mǐ</rt></ruby><ruby>坐<rt>zuò</rt></ruby><ruby>着<rt>zhe</rt></ruby><ruby>圆<rt>yuán</rt></ruby><ruby>圆<rt>yuán</rt></ruby><ruby>的<rt>de</rt></ruby><ruby>玻<rt>bō</rt></ruby><ruby>璃<rt>li</rt></ruby><ruby>飞<rt>fēi</rt></ruby><ruby>船<rt>chuán</rt></ruby><ruby>飞<rt>fēi</rt></ruby><ruby>向<rt>xiàng</rt></ruby><ruby>太<rt>tài</rt></ruby><ruby>空<rt>kōng</rt></ruby>。",
+        ruby: `<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>猫<rt>māo</rt></ruby></span><span class="word-group"><ruby>米<rt>mǐ</rt></ruby><ruby>米<rt>mǐ</rt></ruby></span><span class="word-group"><ruby>坐<rt>zuò</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>圆<rt>yuán</rt></ruby><ruby>圆<rt>yuán</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>玻<rt>bō</rt></ruby><ruby>璃<rt>li</rt></ruby></span><span class="word-group"><ruby>飞<rt>fēi</rt></ruby><ruby>船<rt>chuán</rt></ruby></span><span class="word-group"><ruby>飞<rt>fēi</rt></ruby><ruby>向<rt>xiàng</rt></ruby></span><span class="word-group"><ruby>太<rt>tài</rt></ruby><ruby>空<rt>kōng</rt></ruby></span>。`,
         text: "小猫米米坐着圆圆的玻璃飞船飞向太空。",
         en: "Mimi the kitten took off into outer space inside a round glass spaceship."
       },
       {
-        ruby: "<ruby>天<rt>tiān</rt></ruby><ruby>上<rt>shang</rt></ruby><ruby>的<rt>de</rt></ruby><ruby>星<rt>xīng</rt></ruby><ruby>星<rt>xīng</rt></ruby><ruby>像<rt>xiàng</rt></ruby><ruby>一<rt>yì</rt></ruby><ruby>颗<rt>kē</rt></ruby><ruby>颗<rt>kē</rt></ruby><ruby>亮<rt>liàng</rt></ruby><ruby>晶<rt>jīng</rt></ruby><ruby>晶<rt>jīng</rt></ruby><ruby>的<rt>de</rt></ruby><ruby>水<rt>shuǐ</rt></ruby><ruby>果<rt>guǒ</rt></ruby><ruby>糖<rt>táng</rt></ruby>。",
+        ruby: `<span class="word-group"><ruby>天<rt>tiān</rt></ruby><ruby>上<rt>shang</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>星<rt>xīng</rt></ruby><ruby>星<rt>xīng</rt></ruby></span><span class="word-group"><ruby>像<rt>xiàng</rt></ruby></span><span class="word-group"><ruby>一<rt>yì</rt></ruby><ruby>颗<rt>kē</rt></ruby><ruby>颗<rt>kē</rt></ruby></span><span class="word-group"><ruby>亮<rt>liàng</rt></ruby><ruby>晶<rt>jīng</rt></ruby><ruby>晶<rt>jīng</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>水<rt>shuǐ</rt></ruby><ruby>果<rt>guǒ</rt></ruby><ruby>糖<rt>táng</rt></ruby></span>。`,
         text: "天上的星星像一颗颗亮晶晶的水果糖。",
         en: "The stars in the sky looked just like shining pieces of fruit candy."
       },
       {
-        ruby: "<ruby>米<rt>mǐ</rt></ruby><ruby>米<rt>mǐ</rt></ruby><ruby>伸<rt>shēn</rt></ruby><ruby>出<rt>chū</rt></ruby><ruby>小<rt>xiǎo</rt></ruby><ruby>爪<rt>zhuǎ</rt></ruby><ruby>子<rt>zi</rt></ruby>，<ruby>接<rt>jiē</rt></ruby><ruby>住<rt>zhù</rt></ruby><ruby>了<rt>le</rt></ruby><ruby>一<rt>yì</rt></ruby><ruby>颗<rt>kē</rt></ruby><ruby>粉<rt>fěn</rt></ruby><ruby>红<rt>hóng</rt></ruby><ruby>色<rt>sè</rt></ruby><ruby>的<rt>de</rt></ruby><ruby>流<rt>liú</rt></ruby><ruby>星<rt>xīng</rt></ruby>。",
+        ruby: `<span class="word-group"><ruby>米<rt>mǐ</rt></ruby><ruby>米<rt>mǐ</rt></ruby></span><span class="word-group"><ruby>伸<rt>shēn</rt></ruby><ruby>出<rt>chū</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>爪<rt>zhuǎ</rt></ruby><ruby>子<rt>zi</rt></ruby></span>，<span class="word-group"><ruby>接<rt>jiē</rt></ruby><ruby>住<rt>zhù</rt></ruby><ruby>了<rt>le</rt></ruby></span><span class="word-group"><ruby>一<rt>yì</rt></ruby><ruby>颗<rt>kē</rt></ruby></span><span class="word-group"><ruby>粉<rt>fěn</rt></ruby><ruby>红<rt>hóng</rt></ruby><ruby>色<rt>sè</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>流<rt>liú</rt></ruby><ruby>星<rt>xīng</rt></ruby></span>。`,
         text: "米米伸出小爪子，接住了一颗粉红色的流星。",
         en: "Mimi reached out a tiny paw and gently caught a pink shooting star."
       },
       {
-        ruby: "<ruby>流<rt>liú</rt></ruby><ruby>星<rt>xīng</rt></ruby><ruby>在<rt>zài</rt></ruby><ruby>手<rt>shǒu</rt></ruby><ruby>心<rt>xīn</rt></ruby><ruby>轻<rt>qīng</rt></ruby><ruby>轻<rt>qīng</rt></ruby><ruby>唱<rt>chàng</rt></ruby><ruby>歌<rt>gē</rt></ruby>，<ruby>祝<rt>zhù</rt></ruby><ruby>小<rt>xiǎo</rt></ruby><ruby>朋<rt>péng</rt></ruby><ruby>友<rt>you</rt></ruby><ruby>晚<rt>wǎn</rt></ruby><ruby>安<rt>'ān</rt></ruby>。",
+        ruby: `<span class="word-group"><ruby>流<rt>liú</rt></ruby><ruby>星<rt>xīng</rt></ruby></span><span class="word-group"><ruby>在<rt>zài</rt></ruby></span><span class="word-group"><ruby>手<rt>shǒu</rt></ruby><ruby>心<rt>xīn</rt></ruby></span><span class="word-group"><ruby>轻<rt>qīng</rt></ruby><ruby>轻<rt>qīng</rt></ruby></span><span class="word-group"><ruby>唱<rt>chàng</rt></ruby><ruby>歌<rt>gē</rt></ruby></span>，<span class="word-group"><ruby>祝<rt>zhù</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>朋<rt>péng</rt></ruby><ruby>友<rt>you</rt></ruby></span><span class="word-group"><ruby>晚<rt>wǎn</rt></ruby><ruby>安<rt>'ān</rt></ruby></span>。`,
         text: "流星在手心轻轻唱歌，祝小朋友晚安。",
         en: "The shooting star sang softly in the paw, wishing the children a good night."
       }
@@ -367,22 +424,22 @@ const STORIES = [
     title: "3. 小熊的甜甜面包房",
     sentences: [
       {
-        ruby: "<ruby>森<rt>sēn</rt></ruby><ruby>林<rt>lín</rt></ruby><ruby>转<rt>zhuǎn</rt></ruby><ruby>角<rt>jiǎo</rt></ruby><ruby>有<rt>yǒu</rt></ruby><ruby>一<rt>yì</rt></ruby><ruby>家<rt>jiā</rt></ruby><ruby>飘<rt>piāo</rt></ruby><ruby>满<rt>mǎn</rt></ruby><ruby>香<rt>xiāng</rt></ruby><ruby>气<rt>qì</rt></ruby><ruby>的<rt>de</rt></ruby><ruby>面<rt>miàn</rt></ruby><ruby>包<rt>bāo</rt></ruby><ruby>房<rt>fáng</rt></ruby>。",
+        ruby: `<span class="word-group"><ruby>森<rt>sēn</rt></ruby><ruby>林<rt>lín</rt></ruby></span><span class="word-group"><ruby>转<rt>zhuǎn</rt></ruby><ruby>角<rt>jiǎo</rt></ruby></span><span class="word-group"><ruby>有<rt>yǒu</rt></ruby></span><span class="word-group"><ruby>一<rt>yì</rt></ruby><ruby>家<rt>jiā</rt></ruby></span><span class="word-group"><ruby>飘<rt>piāo</rt></ruby><ruby>满<rt>mǎn</rt></ruby></span><span class="word-group"><ruby>香<rt>xiāng</rt></ruby><ruby>气<rt>qì</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>面<rt>miàn</rt></ruby><ruby>包<rt>bāo</rt></ruby><ruby>房<rt>fáng</rt></ruby></span>。`,
         text: "森林转角有一家飘满香气的面包房。",
         en: "Around the forest corner was a cozy bakery filled with sweet aromas."
       },
       {
-        ruby: "<ruby>小<rt>xiǎo</rt></ruby><ruby>棕<rt>zōng</rt></ruby><ruby>熊<rt>xióng</rt></ruby><ruby>波<rt>bō</rt></ruby><ruby>波<rt>bo</rt></ruby><ruby>戴<rt>dài</rt></ruby><ruby>着<rt>zhe</rt></ruby><ruby>白<rt>bái</rt></ruby><ruby>帽<rt>mào</rt></ruby><ruby>子<rt>zi</rt></ruby>，<ruby>用<rt>yòng</rt></ruby><ruby>蜂<rt>fēng</rt></ruby><ruby>蜜<rt>mì</rt></ruby><ruby>烤<rt>kǎo</rt></ruby><ruby>面<rt>miàn</rt></ruby><ruby>包<rt>bāo</rt></ruby>。",
+        ruby: `<span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>棕<rt>zōng</rt></ruby><ruby>熊<rt>xióng</rt></ruby></span><span class="word-group"><ruby>波<rt>bō</rt></ruby><ruby>波<rt>bo</rt></ruby></span><span class="word-group"><ruby>戴<rt>dài</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>白<rt>bái</rt></ruby><ruby>帽<rt>mào</rt></ruby><ruby>子<rt>zi</rt></ruby></span>，<span class="word-group"><ruby>用<rt>yòng</rt></ruby></span><span class="word-group"><ruby>蜂<rt>fēng</rt></ruby><ruby>蜜<rt>mì</rt></ruby></span><span class="word-group"><ruby>烤<rt>kǎo</rt></ruby><ruby>面<rt>miàn</rt></ruby><ruby>包<rt>bāo</rt></ruby></span>。`,
         text: "小棕熊波波戴着白帽子，用蜂蜜烤面包。",
         en: "Bobo the little brown bear wore a white baker's hat and baked bread with honey."
       },
       {
-        ruby: "<ruby>叮<rt>dīng</rt></ruby>！<ruby>热<rt>rè</rt></ruby><ruby>乎<rt>hū</rt></ruby><ruby>乎<rt>hū</rt></ruby><ruby>的<rt>de</rt></ruby><ruby>小<rt>xiǎo</rt></ruby><ruby>蛋<rt>dàn</rt></ruby><ruby>糕<rt>gāo</rt></ruby><ruby>出<rt>chū</rt></ruby><ruby>炉<rt>lú</rt></ruby><ruby>了<rt>le</rt></ruby>，<ruby>像<rt>xiàng</rt></ruby><ruby>金<rt>jīn</rt></ruby><ruby>色<rt>sè</rt></ruby><ruby>小<rt>xiǎo</rt></ruby><ruby>太<rt>tài</rt></ruby><ruby>阳<rt>yáng</rt></ruby>。",
+        ruby: `<span class="word-group"><ruby>叮<rt>dīng</rt></ruby></span>！<span class="word-group"><ruby>热<rt>rè</rt></ruby><ruby>乎<rt>hū</rt></ruby><ruby>乎<rt>hū</rt></ruby><ruby>的<rt>de</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>蛋<rt>dàn</rt></ruby><ruby>糕<rt>gāo</rt></ruby></span><span class="word-group"><ruby>出<rt>chū</rt></ruby><ruby>炉<rt>lú</rt></ruby><ruby>了<rt>le</rt></ruby></span>，<span class="word-group"><ruby>像<rt>xiàng</rt></ruby></span><span class="word-group"><ruby>金<rt>jīn</rt></ruby><ruby>色<rt>sè</rt></ruby></span><span class="word-group"><ruby>小<rt>xiǎo</rt></ruby><ruby>太<rt>tài</rt></ruby><ruby>阳<rt>yáng</rt></ruby></span>。`,
         text: "叮！热乎乎的小蛋糕出炉了，像金色小太阳。",
         en: "Ding! Warm cupcakes came out of the oven, looking like tiny golden suns."
       },
       {
-        ruby: "<ruby>动<rt>dòng</rt></ruby><ruby>物<rt>wù</rt></ruby><ruby>们<rt>men</rt></ruby><ruby>排<rt>pái</rt></ruby><ruby>着<rt>zhe</rt></ruby><ruby>长<rt>cháng</rt></ruby><ruby>队<rt>duì</rt></ruby>，<ruby>吃<rt>chī</rt></ruby><ruby>得<rt>de</rt></ruby><ruby>嘴<rt>zuǐ</rt></ruby><ruby>角<rt>jiǎo</rt></ruby><ruby>挂<rt>guà</rt></ruby><ruby>满<rt>mǎn</rt></ruby><ruby>微<rt>wēi</rt></ruby><ruby>笑<rt>xiào</rt></ruby>。",
+        ruby: `<span class="word-group"><ruby>动<rt>dòng</rt></ruby><ruby>物<rt>wù</rt></ruby><ruby>们<rt>men</rt></ruby></span><span class="word-group"><ruby>排<rt>pái</rt></ruby><ruby>着<rt>zhe</rt></ruby></span><span class="word-group"><ruby>长<rt>cháng</rt></ruby><ruby>队<rt>duì</rt></ruby></span>，<span class="word-group"><ruby>吃<rt>chī</rt></ruby><ruby>得<rt>de</rt></ruby></span><span class="word-group"><ruby>嘴<rt>zuǐ</rt></ruby><ruby>角<rt>jiǎo</rt></ruby></span><span class="word-group"><ruby>挂<rt>guà</rt></ruby><ruby>满<rt>mǎn</rt></ruby></span><span class="word-group"><ruby>微<rt>wēi</rt></ruby><ruby>笑<rt>xiào</rt></ruby></span>。`,
         text: "动物们排着长队，吃得嘴角挂满微笑。",
         en: "The forest animals lined up in a long queue, eating with wide smiles on their faces."
       }
@@ -457,6 +514,33 @@ function selectStory(idx) {
   renderContent();
 }
 
+function getHanziFromElement(el) {
+  const clone = el.cloneNode(true);
+  clone.querySelectorAll('rt').forEach(rt => rt.remove());
+  return clone.textContent.trim();
+}
+
+function clearWordHighlights() {
+  document.querySelectorAll('.word-group.speaking-word').forEach(el => {
+    el.classList.remove('speaking-word');
+  });
+}
+
+function playWordGroup(wordEl) {
+  isPlayingAll = false;
+  btnPlayAll.textContent = "▶️ 全篇朗读 (Play All)";
+  updateHighlight(false);
+  clearWordHighlights();
+
+  const wordText = wordEl.dataset.word || getHanziFromElement(wordEl);
+  if (!wordText) return;
+
+  wordEl.classList.add('speaking-word');
+  speakText(wordText, 0.85, () => {
+    wordEl.classList.remove('speaking-word');
+  });
+}
+
 // Render story content & vocab
 function renderContent() {
   const story = STORIES[currentStoryIdx];
@@ -466,9 +550,34 @@ function renderContent() {
     card.className = `sentence-card ${idx === currentSentenceIdx ? 'speaking' : ''}`;
     card.id = `card-${idx}`;
     card.innerHTML = `
-      <div class="hanzi-pinyin-line">${s.ruby}</div>
+      <div class="sentence-header">
+        <div class="hanzi-pinyin-line">${s.ruby}</div>
+        <button class="btn-read-sentence" type="button" title="朗读整句 (Read full sentence)">🔊 整句</button>
+      </div>
       <div class="english-trans">${s.en}</div>
     `;
+
+    card.querySelectorAll('.word-group').forEach(wordEl => {
+      const hanzi = getHanziFromElement(wordEl);
+      wordEl.dataset.word = hanzi;
+      wordEl.title = `点击朗读词组: ${hanzi}`;
+      wordEl.setAttribute('role', 'button');
+      wordEl.setAttribute('tabindex', '0');
+
+      wordEl.onclick = (e) => {
+        e.stopPropagation();
+        playWordGroup(wordEl);
+      };
+
+      wordEl.onkeydown = (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          e.stopPropagation();
+          playWordGroup(wordEl);
+        }
+      };
+    });
+
     card.onclick = () => {
       isPlayingAll = false;
       btnPlayAll.textContent = "▶️ 全篇朗读 (Play All)";
@@ -515,6 +624,7 @@ function playSentence(idx) {
     return;
   }
 
+  clearWordHighlights();
   currentSentenceIdx = idx;
   updateHighlight();
 
@@ -549,6 +659,7 @@ function stopSpeech() {
   window.speechSynthesis.cancel();
   isPlayingAll = false;
   btnPlayAll.textContent = "▶️ 全篇朗读 (Play All)";
+  clearWordHighlights();
   updateHighlight(false);
 }
 
