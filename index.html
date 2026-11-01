@@ -1548,39 +1548,61 @@ const btnStop = document.getElementById('btnStop');
 const btnPrev = document.getElementById('btnPrev');
 const btnNext = document.getElementById('btnNext');
 
+let currentAudio = null;
+const textEncoder = new TextEncoder();
+
+function fnv1aHex(text) {
+  let h1 = 0x811c9dc5;
+  let h2 = 0x01000193;
+  const bytes = textEncoder.encode(text.trim());
+  for (let i = 0; i < bytes.length; i++) {
+    const b = bytes[i];
+    h1 ^= b;
+    h1 = Math.imul(h1, 0x01000193) >>> 0;
+    h2 ^= b;
+    h2 = Math.imul(h2, 0x811c9dc5) >>> 0;
+  }
+  return h1.toString(16).padStart(8, '0') + h2.toString(16).padStart(8, '0');
+}
+
+function stopCurrentAudio() {
+  if (currentAudio) {
+    currentAudio.onended = null;
+    currentAudio.onerror = null;
+    currentAudio.pause();
+    currentAudio = null;
+  }
+}
+
 function isTingtingVoice(v) {
   return /ting[\s-]?ting|婷婷/i.test(v.name) || /ting[\s-]?ting|婷婷/i.test(v.voiceURI || '');
 }
 
-// Populate voices (defaults to Tingting / 婷婷 TTS when available)
+// Populate voices (defaults to Pre-generated Neural MP3, with Tingting & system TTS options)
 function populateVoices() {
-  const allVoices = window.speechSynthesis.getVoices();
+  const prevVal = voiceSelect.value;
+  const allVoices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
   voices = allVoices.filter(v => v.lang.startsWith('zh') || isTingtingVoice(v));
   enVoices = allVoices.filter(v => v.lang.startsWith('en'));
   voiceSelect.innerHTML = '';
-  
-  if (voices.length === 0) {
-    const opt = document.createElement('option');
-    opt.value = '';
-    opt.textContent = 'Tingting / 婷婷 (zh-CN Default)';
-    voiceSelect.appendChild(opt);
-    return;
-  }
 
-  let defaultIdx = voices.findIndex(isTingtingVoice);
-  if (defaultIdx === -1) {
-    defaultIdx = voices.findIndex(v => v.lang === 'zh-CN' || v.lang === 'zh_CN');
-  }
-  if (defaultIdx === -1) defaultIdx = 0;
+  const mp3Opt = document.createElement('option');
+  mp3Opt.value = 'neural-mp3';
+  mp3Opt.textContent = '🎙️ 晓晓 & Ana 绘本神经语音 (Neural MP3 ★ 默认/Default)';
+  voiceSelect.appendChild(mp3Opt);
 
   voices.forEach((v, i) => {
     const opt = document.createElement('option');
     opt.value = String(i);
-    opt.textContent = `${v.name} (${v.lang})${isTingtingVoice(v) ? ' ★ 默认/Default' : ''}`;
+    opt.textContent = `${v.name} (${v.lang})${isTingtingVoice(v) ? ' · 婷婷系统语音' : ''}`;
     voiceSelect.appendChild(opt);
   });
 
-  voiceSelect.value = String(defaultIdx);
+  if (prevVal && Array.from(voiceSelect.options).some(o => o.value === prevVal)) {
+    voiceSelect.value = prevVal;
+  } else {
+    voiceSelect.value = 'neural-mp3';
+  }
 }
 
 window.speechSynthesis.onvoiceschanged = populateVoices;
@@ -1880,20 +1902,21 @@ function renderContent() {
   });
 }
 
-function speakText(text, rateMultiplier = 1, onEnd = null) {
-  window.speechSynthesis.cancel();
-  if (voices.length === 0) {
-    populateVoices();
+function speakBrowserZh(text, rateMultiplier = 1, onEnd = null) {
+  if (!window.speechSynthesis) {
+    if (onEnd) onEnd();
+    return;
   }
+  window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = 'zh-CN';
   utterance.rate = parseFloat(speedRange.value) * rateMultiplier;
 
-  if (voices.length > 0 && voiceSelect.value !== '') {
+  if (voices.length > 0 && voiceSelect.value !== 'neural-mp3' && voiceSelect.value !== '') {
     utterance.voice = voices[parseInt(voiceSelect.value, 10)];
   } else {
-    const fallbackTingting = window.speechSynthesis.getVoices().find(isTingtingVoice);
-    if (fallbackTingting) utterance.voice = fallbackTingting;
+    const tingting = voices.find(isTingtingVoice) || voices.find(v => v.lang === 'zh-CN' || v.lang === 'zh_CN');
+    if (tingting) utterance.voice = tingting;
   }
 
   if (onEnd) {
@@ -1903,7 +1926,11 @@ function speakText(text, rateMultiplier = 1, onEnd = null) {
   window.speechSynthesis.speak(utterance);
 }
 
-function speakEnglishText(text, rateMultiplier = 1, onEnd = null) {
+function speakBrowserEn(text, rateMultiplier = 1, onEnd = null) {
+  if (!window.speechSynthesis) {
+    if (onEnd) onEnd();
+    return;
+  }
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = 'en-US';
@@ -1919,6 +1946,61 @@ function speakEnglishText(text, rateMultiplier = 1, onEnd = null) {
     utterance.onerror = onEnd;
   }
   window.speechSynthesis.speak(utterance);
+}
+
+function speakText(text, rateMultiplier = 1, onEnd = null) {
+  stopCurrentAudio();
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+
+  if (voiceSelect.value === 'neural-mp3' || voiceSelect.value === '') {
+    const src = `audio/zh_${fnv1aHex(text)}.mp3`;
+    const audio = new Audio(src);
+    // Pre-generated Xiaoxiao MP3 is naturally paced; map default 0.85x slider to ~1.0x
+    audio.playbackRate = Math.min(1.5, Math.max(0.5, (parseFloat(speedRange.value) / 0.85) * rateMultiplier));
+    currentAudio = audio;
+    audio.onended = () => {
+      if (currentAudio === audio) currentAudio = null;
+      if (onEnd) onEnd();
+    };
+    audio.onerror = () => {
+      if (currentAudio === audio) currentAudio = null;
+      speakBrowserZh(text, rateMultiplier, onEnd);
+    };
+    audio.play().catch(() => {
+      if (currentAudio === audio) currentAudio = null;
+      speakBrowserZh(text, rateMultiplier, onEnd);
+    });
+    return;
+  }
+
+  speakBrowserZh(text, rateMultiplier, onEnd);
+}
+
+function speakEnglishText(text, rateMultiplier = 1, onEnd = null) {
+  stopCurrentAudio();
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+
+  if (voiceSelect.value === 'neural-mp3' || voiceSelect.value === '') {
+    const src = `audio/en_${fnv1aHex(text)}.mp3`;
+    const audio = new Audio(src);
+    audio.playbackRate = Math.min(1.5, Math.max(0.5, (parseFloat(speedRange.value) / 0.85) * rateMultiplier));
+    currentAudio = audio;
+    audio.onended = () => {
+      if (currentAudio === audio) currentAudio = null;
+      if (onEnd) onEnd();
+    };
+    audio.onerror = () => {
+      if (currentAudio === audio) currentAudio = null;
+      speakBrowserEn(text, rateMultiplier, onEnd);
+    };
+    audio.play().catch(() => {
+      if (currentAudio === audio) currentAudio = null;
+      speakBrowserEn(text, rateMultiplier, onEnd);
+    });
+    return;
+  }
+
+  speakBrowserEn(text, rateMultiplier, onEnd);
 }
 
 function playSentence(idx) {
@@ -1960,7 +2042,8 @@ function updateHighlight(keepActive = true) {
 }
 
 function stopSpeech() {
-  window.speechSynthesis.cancel();
+  stopCurrentAudio();
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
   isPlayingAll = false;
   btnPlayAll.textContent = "▶️ 全篇朗读 (Play All)";
   clearWordHighlights();
