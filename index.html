@@ -1098,7 +1098,7 @@
     .fc-card {
       position: relative;
       width: 100%;
-      min-height: 270px;
+      min-height: 290px;
       transform-style: preserve-3d;
       transition: transform 0.52s cubic-bezier(0.22, 1, 0.36, 1);
       cursor: pointer;
@@ -1233,7 +1233,7 @@
     }
 
     @media (max-width: 520px) {
-      .fc-card { min-height: 310px; }
+      .fc-card { min-height: 340px; }
       .fc-context-box { grid-template-columns: 1fr; }
       .fc-context-thumb { display: none; }
     }
@@ -1311,8 +1311,8 @@
       </div>
       <div class="btn-group">
         <button id="btnTogglePinyin" class="action-btn secondary" type="button" aria-pressed="false" title="显示或隐藏故事与词汇的拼音 (Toggle Pinyin for stories and words)">🔤 隐藏拼音 (Hide Pinyin)</button>
-        <button id="btnPrev" class="action-btn secondary">⏮️ 上一句</button>
-        <button id="btnNext" class="action-btn secondary">下一句 ⏭️</button>
+        <button id="btnPrev" class="action-btn secondary">⏮️ 上一句 (Prev)</button>
+        <button id="btnNext" class="action-btn secondary">下一句 (Next) ⏭️</button>
       </div>
     </div>
 
@@ -1357,13 +1357,16 @@
         <!-- Front Face -->
         <div class="fc-face fc-front">
           <div class="fc-top-bar">
-            <span id="fcProgressFront">第 1 / 4 张</span>
-            <span id="fcMasteredBadgeFront" class="fc-mastered-tag" style="display:none;">⭐ 已掌握 Mastered</span>
+            <span id="fcProgressFront">第 1 / 4 张 (Card 1/4)</span>
+            <span id="fcMasteredBadgeFront" class="fc-mastered-tag" style="display:none;">⭐ 已掌握 (Mastered)</span>
           </div>
           <div class="fc-front-center">
             <div class="fc-front-py" id="fcFrontPy">zhú zi</div>
             <div class="fc-front-hz" id="fcFrontHz">竹子</div>
-            <button type="button" class="btn-read-sentence" id="btnFcFrontSpeak" style="margin-top:6px;">🔊 听发音 (Listen)</button>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:6px;">
+              <button type="button" class="btn-read-sentence" id="btnFcFrontSpeak">🔊 听发音 (Listen)</button>
+              <button type="button" class="btn-pinyin-sentence" id="btnFcFrontFlip">🔄 翻看背面 (Flip Card)</button>
+            </div>
           </div>
           <div class="fc-flip-hint">👆 点击卡片翻面查看拼音、英文释义与故事例句 (Tap card to flip)</div>
         </div>
@@ -1388,12 +1391,12 @@
 
           <div class="fc-back-actions">
             <div style="display:flex; gap:6px; flex-wrap:wrap;">
-              <button type="button" class="btn-read-sentence" id="btnFcBackSpeakZh">🔊 读词语</button>
-              <button type="button" class="btn-read-en" id="btnFcBackSpeakEn">🔊 读英文</button>
-              <button type="button" class="btn-read-sentence" id="btnFcBackSpeakSent">🔊 读例句</button>
-              <button type="button" class="btn-write-sentence" id="btnFcBackWrite">✍️ 去练字</button>
+              <button type="button" class="btn-read-sentence" id="btnFcBackSpeakZh">🔊 读词语 (Read Word)</button>
+              <button type="button" class="btn-read-en" id="btnFcBackSpeakEn">🔊 读英文 (Read EN)</button>
+              <button type="button" class="btn-read-sentence" id="btnFcBackSpeakSent">🔊 读例句 (Read Sentence)</button>
+              <button type="button" class="btn-write-sentence" id="btnFcBackWrite">✍️ 去练字 (Write)</button>
             </div>
-            <span class="fc-flip-hint">🔄 点击空白处翻回正面</span>
+            <span class="fc-flip-hint">🔄 点击空白处翻回正面 (Tap to flip back)</span>
           </div>
         </div>
       </div>
@@ -1451,8 +1454,8 @@
           <button type="button" class="write-btn" id="btnLoopStroke">🔁 循环演示 (Loop)</button>
           <button type="button" class="write-btn" id="btnSpeakChar">🔊 读字音 (Listen)</button>
           <button type="button" class="write-btn" id="btnToggleOutline">👁️ 隐藏轮廓 (Hide Outline)</button>
-          <button type="button" class="write-btn" id="btnPrevChar">⏮️ 上一字</button>
-          <button type="button" class="write-btn" id="btnNextChar">下一字 ⏭️</button>
+          <button type="button" class="write-btn" id="btnPrevChar">⏮️ 上一字 (Prev)</button>
+          <button type="button" class="write-btn" id="btnNextChar">下一字 (Next) ⏭️</button>
         </div>
 
         <div class="writing-feedback" id="writingFeedback">
@@ -3832,13 +3835,13 @@ function renderContent() {
       <div class="story-hero-top">
         <div class="story-hero-title-group">
           <div class="story-hero-title"><span class="story-hero-num">${story.icon} ${story.id}.</span> ${story.titleRuby}</div>
-          <button class="btn-read-sentence" id="btnReadTitleZh" type="button" title="朗读中文标题 (Read Chinese title)">🔊 标题</button>
+          <button class="btn-read-sentence" id="btnReadTitleZh" type="button" title="朗读中文标题 (Read Chinese title)">🔊 读标题 (Read Title)</button>
         </div>
         <div class="story-hero-badge">${story.subtitle}</div>
       </div>
       <div class="story-hero-en-row">
         <div class="english-trans story-hero-en" id="heroTitleEn">${story.titleEnHtml}</div>
-        <button class="btn-read-en" id="btnReadTitleEn" type="button" title="Read English title">🔊 EN</button>
+        <button class="btn-read-en" id="btnReadTitleEn" type="button" title="朗读英文标题 (Read English title)">🔊 读英文 (Read EN)</button>
       </div>
     </div>
   `;
@@ -3906,14 +3909,14 @@ function renderContent() {
         <div class="sentence-header">
           <div class="hanzi-pinyin-line">${s.ruby}</div>
           <div class="sentence-btn-col">
-            <button class="btn-read-sentence" type="button" title="朗读中文整句 (Read full Chinese sentence)">🔊 整句</button>
+            <button class="btn-read-sentence" type="button" title="朗读中文整句 (Read full Chinese sentence)">🔊 读整句 (Read Sentence)</button>
             <button class="btn-pinyin-sentence ${!showPinyin ? 'pinyin-off' : ''}" type="button" aria-pressed="${!showPinyin}" title="隐藏或显示本句拼音 (Hide or Show Pinyin for this sentence)">${showPinyin ? '🔤 隐藏拼音 (Hide Pinyin)' : '🔤 显示拼音 (Show Pinyin)'}</button>
-            <button class="btn-write-sentence" type="button" title="练习书写本句汉字 (Practice writing characters from this sentence)">✍️ 练字</button>
+            <button class="btn-write-sentence" type="button" title="练习书写本句汉字 (Practice writing characters from this sentence)">✍️ 练字 (Write)</button>
           </div>
         </div>
         <div class="english-row">
           <div class="english-trans">${s.enHtml || s.en}</div>
-          <button class="btn-read-en" type="button" title="Read full English sentence">🔊 EN</button>
+          <button class="btn-read-en" type="button" title="朗读英文整句 (Read full English sentence)">🔊 读英文 (Read EN)</button>
         </div>
       </div>
     `;
@@ -4003,8 +4006,8 @@ function renderContent() {
       <div class="chip-hanzi">${v.hz}</div>
       <div class="chip-pinyin">${v.py}</div>
       <div class="chip-actions">
-        <div class="chip-en" title="Tap to pronounce English: ${v.en}">🔊 ${v.en}</div>
-        <button type="button" class="chip-write" title="练习书写「${v.hz}」(Practice writing ${v.hz})">✍️ 练字</button>
+        <div class="chip-en" title="点击朗读英文 (Tap to pronounce English): ${v.en}">🔊 英文 · ${v.en}</div>
+        <button type="button" class="chip-write" title="练习书写「${v.hz}」(Practice writing ${v.hz})">✍️ 练字 (Write)</button>
       </div>
     `;
     chip.onclick = () => speakText(v.hz, 0.75);
@@ -4302,8 +4305,8 @@ function initStoryWritingStudio() {
   if (currentWritingList.length === 0) {
     currentWritingList = allList;
   }
-  tabWriteVocab.textContent = `🌟 重点生字 (${vocabList.length})`;
-  tabWriteAll.textContent = `📖 本篇全部汉字 (${allList.length})`;
+  tabWriteVocab.textContent = `🌟 重点生字 · Key Vocab (${vocabList.length})`;
+  tabWriteAll.textContent = `📖 本篇全部汉字 · All Story Hanzi (${allList.length})`;
   tabWriteVocab.classList.toggle('active', writingScope === 'vocab');
   tabWriteAll.classList.toggle('active', writingScope === 'all');
 
@@ -4540,6 +4543,7 @@ const fcBackSentence = document.getElementById('fcBackSentence');
 const fcBackSentenceEn = document.getElementById('fcBackSentenceEn');
 
 const btnFcFrontSpeak = document.getElementById('btnFcFrontSpeak');
+const btnFcFrontFlip = document.getElementById('btnFcFrontFlip');
 const btnFcBackSpeakZh = document.getElementById('btnFcBackSpeakZh');
 const btnFcBackSpeakEn = document.getElementById('btnFcBackSpeakEn');
 const btnFcBackSpeakSent = document.getElementById('btnFcBackSpeakSent');
@@ -4606,8 +4610,8 @@ function initStoryFlashcards() {
   fcIdx = 0;
   fcFlipped = false;
 
-  tabFcVocab.textContent = `🌟 重点词汇卡 (${vocabDeck.length})`;
-  tabFcPhrases.textContent = `🧩 本篇词组卡 (${phraseDeck.length})`;
+  tabFcVocab.textContent = `🌟 重点词汇卡 · Key Vocab (${vocabDeck.length})`;
+  tabFcPhrases.textContent = `🧩 本篇词组卡 · Story Phrases (${phraseDeck.length})`;
   tabFcVocab.classList.toggle('active', fcScope === 'vocab');
   tabFcPhrases.classList.toggle('active', fcScope === 'phrases');
 
@@ -4640,7 +4644,7 @@ function renderFlashcard() {
   });
 
   const masteredCount = fcDeck.filter(c => masteredCards.has(c.key)).length;
-  fcProgressFront.textContent = `第 ${fcIdx + 1} / ${fcDeck.length} 张 · 已掌握 ${masteredCount}/${fcDeck.length}`;
+  fcProgressFront.textContent = `第 ${fcIdx + 1}/${fcDeck.length} 张 (Card ${fcIdx + 1}/${fcDeck.length}) · 已掌握 Mastered ${masteredCount}/${fcDeck.length}`;
   fcMasteredBadgeFront.style.display = isMastered ? 'inline-block' : 'none';
 
   fcFrontPy.textContent = card.py;
@@ -4693,6 +4697,11 @@ btnFcFrontSpeak.onclick = (e) => {
   e.stopPropagation();
   if (!fcDeck.length) return;
   speakText(fcDeck[fcIdx].hz, 0.85);
+};
+
+btnFcFrontFlip.onclick = (e) => {
+  e.stopPropagation();
+  flipFlashcard();
 };
 
 btnFcBackSpeakZh.onclick = (e) => {
