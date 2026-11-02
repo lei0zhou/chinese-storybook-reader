@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>中文少儿绘本朗读器 | Chinese Storybook Reader</title>
+  <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
   <style>
     :root {
       --primary: #4f46e5;
@@ -600,6 +601,354 @@
       background: #0284c7;
       color: #ffffff;
     }
+
+    .chip-actions {
+      display: flex;
+      gap: 5px;
+      margin-top: 4px;
+      align-items: center;
+    }
+
+    .chip-write {
+      font-size: 11px;
+      color: #4f46e5;
+      background: #e0e7ff;
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .chip-write:hover {
+      background: #4f46e5;
+      color: #ffffff;
+    }
+
+    .sentence-btn-col {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .btn-write-sentence {
+      flex-shrink: 0;
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid #fde68a;
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .btn-write-sentence:hover {
+      background: #f59e0b;
+      color: white;
+    }
+
+    /* Hanzi Writing Studio */
+    .writing-studio {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      border: 2px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      margin-top: 22px;
+      box-shadow: 0 6px 16px -4px rgba(15, 23, 42, 0.06);
+    }
+
+    .writing-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .writing-header h3 {
+      font-size: 18px;
+      color: var(--text-main);
+      margin: 0;
+      line-height: 2;
+    }
+
+    .writing-mode-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .writing-tab-btn {
+      padding: 6px 13px;
+      border-radius: 999px;
+      border: 1.5px solid var(--border);
+      background: white;
+      color: var(--text-sub);
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .writing-tab-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .writing-tab-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    .writing-char-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+      max-height: 156px;
+      overflow-y: auto;
+      padding: 4px 2px;
+    }
+
+    .char-tile {
+      min-width: 54px;
+      padding: 5px 8px;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      background: white;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      transition: all 0.15s ease;
+    }
+
+    .char-tile:hover {
+      border-color: #94a3b8;
+      transform: translateY(-1px);
+    }
+
+    .char-tile.active {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.18);
+    }
+
+    .char-tile-py {
+      font-size: 11px;
+      color: var(--pinyin);
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .char-tile-hz {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.25;
+    }
+
+    .char-tile.active .char-tile-hz {
+      color: var(--primary);
+    }
+
+    .char-tile-done {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #10b981;
+      color: white;
+      font-size: 11px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .writing-workspace {
+      display: grid;
+      grid-template-columns: 270px 1fr;
+      gap: 22px;
+      align-items: center;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    @media (max-width: 660px) {
+      .writing-workspace {
+        grid-template-columns: 1fr;
+        justify-items: center;
+      }
+    }
+
+    .mizige-box {
+      width: 260px;
+      height: 260px;
+      border-radius: 14px;
+      background: #fffdf9;
+      border: 3px solid #dc2626;
+      box-shadow: inset 0 0 0 2px #fecaca, 0 4px 12px rgba(220, 38, 38, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: none;
+      user-select: none;
+    }
+
+    .mizige-box svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      cursor: crosshair;
+    }
+
+    .writing-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .writing-char-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .writing-char-title {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .writing-big-hz {
+      font-size: 36px;
+      font-weight: 900;
+      color: var(--primary);
+      line-height: 1.1;
+    }
+
+    .writing-big-py {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--pinyin);
+    }
+
+    .writing-context-badge {
+      font-size: 13px;
+      color: #475569;
+      background: #f1f5f9;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    .writing-legend {
+      display: flex;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--text-sub);
+      font-weight: 600;
+    }
+
+    .legend-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+    .writing-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .write-btn {
+      padding: 9px 14px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      background: #f8fafc;
+      color: var(--text-main);
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .write-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: #eef2ff;
+    }
+
+    .write-btn.primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    .write-btn.primary:hover {
+      opacity: 0.92;
+    }
+
+    .write-btn.quiz-active {
+      background: #d97706;
+      border-color: #d97706;
+      color: white;
+    }
+
+    .writing-feedback {
+      padding: 11px 14px;
+      border-radius: 10px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+      font-size: 14px;
+      font-weight: 600;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    .writing-feedback.success {
+      background: #ecfdf5;
+      border-color: #a7f3d0;
+      color: #065f46;
+    }
+
+    .writing-feedback.warn {
+      background: #fffbeb;
+      border-color: #fde68a;
+      color: #92400e;
+    }
   </style>
 </head>
 <body>
@@ -650,8 +999,62 @@
 
   <!-- Vocab Section -->
   <div class="extra-section">
-    <h3>🌟 <ruby>重<rt>zhòng</rt></ruby><ruby>点<rt>diǎn</rt></ruby><ruby>词<rt>cí</rt></ruby><ruby>汇<rt>huì</rt></ruby> · Key Vocabulary (Tap word to listen)</h3>
+    <h3>🌟 <ruby>重<rt>zhòng</rt></ruby><ruby>点<rt>diǎn</rt></ruby><ruby>词<rt>cí</rt></ruby><ruby>汇<rt>huì</rt></ruby> · Key Vocabulary (Tap word to listen or ✍️ to write)</h3>
     <div class="vocab-chips" id="vocabChips"></div>
+  </div>
+
+  <!-- Hanzi Writing Studio Section (powered by Hanzi Writer) -->
+  <div class="writing-studio" id="writingStudio">
+    <div class="writing-header">
+      <h3>✍️ <ruby>汉<rt>hàn</rt></ruby><ruby>字<rt>zì</rt></ruby><ruby>笔<rt>bǐ</rt></ruby><ruby>顺<rt>shùn</rt></ruby><ruby>与<rt>yǔ</rt></ruby><ruby>描<rt>miáo</rt></ruby><ruby>红<rt>hóng</rt></ruby> · Hanzi Writing Studio</h3>
+      <div class="writing-mode-tabs">
+        <button type="button" class="writing-tab-btn active" id="tabWriteVocab">🌟 重点生字 (Key Vocab)</button>
+        <button type="button" class="writing-tab-btn" id="tabWriteAll">📖 本篇全部汉字 (All Story Hanzi)</button>
+      </div>
+    </div>
+
+    <div class="writing-char-grid" id="writingCharGrid"></div>
+
+    <div class="writing-workspace">
+      <div class="mizige-box">
+        <svg id="hanziWriterTarget" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+          <g class="mizige-grid" stroke="#fca5a5" stroke-width="1.5">
+            <line x1="0" y1="130" x2="260" y2="130" stroke-dasharray="6,6" />
+            <line x1="130" y1="0" x2="130" y2="260" stroke-dasharray="6,6" />
+            <line x1="0" y1="0" x2="260" y2="260" stroke-dasharray="4,8" opacity="0.65" />
+            <line x1="260" y1="0" x2="0" y2="260" stroke-dasharray="4,8" opacity="0.65" />
+          </g>
+        </svg>
+      </div>
+
+      <div class="writing-panel">
+        <div class="writing-char-info">
+          <div class="writing-char-title">
+            <span class="writing-big-hz" id="writingBigHz">小</span>
+            <span class="writing-big-py" id="writingBigPy">xiǎo</span>
+            <span class="writing-context-badge" id="writingContextBadge">故事生字</span>
+          </div>
+          <div class="writing-legend">
+            <span><i class="legend-dot" style="background:#4f46e5;"></i>部首 (Radical)</span>
+            <span><i class="legend-dot" style="background:#0f172a;"></i>笔画 (Stroke)</span>
+          </div>
+        </div>
+
+        <div class="writing-controls">
+          <button type="button" class="write-btn primary" id="btnAnimateStroke">▶️ 笔顺演示 (Animate)</button>
+          <button type="button" class="write-btn" id="btnStartQuiz">✍️ 描红跟写 (Trace & Write)</button>
+          <button type="button" class="write-btn" id="btnLoopStroke">🔁 循环演示 (Loop)</button>
+          <button type="button" class="write-btn" id="btnSpeakChar">🔊 读字音 (Listen)</button>
+          <button type="button" class="write-btn" id="btnToggleOutline">👁️ 隐藏轮廓 (Hide Outline)</button>
+          <button type="button" class="write-btn" id="btnPrevChar">⏮️ 上一字</button>
+          <button type="button" class="write-btn" id="btnNextChar">下一字 ⏭️</button>
+        </div>
+
+        <div class="writing-feedback" id="writingFeedback">
+          💡 点击「▶️ 笔顺演示」观看一笔一画怎么写，或点击「✍️ 描红跟写」在米字格里亲手写一写！
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1817,7 +2220,10 @@ function renderContent() {
       <div class="sentence-body">
         <div class="sentence-header">
           <div class="hanzi-pinyin-line">${s.ruby}</div>
-          <button class="btn-read-sentence" type="button" title="朗读中文整句 (Read full Chinese sentence)">🔊 整句</button>
+          <div class="sentence-btn-col">
+            <button class="btn-read-sentence" type="button" title="朗读中文整句 (Read full Chinese sentence)">🔊 整句</button>
+            <button class="btn-write-sentence" type="button" title="练习书写本句汉字 (Practice writing characters from this sentence)">✍️ 练字</button>
+          </div>
         </div>
         <div class="english-row">
           <div class="english-trans">${s.enHtml || s.en}</div>
@@ -1874,6 +2280,15 @@ function renderContent() {
       playEnglishSentence(enTransEl, s.en);
     };
 
+    const btnWriteSentence = card.querySelector('.btn-write-sentence');
+    btnWriteSentence.onclick = (e) => {
+      e.stopPropagation();
+      const firstCharMatch = s.text.match(/[\u4e00-\u9fff]/);
+      if (firstCharMatch) {
+        openCharacterInStudio(firstCharMatch[0], 'all', true);
+      }
+    };
+
     card.onclick = () => {
       isPlayingAll = false;
       btnPlayAll.textContent = "▶️ 全篇朗读 (Play All)";
@@ -1890,7 +2305,10 @@ function renderContent() {
     chip.innerHTML = `
       <div class="chip-hanzi">${v.hz}</div>
       <div class="chip-pinyin">${v.py}</div>
-      <div class="chip-en" title="Tap to pronounce English: ${v.en}">🔊 ${v.en}</div>
+      <div class="chip-actions">
+        <div class="chip-en" title="Tap to pronounce English: ${v.en}">🔊 ${v.en}</div>
+        <button type="button" class="chip-write" title="练习书写「${v.hz}」(Practice writing ${v.hz})">✍️ 练字</button>
+      </div>
     `;
     chip.onclick = () => speakText(v.hz, 0.75);
     const chipEn = chip.querySelector('.chip-en');
@@ -1898,8 +2316,18 @@ function renderContent() {
       e.stopPropagation();
       speakEnglishText(v.en, 0.9);
     };
+    const chipWrite = chip.querySelector('.chip-write');
+    chipWrite.onclick = (e) => {
+      e.stopPropagation();
+      const firstHz = v.hz.match(/[\u4e00-\u9fff]/);
+      if (firstHz) {
+        openCharacterInStudio(firstHz[0], 'vocab', true);
+      }
+    };
     vocabChips.appendChild(chip);
   });
+
+  initStoryWritingStudio();
 }
 
 function speakBrowserZh(text, rateMultiplier = 1, onEnd = null) {
@@ -2080,6 +2508,287 @@ btnNext.onclick = () => {
 
 speedRange.oninput = (e) => {
   speedVal.textContent = `${parseFloat(e.target.value).toFixed(2)}x`;
+};
+
+// --- Hanzi Writer Teaching & Practice Studio ---
+let hanziWriterInstance = null;
+let writingScope = 'vocab'; // 'vocab' | 'all'
+let currentWritingList = [];
+let currentWritingCharIdx = 0;
+let showCharOutline = true;
+let isQuizActive = false;
+const practicedChars = new Set();
+
+const tabWriteVocab = document.getElementById('tabWriteVocab');
+const tabWriteAll = document.getElementById('tabWriteAll');
+const writingCharGrid = document.getElementById('writingCharGrid');
+const writingBigHz = document.getElementById('writingBigHz');
+const writingBigPy = document.getElementById('writingBigPy');
+const writingContextBadge = document.getElementById('writingContextBadge');
+const writingFeedback = document.getElementById('writingFeedback');
+const btnAnimateStroke = document.getElementById('btnAnimateStroke');
+const btnStartQuiz = document.getElementById('btnStartQuiz');
+const btnLoopStroke = document.getElementById('btnLoopStroke');
+const btnSpeakChar = document.getElementById('btnSpeakChar');
+const btnToggleOutline = document.getElementById('btnToggleOutline');
+const btnPrevChar = document.getElementById('btnPrevChar');
+const btnNextChar = document.getElementById('btnNextChar');
+
+function extractStoryCharMap(story) {
+  const charMap = new Map();
+  // First extract all <ruby>汉<rt>py</rt></ruby> pairs from title & sentences
+  const allRubyHtml = [story.titleRuby, ...story.sentences.map(s => s.ruby)].join(' ');
+  const regex = /<ruby>([\u4e00-\u9fff])<rt>([^<]+)<\/rt><\/ruby>/g;
+  let m;
+  while ((m = regex.exec(allRubyHtml)) !== null) {
+    const hz = m[1];
+    const py = m[2].trim();
+    if (!charMap.has(hz)) {
+      charMap.set(hz, { hz, py, context: `故事汉字 · Story Character` });
+    }
+  }
+  // Enrich with vocabulary context & ensure all vocab characters are included
+  const vocabChars = [];
+  const seenVocab = new Set();
+  story.vocab.forEach(v => {
+    const hzArr = Array.from(v.hz).filter(ch => /[\u4e00-\u9fff]/.test(ch));
+    const pyParts = v.py.trim().split(/\s+/);
+    hzArr.forEach((hz, i) => {
+      const py = pyParts[i] || (charMap.get(hz) && charMap.get(hz).py) || v.py;
+      const context = `词汇：${v.hz} (${v.py}) · ${v.en}`;
+      charMap.set(hz, { hz, py, context });
+      if (!seenVocab.has(hz)) {
+        seenVocab.add(hz);
+        vocabChars.push({ hz, py, context });
+      }
+    });
+  });
+  return {
+    vocabList: vocabChars,
+    allList: Array.from(charMap.values())
+  };
+}
+
+function initStoryWritingStudio() {
+  const story = STORIES[currentStoryIdx];
+  const { vocabList, allList } = extractStoryCharMap(story);
+  currentWritingList = writingScope === 'vocab' ? vocabList : allList;
+  if (currentWritingList.length === 0) {
+    currentWritingList = allList;
+  }
+  tabWriteVocab.textContent = `🌟 重点生字 (${vocabList.length})`;
+  tabWriteAll.textContent = `📖 本篇全部汉字 (${allList.length})`;
+  tabWriteVocab.classList.toggle('active', writingScope === 'vocab');
+  tabWriteAll.classList.toggle('active', writingScope === 'all');
+
+  if (currentWritingCharIdx >= currentWritingList.length) {
+    currentWritingCharIdx = 0;
+  }
+  renderWritingCharGrid();
+  loadWritingCharacter(currentWritingCharIdx, false);
+}
+
+function renderWritingCharGrid() {
+  writingCharGrid.innerHTML = '';
+  currentWritingList.forEach((item, idx) => {
+    const tile = document.createElement('button');
+    tile.type = 'button';
+    tile.className = `char-tile ${idx === currentWritingCharIdx ? 'active' : ''}`;
+    tile.innerHTML = `
+      <span class="char-tile-py">${item.py}</span>
+      <span class="char-tile-hz">${item.hz}</span>
+      ${practicedChars.has(item.hz) ? '<span class="char-tile-done" title="已完成描红练习">✓</span>' : ''}
+    `;
+    tile.onclick = () => {
+      loadWritingCharacter(idx, true);
+    };
+    writingCharGrid.appendChild(tile);
+  });
+}
+
+function setWritingFeedback(msg, tone = 'info') {
+  writingFeedback.textContent = msg;
+  writingFeedback.className = 'writing-feedback' + (tone === 'success' ? ' success' : tone === 'warn' ? ' warn' : '');
+}
+
+function clearHanziWriterSvg() {
+  const svg = document.getElementById('hanziWriterTarget');
+  Array.from(svg.children).forEach(child => {
+    if (!child.classList.contains('mizige-grid')) {
+      child.remove();
+    }
+  });
+}
+
+function loadWritingCharacter(idx, pronounce = false) {
+  if (!currentWritingList.length) return;
+  currentWritingCharIdx = (idx + currentWritingList.length) % currentWritingList.length;
+  const item = currentWritingList[currentWritingCharIdx];
+  isQuizActive = false;
+  btnStartQuiz.classList.remove('quiz-active');
+  btnStartQuiz.textContent = '✍️ 描红跟写 (Trace & Write)';
+
+  writingBigHz.textContent = item.hz;
+  writingBigPy.textContent = item.py;
+  writingContextBadge.textContent = item.context;
+  renderWritingCharGrid();
+
+  if (pronounce) {
+    speakText(item.hz, 0.85);
+  }
+
+  if (typeof HanziWriter === 'undefined') {
+    setWritingFeedback('⚠️ 正在加载 HanziWriter 笔顺组件，请确认网络连接正常。', 'warn');
+    return;
+  }
+
+  clearHanziWriterSvg();
+  setWritingFeedback(`💡 已加载「${item.hz} (${item.py})」— 点击「▶️ 笔顺演示」观看书写动画，或点击「✍️ 描红跟写」动手练习！`);
+
+  hanziWriterInstance = HanziWriter.create('hanziWriterTarget', item.hz, {
+    width: 260,
+    height: 260,
+    padding: 16,
+    showOutline: showCharOutline,
+    strokeAnimationSpeed: 1,
+    delayBetweenStrokes: 240,
+    strokeColor: '#0f172a',
+    radicalColor: '#4f46e5',
+    outlineColor: '#cbd5e1',
+    drawingColor: '#2563eb',
+    drawingWidth: 24,
+    showHintAfterMisses: 2,
+    highlightOnComplete: true
+  });
+}
+
+function startCharacterQuiz() {
+  if (!hanziWriterInstance || !currentWritingList.length) return;
+  const item = currentWritingList[currentWritingCharIdx];
+  isQuizActive = true;
+  btnStartQuiz.classList.add('quiz-active');
+  btnStartQuiz.textContent = '✍️ 正在跟写中... (Writing Quiz)';
+  setWritingFeedback(`✍️ 请用鼠标或手指在米字格里按笔顺写出「${item.hz} (${item.py})」的第 1 笔！`);
+
+  hanziWriterInstance.quiz({
+    onCorrectStroke: (strokeData) => {
+      const done = strokeData.strokeNum + 1;
+      const total = strokeData.strokeNum + strokeData.strokesRemaining + 1;
+      setWritingFeedback(`✅ 第 ${done} / ${total} 笔写对啦！继续写下一笔 👍`, 'success');
+    },
+    onMistake: (strokeData) => {
+      const targetStroke = strokeData.strokeNum + 1;
+      setWritingFeedback(`💡 第 ${targetStroke} 笔的方向或位置不对哦，注意看提示再试一次！`, 'warn');
+    },
+    onComplete: (summaryData) => {
+      isQuizActive = false;
+      btnStartQuiz.classList.remove('quiz-active');
+      btnStartQuiz.textContent = '✍️ 再写一次 (Write Again)';
+      practicedChars.add(item.hz);
+      renderWritingCharGrid();
+      speakText(item.hz, 0.9);
+      setWritingFeedback(
+        `🎉 太棒了！「${item.hz} (${item.py})」书写完成！（共失误 ${summaryData.totalMistakes} 次）已点亮绿色完成勋章 ✓`,
+        'success'
+      );
+    }
+  });
+}
+
+function openCharacterInStudio(hz, preferredScope = 'vocab', scrollToStudio = true) {
+  const story = STORIES[currentStoryIdx];
+  const { vocabList, allList } = extractStoryCharMap(story);
+  let targetList = preferredScope === 'vocab' ? vocabList : allList;
+  let foundIdx = targetList.findIndex(item => item.hz === hz);
+  if (foundIdx === -1) {
+    writingScope = 'all';
+    targetList = allList;
+    foundIdx = targetList.findIndex(item => item.hz === hz);
+  } else {
+    writingScope = preferredScope;
+  }
+  currentWritingList = targetList;
+  tabWriteVocab.classList.toggle('active', writingScope === 'vocab');
+  tabWriteAll.classList.toggle('active', writingScope === 'all');
+
+  if (foundIdx !== -1) {
+    loadWritingCharacter(foundIdx, true);
+  }
+  if (scrollToStudio) {
+    document.getElementById('writingStudio').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  if (hanziWriterInstance) {
+    hanziWriterInstance.animateCharacter();
+  }
+}
+
+tabWriteVocab.onclick = () => {
+  writingScope = 'vocab';
+  currentWritingCharIdx = 0;
+  initStoryWritingStudio();
+};
+
+tabWriteAll.onclick = () => {
+  writingScope = 'all';
+  currentWritingCharIdx = 0;
+  initStoryWritingStudio();
+};
+
+btnAnimateStroke.onclick = () => {
+  if (!hanziWriterInstance || !currentWritingList.length) return;
+  const item = currentWritingList[currentWritingCharIdx];
+  isQuizActive = false;
+  btnStartQuiz.classList.remove('quiz-active');
+  btnStartQuiz.textContent = '✍️ 描红跟写 (Trace & Write)';
+  speakText(item.hz, 0.85);
+  setWritingFeedback(`▶️ 正在演示「${item.hz} (${item.py})」的笔顺，仔细看部首和每一笔的顺序哦！`);
+  hanziWriterInstance.animateCharacter({
+    onComplete: () => {
+      setWritingFeedback(`✨「${item.hz}」笔顺演示完成！现在点击「✍️ 描红跟写」自己动手写一写吧！`, 'success');
+    }
+  });
+};
+
+btnStartQuiz.onclick = () => {
+  startCharacterQuiz();
+};
+
+btnLoopStroke.onclick = () => {
+  if (!hanziWriterInstance || !currentWritingList.length) return;
+  const item = currentWritingList[currentWritingCharIdx];
+  isQuizActive = false;
+  btnStartQuiz.classList.remove('quiz-active');
+  btnStartQuiz.textContent = '✍️ 描红跟写 (Trace & Write)';
+  setWritingFeedback(`🔁 正在循环演示「${item.hz} (${item.py})」的笔顺...`);
+  hanziWriterInstance.loopCharacterAnimation();
+};
+
+btnSpeakChar.onclick = () => {
+  if (!currentWritingList.length) return;
+  const item = currentWritingList[currentWritingCharIdx];
+  speakText(item.hz, 0.85);
+};
+
+btnToggleOutline.onclick = () => {
+  if (!hanziWriterInstance) return;
+  showCharOutline = !showCharOutline;
+  if (showCharOutline) {
+    hanziWriterInstance.showOutline();
+    btnToggleOutline.textContent = '👁️ 隐藏轮廓 (Hide Outline)';
+    setWritingFeedback('👁️ 已开启字形轮廓（描红模式）。');
+  } else {
+    hanziWriterInstance.hideOutline();
+    btnToggleOutline.textContent = '👁️ 显示轮廓 (Show Outline)';
+    setWritingFeedback('🧠 已隐藏字形轮廓（默写挑战模式）！点击「✍️ 描红跟写」试试不看轮廓默写吧！');
+  }
+};
+
+btnPrevChar.onclick = () => {
+  loadWritingCharacter(currentWritingCharIdx - 1, true);
+};
+
+btnNextChar.onclick = () => {
+  loadWritingCharacter(currentWritingCharIdx + 1, true);
 };
 
 // Initialize
