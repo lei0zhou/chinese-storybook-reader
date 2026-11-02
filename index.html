@@ -1440,7 +1440,7 @@
           <div class="writing-char-title">
             <span class="writing-big-hz" id="writingBigHz">小</span>
             <span class="writing-big-py" id="writingBigPy">xiǎo</span>
-            <span class="writing-context-badge" id="writingContextBadge">故事生字</span>
+            <span class="writing-context-badge" id="writingContextBadge">故事生字 · Story Character</span>
           </div>
           <div class="writing-legend">
             <span><i class="legend-dot" style="background:#4f46e5;"></i>部首 (Radical)</span>
@@ -1459,7 +1459,7 @@
         </div>
 
         <div class="writing-feedback" id="writingFeedback">
-          💡 点击「▶️ 笔顺演示」观看一笔一画怎么写，或点击「✍️ 描红跟写」在米字格里亲手写一写！
+          💡 点击「▶️ 笔顺演示」观看一笔一画怎么写，或点击「✍️ 描红跟写」在米字格里亲手写一写！ (Tap "▶️ Animate" to watch stroke order, or "✍️ Trace & Write" to practice in the grid!)
         </div>
       </div>
     </div>
@@ -3679,7 +3679,7 @@ function populateVoices() {
   voices.forEach((v, i) => {
     const opt = document.createElement('option');
     opt.value = String(i);
-    opt.textContent = `${v.name} (${v.lang})${isTingtingVoice(v) ? ' · 婷婷系统语音' : ''}`;
+    opt.textContent = `${v.name} (${v.lang})${isTingtingVoice(v) ? ' · 婷婷系统语音 (Tingting System Voice)' : ''}`;
     voiceSelect.appendChild(opt);
   });
 
@@ -3849,7 +3849,7 @@ function renderContent() {
   storyHero.querySelectorAll('.word-group').forEach(wordEl => {
     const hanzi = getHanziFromElement(wordEl);
     wordEl.dataset.word = hanzi;
-    wordEl.title = `点击朗读中文词组: ${hanzi}`;
+    wordEl.title = `点击朗读中文词组 (Tap to pronounce Chinese phrase): ${hanzi}`;
     wordEl.setAttribute('role', 'button');
     wordEl.setAttribute('tabindex', '0');
     wordEl.onclick = (e) => {
@@ -3867,7 +3867,7 @@ function renderContent() {
 
   storyHero.querySelectorAll('.en-word-group').forEach(enEl => {
     const phrase = enEl.textContent.trim();
-    enEl.title = `Tap to pronounce English phrase: "${phrase}"`;
+    enEl.title = `点击朗读英文词组 (Tap to pronounce English phrase): "${phrase}"`;
     enEl.setAttribute('role', 'button');
     enEl.setAttribute('tabindex', '0');
     enEl.onclick = (e) => {
@@ -3924,7 +3924,7 @@ function renderContent() {
     card.querySelectorAll('.word-group').forEach(wordEl => {
       const hanzi = getHanziFromElement(wordEl);
       wordEl.dataset.word = hanzi;
-      wordEl.title = `点击朗读中文词组: ${hanzi}`;
+      wordEl.title = `点击朗读中文词组 (Tap to pronounce Chinese phrase): ${hanzi}`;
       wordEl.setAttribute('role', 'button');
       wordEl.setAttribute('tabindex', '0');
 
@@ -3944,7 +3944,7 @@ function renderContent() {
 
     card.querySelectorAll('.en-word-group').forEach(enEl => {
       const phrase = enEl.textContent.trim();
-      enEl.title = `Tap to pronounce English phrase: "${phrase}"`;
+      enEl.title = `点击朗读英文词组 (Tap to pronounce English phrase): "${phrase}"`;
       enEl.setAttribute('role', 'button');
       enEl.setAttribute('tabindex', '0');
 
@@ -4001,7 +4001,7 @@ function renderContent() {
   story.vocab.forEach(v => {
     const chip = document.createElement('div');
     chip.className = 'chip';
-    chip.title = `点击朗读中文: ${v.hz}`;
+    chip.title = `点击朗读中文词汇 (Tap to pronounce Chinese word): ${v.hz}`;
     chip.innerHTML = `
       <div class="chip-hanzi">${v.hz}</div>
       <div class="chip-pinyin">${v.py}</div>
@@ -4284,7 +4284,7 @@ function extractStoryCharMap(story) {
     const pyParts = v.py.trim().split(/\s+/);
     hzArr.forEach((hz, i) => {
       const py = pyParts[i] || (charMap.get(hz) && charMap.get(hz).py) || v.py;
-      const context = `词汇：${v.hz} (${v.py}) · ${v.en}`;
+      const context = `词汇 Vocab：${v.hz} (${v.py}) · ${v.en}`;
       charMap.set(hz, { hz, py, context });
       if (!seenVocab.has(hz)) {
         seenVocab.add(hz);
@@ -4326,7 +4326,7 @@ function renderWritingCharGrid() {
     tile.innerHTML = `
       <span class="char-tile-py">${item.py}</span>
       <span class="char-tile-hz">${item.hz}</span>
-      ${practicedChars.has(item.hz) ? '<span class="char-tile-done" title="已完成描红练习">✓</span>' : ''}
+      ${practicedChars.has(item.hz) ? '<span class="char-tile-done" title="已完成描红练习 (Completed writing practice)">✓</span>' : ''}
     `;
     tile.onclick = () => {
       loadWritingCharacter(idx, true);
@@ -4367,12 +4367,12 @@ function loadWritingCharacter(idx, pronounce = false) {
   }
 
   if (typeof HanziWriter === 'undefined') {
-    setWritingFeedback('⚠️ 正在加载 HanziWriter 笔顺组件，请确认网络连接正常。', 'warn');
+    setWritingFeedback('⚠️ 正在加载 HanziWriter 笔顺组件，请确认网络连接正常。 (Loading HanziWriter stroke component—please check your network connection.)', 'warn');
     return;
   }
 
   clearHanziWriterSvg();
-  setWritingFeedback(`💡 已加载「${item.hz} (${item.py})」— 点击「▶️ 笔顺演示」观看书写动画，或点击「✍️ 描红跟写」动手练习！`);
+  setWritingFeedback(`💡 已加载「${item.hz} (${item.py})」— 点击「▶️ 笔顺演示」观看书写动画，或点击「✍️ 描红跟写」动手练习！ (Loaded "${item.hz} (${item.py})" — Tap "▶️ Animate" to watch stroke order, or "✍️ Trace & Write" to practice!)`);
 
   hanziWriterInstance = HanziWriter.create('hanziWriterTarget', item.hz, {
     width: 260,
@@ -4397,17 +4397,17 @@ function startCharacterQuiz() {
   isQuizActive = true;
   btnStartQuiz.classList.add('quiz-active');
   btnStartQuiz.textContent = '✍️ 正在跟写中... (Writing Quiz)';
-  setWritingFeedback(`✍️ 请用鼠标或手指在米字格里按笔顺写出「${item.hz} (${item.py})」的第 1 笔！`);
+  setWritingFeedback(`✍️ 请用鼠标或手指在米字格里按笔顺写出「${item.hz} (${item.py})」的第 1 笔！ (Use your mouse or finger to write stroke 1 of "${item.hz} (${item.py})" in the grid!)`);
 
   hanziWriterInstance.quiz({
     onCorrectStroke: (strokeData) => {
       const done = strokeData.strokeNum + 1;
       const total = strokeData.strokeNum + strokeData.strokesRemaining + 1;
-      setWritingFeedback(`✅ 第 ${done} / ${total} 笔写对啦！继续写下一笔 👍`, 'success');
+      setWritingFeedback(`✅ 第 ${done} / ${total} 笔写对啦！继续写下一笔 👍 (Stroke ${done}/${total} correct! Keep going to the next stroke 👍)`, 'success');
     },
     onMistake: (strokeData) => {
       const targetStroke = strokeData.strokeNum + 1;
-      setWritingFeedback(`💡 第 ${targetStroke} 笔的方向或位置不对哦，注意看提示再试一次！`, 'warn');
+      setWritingFeedback(`💡 第 ${targetStroke} 笔的方向或位置不对哦，注意看提示再试一次！ (Stroke ${targetStroke} direction or position was off—watch the hint and try again!)`, 'warn');
     },
     onComplete: (summaryData) => {
       isQuizActive = false;
@@ -4417,7 +4417,7 @@ function startCharacterQuiz() {
       renderWritingCharGrid();
       speakText(item.hz, 0.9);
       setWritingFeedback(
-        `🎉 太棒了！「${item.hz} (${item.py})」书写完成！（共失误 ${summaryData.totalMistakes} 次）已点亮绿色完成勋章 ✓`,
+        `🎉 太棒了！「${item.hz} (${item.py})」书写完成！（共失误 ${summaryData.totalMistakes} 次）已点亮绿色完成勋章 ✓ (Awesome! Completed "${item.hz} (${item.py})" with ${summaryData.totalMistakes} mistake(s)! Green badge unlocked ✓)`,
         'success'
       );
     }
@@ -4446,8 +4446,14 @@ function openCharacterInStudio(hz, preferredScope = 'vocab', scrollToStudio = tr
   if (scrollToStudio) {
     document.getElementById('writingStudio').scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
-  if (hanziWriterInstance) {
-    hanziWriterInstance.animateCharacter();
+  if (hanziWriterInstance && currentWritingList.length) {
+    const item = currentWritingList[currentWritingCharIdx];
+    setWritingFeedback(`▶️ 正在演示「${item.hz} (${item.py})」的笔顺，仔细看部首和每一笔的顺序哦！ (Animating stroke order for "${item.hz} (${item.py})"—watch the radical and each stroke carefully!)`);
+    hanziWriterInstance.animateCharacter({
+      onComplete: () => {
+        setWritingFeedback(`✨「${item.hz}」笔顺演示完成！现在点击「✍️ 描红跟写」自己动手写一写吧！ (Stroke animation for "${item.hz}" complete! Now tap "✍️ Trace & Write" to write it yourself!)`, 'success');
+      }
+    });
   }
 }
 
@@ -4470,10 +4476,10 @@ btnAnimateStroke.onclick = () => {
   btnStartQuiz.classList.remove('quiz-active');
   btnStartQuiz.textContent = '✍️ 描红跟写 (Trace & Write)';
   speakText(item.hz, 0.85);
-  setWritingFeedback(`▶️ 正在演示「${item.hz} (${item.py})」的笔顺，仔细看部首和每一笔的顺序哦！`);
+  setWritingFeedback(`▶️ 正在演示「${item.hz} (${item.py})」的笔顺，仔细看部首和每一笔的顺序哦！ (Animating stroke order for "${item.hz} (${item.py})"—watch the radical and each stroke carefully!)`);
   hanziWriterInstance.animateCharacter({
     onComplete: () => {
-      setWritingFeedback(`✨「${item.hz}」笔顺演示完成！现在点击「✍️ 描红跟写」自己动手写一写吧！`, 'success');
+      setWritingFeedback(`✨「${item.hz}」笔顺演示完成！现在点击「✍️ 描红跟写」自己动手写一写吧！ (Stroke animation for "${item.hz}" complete! Now tap "✍️ Trace & Write" to write it yourself!)`, 'success');
     }
   });
 };
@@ -4488,7 +4494,7 @@ btnLoopStroke.onclick = () => {
   isQuizActive = false;
   btnStartQuiz.classList.remove('quiz-active');
   btnStartQuiz.textContent = '✍️ 描红跟写 (Trace & Write)';
-  setWritingFeedback(`🔁 正在循环演示「${item.hz} (${item.py})」的笔顺...`);
+  setWritingFeedback(`🔁 正在循环演示「${item.hz} (${item.py})」的笔顺... (Looping stroke order animation for "${item.hz} (${item.py})"...)`);
   hanziWriterInstance.loopCharacterAnimation();
 };
 
@@ -4504,11 +4510,11 @@ btnToggleOutline.onclick = () => {
   if (showCharOutline) {
     hanziWriterInstance.showOutline();
     btnToggleOutline.textContent = '👁️ 隐藏轮廓 (Hide Outline)';
-    setWritingFeedback('👁️ 已开启字形轮廓（描红模式）。');
+    setWritingFeedback('👁️ 已开启字形轮廓（描红模式）。 (Character outline enabled — Trace Mode.)');
   } else {
     hanziWriterInstance.hideOutline();
     btnToggleOutline.textContent = '👁️ 显示轮廓 (Show Outline)';
-    setWritingFeedback('🧠 已隐藏字形轮廓（默写挑战模式）！点击「✍️ 描红跟写」试试不看轮廓默写吧！');
+    setWritingFeedback('🧠 已隐藏字形轮廓（默写挑战模式）！点击「✍️ 描红跟写」试试不看轮廓默写吧！ (Character outline hidden — Memory Challenge Mode! Tap "✍️ Trace & Write" to write from memory!)');
   }
 };
 
