@@ -1,0 +1,10 @@
+[project]
+name = "chinese-storybook-reader"
+version = "0.1.0"
+description = "Interactive Chinese-English Children's Storybook Reader with Pinyin, Hanzi Writer, 3D Flashcards, and Edge Neural TTS Audio"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "edge-tts>=7.0.0",
+    "pillow>=10.0.0",
+]
