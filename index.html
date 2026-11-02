@@ -655,6 +655,41 @@
       color: white;
     }
 
+    .btn-pinyin-sentence {
+      flex-shrink: 0;
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .btn-pinyin-sentence:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+      border-color: #94a3b8;
+    }
+
+    .btn-pinyin-sentence.pinyin-off {
+      background: #ede9fe;
+      color: #6d28d9;
+      border-color: #c4b5fd;
+    }
+
+    .btn-pinyin-sentence.pinyin-off:hover {
+      background: #7c3aed;
+      color: white;
+      border-color: #7c3aed;
+    }
+
     /* Hanzi Writing Studio */
     .writing-studio {
       background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
@@ -950,14 +985,19 @@
       color: #92400e;
     }
 
-    /* Hide Pinyin Mode (Stories, Titles, Vocab Words & Writing Studio) */
+    /* Hide Pinyin Mode (Stories, Per-Sentence, Titles, Vocab Words & Writing Studio) */
     .action-btn.pinyin-off {
       background: var(--accent-light);
       color: #92400e;
       border: 1.5px solid #f59e0b;
     }
 
-    body.hide-pinyin rt,
+    .sentence-card.hide-sentence-pinyin rt,
+    body.hide-pinyin header rt,
+    body.hide-pinyin .story-hero rt,
+    body.hide-pinyin .extra-section rt,
+    body.hide-pinyin .flashcard-section rt,
+    body.hide-pinyin .writing-studio rt,
     body.hide-pinyin .tab-pinyin,
     body.hide-pinyin .chip-pinyin,
     body.hide-pinyin .char-tile-py,
@@ -965,7 +1005,7 @@
       display: none !important;
     }
 
-    body.hide-pinyin .hanzi-pinyin-line {
+    .sentence-card.hide-sentence-pinyin .hanzi-pinyin-line {
       line-height: 1.65;
     }
 
@@ -3858,7 +3898,7 @@ function renderContent() {
   sentenceList.innerHTML = '';
   story.sentences.forEach((s, idx) => {
     const card = document.createElement('div');
-    card.className = `sentence-card ${idx === currentSentenceIdx ? 'speaking' : ''}`;
+    card.className = `sentence-card ${idx === currentSentenceIdx ? 'speaking' : ''} ${!showPinyin ? 'hide-sentence-pinyin' : ''}`;
     card.id = `card-${idx}`;
     card.innerHTML = `
       <div class="sentence-thumb"><img src="${s.img}" alt="${s.en}" loading="lazy"></div>
@@ -3867,6 +3907,7 @@ function renderContent() {
           <div class="hanzi-pinyin-line">${s.ruby}</div>
           <div class="sentence-btn-col">
             <button class="btn-read-sentence" type="button" title="朗读中文整句 (Read full Chinese sentence)">🔊 整句</button>
+            <button class="btn-pinyin-sentence ${!showPinyin ? 'pinyin-off' : ''}" type="button" aria-pressed="${!showPinyin}" title="隐藏或显示本句拼音 (Hide or Show Pinyin for this sentence)">${showPinyin ? '🔤 隐藏拼音 (Hide Pinyin)' : '🔤 显示拼音 (Show Pinyin)'}</button>
             <button class="btn-write-sentence" type="button" title="练习书写本句汉字 (Practice writing characters from this sentence)">✍️ 练字</button>
           </div>
         </div>
@@ -3923,6 +3964,17 @@ function renderContent() {
     btnReadEn.onclick = (e) => {
       e.stopPropagation();
       playEnglishSentence(enTransEl, s.en);
+    };
+
+    const btnPinyinSentence = card.querySelector('.btn-pinyin-sentence');
+    btnPinyinSentence.onclick = (e) => {
+      e.stopPropagation();
+      const isHidden = card.classList.toggle('hide-sentence-pinyin');
+      btnPinyinSentence.classList.toggle('pinyin-off', isHidden);
+      btnPinyinSentence.setAttribute('aria-pressed', String(isHidden));
+      btnPinyinSentence.textContent = isHidden
+        ? '🔤 显示拼音 (Show Pinyin)'
+        : '🔤 隐藏拼音 (Hide Pinyin)';
     };
 
     const btnWriteSentence = card.querySelector('.btn-write-sentence');
@@ -4167,6 +4219,17 @@ btnTogglePinyin.onclick = () => {
   btnTogglePinyin.textContent = showPinyin
     ? '🔤 隐藏拼音 (Hide Pinyin)'
     : '🔤 显示拼音 (Show Pinyin)';
+  document.querySelectorAll('.sentence-card').forEach(cardEl => {
+    cardEl.classList.toggle('hide-sentence-pinyin', !showPinyin);
+    const btnPy = cardEl.querySelector('.btn-pinyin-sentence');
+    if (btnPy) {
+      btnPy.classList.toggle('pinyin-off', !showPinyin);
+      btnPy.setAttribute('aria-pressed', String(!showPinyin));
+      btnPy.textContent = showPinyin
+        ? '🔤 隐藏拼音 (Hide Pinyin)'
+        : '🔤 显示拼音 (Show Pinyin)';
+    }
+  });
   if (currentWritingList.length) {
     const item = currentWritingList[currentWritingCharIdx];
     writingContextBadge.textContent = showPinyin ? item.context : item.context.replace(/\s*\([^)]+\)/, '');
