@@ -2,7 +2,8 @@
 
 An interactive bilingual (Chinese–English) illustrated storybook reader for children, featuring:
 
-- **26 Illustrated Stories across 6 Series**:
+- **30 Illustrated Stories across 7 Series**:
+  - 🐼 **变身红熊猫 · Red Panda (4)** — *Turning Red*-inspired magical red panda & friendship stories (Stories 27–30)
   - 🐾 **蓝小狗一家 · Blue Pup (4)** — *Bluey*-inspired family & pretend-play stories (Stories 23–26)
   - 🐶 **神探汪汪 · Dog Cop (4)** — *Dog Man*-inspired hilarious comic adventures (Stories 19–22)
   - 🤪 **疯狂学校 · My Weird School (4)** — Wacky elementary school stories (Stories 13–16)
@@ -60,3 +61,4 @@ uv run python scripts/crop_grid_images.py path/to/story_grid.jpg
 
 - [`scripts/add_dogman_stories.py`](scripts/add_dogman_stories.py) — Crops the 2x2 grids and adds Stories 19–22 (`🐶 神探汪汪 · Dog Cop`).
 - [`scripts/add_bluey_stories.py`](scripts/add_bluey_stories.py) — Crops the 2x2 grids and adds Stories 23–26 (`🐾 蓝小狗一家 · Blue Pup`).
+- [`scripts/add_redpanda_stories.py`](scripts/add_redpanda_stories.py) — Crops the 2x2 grids and adds Stories 27–30 (`🐼 变身红熊猫 · Red Panda`).
