@@ -2,7 +2,10 @@
 
 An interactive bilingual (Chinese–English) illustrated storybook reader for children, featuring:
 
-- **30 Illustrated Stories across 7 Series**:
+- **44 Illustrated Stories across 10 Series**:
+  - 🎃 **搞怪万圣节 · Halloween (4)** — Spooky-cute Halloween trick-or-treat & friendly ghost adventures (Stories 41–44)
+  - 🍫 **巧克力工厂 · Chocolate Factory (4)** — *Willy Wonka*-inspired magical candy factory tales (Stories 37–40)
+  - 📜 **古诗绘本 · Classical Poems (6)** — Beloved Tang, Song & Han classical poems paired with child-friendly story scenes (Stories 31–36: 《咏鹅》, 《静夜思》, 《春晓》, 《悯农》, 《小池》, 《江南》)
   - 🐼 **变身红熊猫 · Red Panda (4)** — *Turning Red*-inspired magical red panda & friendship stories (Stories 27–30)
   - 🐾 **蓝小狗一家 · Blue Pup (4)** — *Bluey*-inspired family & pretend-play stories (Stories 23–26)
   - 🐶 **神探汪汪 · Dog Cop (4)** — *Dog Man*-inspired hilarious comic adventures (Stories 19–22)
@@ -62,3 +65,5 @@ uv run python scripts/crop_grid_images.py path/to/story_grid.jpg
 - [`scripts/add_dogman_stories.py`](scripts/add_dogman_stories.py) — Crops the 2x2 grids and adds Stories 19–22 (`🐶 神探汪汪 · Dog Cop`).
 - [`scripts/add_bluey_stories.py`](scripts/add_bluey_stories.py) — Crops the 2x2 grids and adds Stories 23–26 (`🐾 蓝小狗一家 · Blue Pup`).
 - [`scripts/add_redpanda_stories.py`](scripts/add_redpanda_stories.py) — Crops the 2x2 grids and adds Stories 27–30 (`🐼 变身红熊猫 · Red Panda`).
+- [`scripts/add_poetry_stories.py`](scripts/add_poetry_stories.py) — Renders Chinese ink-and-watercolor illustrations and adds Stories 31–36 (`📜 古诗绘本 · Classical Poems`).
+- [`scripts/add_wonka_halloween_stories.py`](scripts/add_wonka_halloween_stories.py) — Renders storybook illustrations and adds Stories 37–40 (`🍫 巧克力工厂 · Chocolate Factory`) and Stories 41–44 (`🎃 搞怪万圣节 · Halloween`).
