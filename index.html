@@ -974,6 +974,277 @@
     body.hide-pinyin .writing-header h3 {
       line-height: 1.45;
     }
+
+    body.hide-pinyin .fc-front-py {
+      display: none !important;
+    }
+
+    /* Interactive Story Flashcards Section */
+    .flashcard-section {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      border: 2px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      margin-top: 22px;
+      box-shadow: 0 6px 16px -4px rgba(15, 23, 42, 0.06);
+    }
+
+    .fc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .fc-header h3 {
+      font-size: 18px;
+      color: var(--text-main);
+      margin: 0;
+      line-height: 2;
+    }
+
+    body.hide-pinyin .fc-header h3 {
+      line-height: 1.45;
+    }
+
+    .fc-mini-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .fc-pill {
+      padding: 5px 12px;
+      border-radius: 999px;
+      border: 1.5px solid var(--border);
+      background: white;
+      color: var(--text-main);
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+
+    .fc-pill:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .fc-pill.active {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .fc-pill-done {
+      color: #059669;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .fc-stage {
+      perspective: 1200px;
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto 16px auto;
+    }
+
+    .fc-card {
+      position: relative;
+      width: 100%;
+      min-height: 270px;
+      transform-style: preserve-3d;
+      transition: transform 0.52s cubic-bezier(0.22, 1, 0.36, 1);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .fc-card.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .fc-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 18px;
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 8px 20px -4px rgba(79, 70, 229, 0.12);
+    }
+
+    .fc-front {
+      background: linear-gradient(135deg, #ffffff 0%, #eef2ff 100%);
+      border: 2.5px solid #c7d2fe;
+      align-items: center;
+      text-align: center;
+    }
+
+    .fc-back {
+      background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
+      border: 2.5px solid #fde68a;
+      transform: rotateY(180deg);
+    }
+
+    .fc-top-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-sub);
+    }
+
+    .fc-mastered-tag {
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: #d1fae5;
+      color: #065f46;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .fc-front-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      margin: 10px 0;
+    }
+
+    .fc-front-py {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--pinyin);
+    }
+
+    .fc-front-hz {
+      font-size: clamp(2.4rem, 2rem + 2vw, 3.3rem);
+      font-weight: 900;
+      color: #0f172a;
+      letter-spacing: 3px;
+      line-height: 1.2;
+    }
+
+    .fc-flip-hint {
+      font-size: 13px;
+      color: var(--text-sub);
+      font-weight: 600;
+    }
+
+    .fc-back-word-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed #fcd34d;
+    }
+
+    .fc-back-main {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .fc-back-hz {
+      font-size: 28px;
+      font-weight: 900;
+      color: #78350f;
+    }
+
+    .fc-back-py {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--pinyin);
+    }
+
+    .fc-back-en {
+      font-size: 16px;
+      font-weight: 800;
+      color: #0369a1;
+      background: #e0f2fe;
+      padding: 3px 11px;
+      border-radius: 999px;
+    }
+
+    .fc-context-box {
+      display: grid;
+      grid-template-columns: 96px 1fr;
+      gap: 14px;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid #fde68a;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin: 10px 0;
+    }
+
+    @media (max-width: 520px) {
+      .fc-card { min-height: 310px; }
+      .fc-context-box { grid-template-columns: 1fr; }
+      .fc-context-thumb { display: none; }
+    }
+
+    .fc-context-thumb {
+      width: 96px;
+      height: 72px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .fc-context-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .fc-context-zh {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 3px;
+    }
+
+    .fc-context-en {
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+
+    .fc-back-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .fc-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .fc-btn-mastered.is-mastered {
+      background: #10b981;
+      border-color: #10b981;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -1027,6 +1298,74 @@
   <div class="extra-section">
     <h3>🌟 <ruby>重<rt>zhòng</rt></ruby><ruby>点<rt>diǎn</rt></ruby><ruby>词<rt>cí</rt></ruby><ruby>汇<rt>huì</rt></ruby> · Key Vocabulary (Tap word to listen or ✍️ to write)</h3>
     <div class="vocab-chips" id="vocabChips"></div>
+  </div>
+
+  <!-- Interactive Story Flashcards Section -->
+  <div class="flashcard-section" id="flashcardSection">
+    <div class="fc-header">
+      <h3>🃏 <ruby>故<rt>gù</rt></ruby><ruby>事<rt>shi</rt></ruby><ruby>识<rt>shí</rt></ruby><ruby>字<rt>zì</rt></ruby><ruby>闪<rt>shǎn</rt></ruby><ruby>卡<rt>kǎ</rt></ruby> · Story Flashcards</h3>
+      <div class="writing-mode-tabs">
+        <button type="button" class="writing-tab-btn active" id="tabFcVocab">🌟 重点词汇卡 (Key Vocab)</button>
+        <button type="button" class="writing-tab-btn" id="tabFcPhrases">🧩 本篇词组卡 (Story Phrases)</button>
+      </div>
+    </div>
+
+    <div class="fc-mini-strip" id="fcMiniStrip"></div>
+
+    <div class="fc-stage">
+      <div class="fc-card" id="fcCard" tabindex="0" role="button" aria-label="点击翻转闪卡 (Tap to flip flashcard)">
+        <!-- Front Face -->
+        <div class="fc-face fc-front">
+          <div class="fc-top-bar">
+            <span id="fcProgressFront">第 1 / 4 张</span>
+            <span id="fcMasteredBadgeFront" class="fc-mastered-tag" style="display:none;">⭐ 已掌握 Mastered</span>
+          </div>
+          <div class="fc-front-center">
+            <div class="fc-front-py" id="fcFrontPy">zhú zi</div>
+            <div class="fc-front-hz" id="fcFrontHz">竹子</div>
+            <button type="button" class="btn-read-sentence" id="btnFcFrontSpeak" style="margin-top:6px;">🔊 听发音 (Listen)</button>
+          </div>
+          <div class="fc-flip-hint">👆 点击卡片翻面查看拼音、英文释义与故事例句 (Tap card to flip)</div>
+        </div>
+
+        <!-- Back Face -->
+        <div class="fc-face fc-back">
+          <div class="fc-back-word-row">
+            <div class="fc-back-main">
+              <span class="fc-back-hz" id="fcBackHz">竹子</span>
+              <span class="fc-back-py" id="fcBackPy">zhú zi</span>
+            </div>
+            <span class="fc-back-en" id="fcBackEn">bamboo</span>
+          </div>
+
+          <div class="fc-context-box">
+            <div class="fc-context-thumb"><img id="fcBackImg" src="" alt="Story scene"></div>
+            <div>
+              <div class="fc-context-zh" id="fcBackSentence"></div>
+              <div class="fc-context-en" id="fcBackSentenceEn"></div>
+            </div>
+          </div>
+
+          <div class="fc-back-actions">
+            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+              <button type="button" class="btn-read-sentence" id="btnFcBackSpeakZh">🔊 读词语</button>
+              <button type="button" class="btn-read-en" id="btnFcBackSpeakEn">🔊 读英文</button>
+              <button type="button" class="btn-read-sentence" id="btnFcBackSpeakSent">🔊 读例句</button>
+              <button type="button" class="btn-write-sentence" id="btnFcBackWrite">✍️ 去练字</button>
+            </div>
+            <span class="fc-flip-hint">🔄 点击空白处翻回正面</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fc-controls">
+      <button type="button" class="write-btn" id="btnFcPrev">⏮️ 上一张 (Prev)</button>
+      <button type="button" class="write-btn primary" id="btnFcFlip">🔄 翻转卡片 (Flip)</button>
+      <button type="button" class="write-btn" id="btnFcNext">下一张 (Next) ⏭️</button>
+      <button type="button" class="write-btn fc-btn-mastered" id="btnFcMaster">✅ 我学会了 (Got It!)</button>
+      <button type="button" class="write-btn" id="btnFcShuffle">🔀 随机洗牌 (Shuffle)</button>
+    </div>
   </div>
 
   <!-- Hanzi Writing Studio Section (powered by Hanzi Writer) -->
@@ -2353,6 +2692,7 @@ function renderContent() {
     vocabChips.appendChild(chip);
   });
 
+  initStoryFlashcards();
   initStoryWritingStudio();
 }
 
@@ -2832,6 +3172,264 @@ btnPrevChar.onclick = () => {
 
 btnNextChar.onclick = () => {
   loadWritingCharacter(currentWritingCharIdx + 1, true);
+};
+
+// --- Interactive Story Flashcards ---
+let fcScope = 'vocab'; // 'vocab' | 'phrases'
+let fcDeck = [];
+let fcIdx = 0;
+let fcFlipped = false;
+const masteredCards = new Set();
+
+const tabFcVocab = document.getElementById('tabFcVocab');
+const tabFcPhrases = document.getElementById('tabFcPhrases');
+const fcMiniStrip = document.getElementById('fcMiniStrip');
+const fcCard = document.getElementById('fcCard');
+const fcProgressFront = document.getElementById('fcProgressFront');
+const fcMasteredBadgeFront = document.getElementById('fcMasteredBadgeFront');
+const fcFrontPy = document.getElementById('fcFrontPy');
+const fcFrontHz = document.getElementById('fcFrontHz');
+const fcBackHz = document.getElementById('fcBackHz');
+const fcBackPy = document.getElementById('fcBackPy');
+const fcBackEn = document.getElementById('fcBackEn');
+const fcBackImg = document.getElementById('fcBackImg');
+const fcBackSentence = document.getElementById('fcBackSentence');
+const fcBackSentenceEn = document.getElementById('fcBackSentenceEn');
+
+const btnFcFrontSpeak = document.getElementById('btnFcFrontSpeak');
+const btnFcBackSpeakZh = document.getElementById('btnFcBackSpeakZh');
+const btnFcBackSpeakEn = document.getElementById('btnFcBackSpeakEn');
+const btnFcBackSpeakSent = document.getElementById('btnFcBackSpeakSent');
+const btnFcBackWrite = document.getElementById('btnFcBackWrite');
+const btnFcPrev = document.getElementById('btnFcPrev');
+const btnFcFlip = document.getElementById('btnFcFlip');
+const btnFcNext = document.getElementById('btnFcNext');
+const btnFcMaster = document.getElementById('btnFcMaster');
+const btnFcShuffle = document.getElementById('btnFcShuffle');
+
+function buildStoryFlashcards(story) {
+  // 1. Key Vocab Deck: match each vocab word to the sentence where it appears
+  const vocabDeck = story.vocab.map(v => {
+    const matchedSent = story.sentences.find(s => s.text.includes(v.hz)) || story.sentences[0];
+    return {
+      key: `${story.id}:v:${v.hz}`,
+      hz: v.hz,
+      py: v.py,
+      en: v.en,
+      sentZh: matchedSent.text,
+      sentEn: matchedSent.en,
+      img: matchedSent.img
+    };
+  });
+
+  // 2. Story Phrases Deck: extract unique .word-group phrases from the story's sentences
+  const phraseDeck = [];
+  const seenPhrases = new Set();
+  const vocabLookup = new Map(story.vocab.map(v => [v.hz, v.en]));
+
+  story.sentences.forEach((s, sIdx) => {
+    const enGroups = Array.from(s.enHtml.matchAll(/<span class="en-word-group">(.*?)<\/span>/g)).map(m => m[1].trim());
+    const zhGroupMatches = Array.from(s.ruby.matchAll(/<span class="word-group">(.*?)<\/span>/g));
+
+    zhGroupMatches.forEach((m, gIdx) => {
+      const inner = m[1];
+      const hz = inner.replace(/<rt>.*?<\/rt>/g, '').replace(/<[^>]+>/g, '').trim();
+      if (!hz || seenPhrases.has(hz)) return;
+      seenPhrases.add(hz);
+
+      const pyParts = Array.from(inner.matchAll(/<rt>([^<]+)<\/rt>/g)).map(rm => rm[1].trim());
+      const py = pyParts.join(' ');
+      const enHint = vocabLookup.get(hz) || enGroups[Math.min(gIdx, enGroups.length - 1)] || `Sentence ${sIdx + 1} phrase`;
+
+      phraseDeck.push({
+        key: `${story.id}:p:${hz}`,
+        hz,
+        py,
+        en: enHint,
+        sentZh: s.text,
+        sentEn: s.en,
+        img: s.img
+      });
+    });
+  });
+
+  return { vocabDeck, phraseDeck };
+}
+
+function initStoryFlashcards() {
+  const story = STORIES[currentStoryIdx];
+  const { vocabDeck, phraseDeck } = buildStoryFlashcards(story);
+  fcDeck = fcScope === 'vocab' ? vocabDeck : phraseDeck;
+  fcIdx = 0;
+  fcFlipped = false;
+
+  tabFcVocab.textContent = `🌟 重点词汇卡 (${vocabDeck.length})`;
+  tabFcPhrases.textContent = `🧩 本篇词组卡 (${phraseDeck.length})`;
+  tabFcVocab.classList.toggle('active', fcScope === 'vocab');
+  tabFcPhrases.classList.toggle('active', fcScope === 'phrases');
+
+  renderFlashcard();
+}
+
+function renderFlashcard() {
+  if (!fcDeck.length) return;
+  fcIdx = (fcIdx + fcDeck.length) % fcDeck.length;
+  const card = fcDeck[fcIdx];
+  const isMastered = masteredCards.has(card.key);
+
+  fcCard.classList.toggle('flipped', fcFlipped);
+
+  // Mini strip pills
+  fcMiniStrip.innerHTML = '';
+  fcDeck.forEach((item, idx) => {
+    const pill = document.createElement('button');
+    pill.type = 'button';
+    pill.className = `fc-pill ${idx === fcIdx ? 'active' : ''}`;
+    const doneMark = masteredCards.has(item.key) ? '<span class="fc-pill-done">✓</span>' : '';
+    pill.innerHTML = `<span>${item.hz}</span>${doneMark}`;
+    pill.onclick = () => {
+      fcIdx = idx;
+      fcFlipped = false;
+      renderFlashcard();
+      speakText(item.hz, 0.85);
+    };
+    fcMiniStrip.appendChild(pill);
+  });
+
+  const masteredCount = fcDeck.filter(c => masteredCards.has(c.key)).length;
+  fcProgressFront.textContent = `第 ${fcIdx + 1} / ${fcDeck.length} 张 · 已掌握 ${masteredCount}/${fcDeck.length}`;
+  fcMasteredBadgeFront.style.display = isMastered ? 'inline-block' : 'none';
+
+  fcFrontPy.textContent = card.py;
+  fcFrontHz.textContent = card.hz;
+
+  fcBackHz.textContent = card.hz;
+  fcBackPy.textContent = card.py;
+  fcBackEn.textContent = card.en;
+  fcBackImg.src = card.img;
+  fcBackImg.alt = card.sentEn;
+  fcBackSentence.textContent = card.sentZh;
+  fcBackSentenceEn.textContent = card.sentEn;
+
+  btnFcMaster.classList.toggle('is-mastered', isMastered);
+  btnFcMaster.textContent = isMastered ? '⭐ 已掌握 (Mastered ✓)' : '✅ 我学会了 (Got It!)';
+}
+
+function flipFlashcard() {
+  if (!fcDeck.length) return;
+  fcFlipped = !fcFlipped;
+  fcCard.classList.toggle('flipped', fcFlipped);
+  const card = fcDeck[fcIdx];
+  if (fcFlipped) {
+    speakText(card.hz, 0.85);
+  }
+}
+
+fcCard.onclick = () => {
+  flipFlashcard();
+};
+
+fcCard.onkeydown = (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    flipFlashcard();
+  } else if (e.key === 'ArrowRight') {
+    e.preventDefault();
+    fcIdx = (fcIdx + 1) % fcDeck.length;
+    fcFlipped = false;
+    renderFlashcard();
+  } else if (e.key === 'ArrowLeft') {
+    e.preventDefault();
+    fcIdx = (fcIdx - 1 + fcDeck.length) % fcDeck.length;
+    fcFlipped = false;
+    renderFlashcard();
+  }
+};
+
+btnFcFrontSpeak.onclick = (e) => {
+  e.stopPropagation();
+  if (!fcDeck.length) return;
+  speakText(fcDeck[fcIdx].hz, 0.85);
+};
+
+btnFcBackSpeakZh.onclick = (e) => {
+  e.stopPropagation();
+  if (!fcDeck.length) return;
+  speakText(fcDeck[fcIdx].hz, 0.85);
+};
+
+btnFcBackSpeakEn.onclick = (e) => {
+  e.stopPropagation();
+  if (!fcDeck.length) return;
+  speakEnglishText(fcDeck[fcIdx].en, 0.9);
+};
+
+btnFcBackSpeakSent.onclick = (e) => {
+  e.stopPropagation();
+  if (!fcDeck.length) return;
+  speakText(fcDeck[fcIdx].sentZh, 0.95);
+};
+
+btnFcBackWrite.onclick = (e) => {
+  e.stopPropagation();
+  if (!fcDeck.length) return;
+  const firstHz = fcDeck[fcIdx].hz.match(/[\u4e00-\u9fff]/);
+  if (firstHz) {
+    openCharacterInStudio(firstHz[0], 'vocab', true);
+  }
+};
+
+btnFcPrev.onclick = () => {
+  if (!fcDeck.length) return;
+  fcIdx = (fcIdx - 1 + fcDeck.length) % fcDeck.length;
+  fcFlipped = false;
+  renderFlashcard();
+  speakText(fcDeck[fcIdx].hz, 0.85);
+};
+
+btnFcFlip.onclick = () => {
+  flipFlashcard();
+};
+
+btnFcNext.onclick = () => {
+  if (!fcDeck.length) return;
+  fcIdx = (fcIdx + 1) % fcDeck.length;
+  fcFlipped = false;
+  renderFlashcard();
+  speakText(fcDeck[fcIdx].hz, 0.85);
+};
+
+btnFcMaster.onclick = () => {
+  if (!fcDeck.length) return;
+  const card = fcDeck[fcIdx];
+  if (masteredCards.has(card.key)) {
+    masteredCards.delete(card.key);
+  } else {
+    masteredCards.add(card.key);
+    speakText(card.hz, 0.9);
+  }
+  renderFlashcard();
+};
+
+btnFcShuffle.onclick = () => {
+  if (fcDeck.length <= 1) return;
+  for (let i = fcDeck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [fcDeck[i], fcDeck[j]] = [fcDeck[j], fcDeck[i]];
+  }
+  fcIdx = 0;
+  fcFlipped = false;
+  renderFlashcard();
+};
+
+tabFcVocab.onclick = () => {
+  fcScope = 'vocab';
+  initStoryFlashcards();
+};
+
+tabFcPhrases.onclick = () => {
+  fcScope = 'phrases';
+  initStoryFlashcards();
 };
 
 // Initialize
